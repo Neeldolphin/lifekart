@@ -7,8 +7,9 @@
     $data = array();
     while ($cust = mysqli_fetch_assoc($result)) {
         $data[] = $cust;
+        $img = unserialize($cust['image']);
     } 
     if($data) {
-     echo json_encode($data);
+     echo json_encode(array('img'=>$img,'data'=>$data));
     } 
 ?>

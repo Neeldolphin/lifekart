@@ -33,7 +33,6 @@ include('header.php');
                 </tr>
               </thead>
               <tbody>
-
 				<?php
         include('connection.php');
       //  $query="select * from Product_info"; 
@@ -72,8 +71,6 @@ include('header.php');
             </div>
         </div>
  	</div>
-
-
 
 <!--MAINFORM--> 
   <div class="modal fade" id="ajax-modal" aria-hidden="true">
@@ -168,7 +165,6 @@ include('header.php');
       </div>
     </div>
 
-
 <!-- EditForm -->
 <div class="modal fade" id="edit-modal" aria-hidden="true">
       <div class="modal-dialog">
@@ -210,6 +206,7 @@ include('header.php');
                   <input type="number" class="form-control" id="esku" name="esku" placeholder="" value="" required="">
                 </div>
               </div>
+              <div id="displayimg"></div>
               <div class="form-group">
                 <label for="file" class="col-sm-6 control-label">Image</label>
                 <div class="col-sm-9">
@@ -251,7 +248,7 @@ include('header.php');
                 </div>
               </div>
               <div class="col-sm-offset-2 col-sm-9">
-                <button type="submit" class="btn btn-primary add" id="ebtn-save" value="create">Edit Product
+                <button type="submit" class="btn btn-primary change" id="ebtn-save" value="create">Edit Product
                 </button>
               </div>
             </form>
@@ -262,13 +259,11 @@ include('header.php');
       </div>
     </div>
 
-
 <script type="text/javascript">
 $(document).ready( function () {
     $('#datatab').DataTable();
 } );
 </script>
-
 
 <script type="text/javascript"> 
 $(document).ready(function(){
@@ -277,7 +272,7 @@ $(document).ready(function(){
        $('#custCrudModal').html("Add New product");
        $('#ajax-modal').modal('show');
     });
-        
+
      $('body').on('click', '.add', function () {
     $("#custForm").validate({
         rules: {
@@ -313,13 +308,9 @@ $(document).ready(function(){
 
 </script>
 
-
-
-<script type="text/javascript">
-  
+<script type="text/javascript">  
 $(document).ready(function(){
 
-        
      $('body').on('click', '.change', function () {
       var id = $(this).data('id');
        $('#editModal').html("Edit Category");
@@ -331,17 +322,21 @@ $(document).ready(function(){
             data: { id:id },
             dataType: 'json', 
             success: function(result){
-              $('#eid').val(result[0].Id);
-              $('#epname').val(result[0].pname);
-              $('#ecategory').val(result[0].category);
-              $('#esku').val(result[0].SKU);
-              $('#eimage').val(result[0].image);
-              $('#ePrice').val(result[0].price);
-              $('#eDescription').val(result[0].description);
-              $('#eQTY').val(result[0].qty);
-              $('#eVideo').val(result[0].video);
-              $('#eStatus').val(result[0].Status);
-           }
+              $('#eid').val(result.data[0].Id);
+              $('#epname').val(result.data[0].pname);
+              $('#ecategory').val(result.data[0].category);
+              $('#esku').val(result.data[0].SKU);
+              $('#eimage').val(result.data[0].image);
+              $('#ePrice').val(result.data[0].price);
+              $('#eDescription').val(result.data[0].description);
+              $('#eQTY').val(result.data[0].qty);
+              $('#eVideo').val(result.data[0].video);
+              $('#eStatus').val(result.data[0].Status);
+                var show = [];
+                for(i=0;i<10;i++){
+                  
+                }
+          }
         });
 
     $("#editForm").on('submit',function(){
@@ -390,6 +385,5 @@ $(document).ready(function($){
     });
 });
 </script>
-
 </body>
 </html>

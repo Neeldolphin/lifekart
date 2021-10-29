@@ -97,3 +97,24 @@
   width: 100%;
 }
 
+#uploadFormLayer{
+  float:right;
+  padding: 10px;
+  }
+  #targetLayer{
+    float:left;
+    width:100px;
+    height:100px;
+    text-align:center;
+    font-weight: bold;
+    color: #C0C0C0;
+    background-color: #F0E8E0;
+    position:relative;
+    }
+
+    .no-image {
+      display: inline-block;
+        position: absolute;
+        right: 18px;
+        top: 40px;
+    }

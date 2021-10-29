@@ -51,7 +51,7 @@ $display=serialize($load);
     $Video = $_FILES['eVideo']['name'];
 
 
-  echo $query = "UPDATE Product_info SET pname='" . $_POST['epname'] . "', category='". $_POST['ecategory'] . "', SKU='" .$_POST['esku']."', image='". $display. "', price='". $_POST['ePrice'] . "', description='". $_POST['eDescription'] . "',video='". $Video . "',qty='". $_POST['eQTY'] . "',Status='". $_POST['eStatus'] . "',create_at='$da',update_at='$ua' WHERE Id=".$_POST['eid'];
+   $query = "UPDATE Product_info SET pname='" . $_POST['epname'] . "', category='". $_POST['ecategory'] . "', SKU='" .$_POST['esku']."', image='". $display. "', price='". $_POST['ePrice'] . "', description='". $_POST['eDescription'] . "',video='". $Video . "',qty='". $_POST['eQTY'] . "',Status='". $_POST['eStatus'] . "',create_at='$da',update_at='$ua' WHERE Id=".$_POST['eid'];
     $result = mysqli_query($con, $query);
      if($result) {
      echo 1;
@@ -62,5 +62,13 @@ $display=serialize($load);
     echo 0;
     }
 }
+}else{
+  $query = "UPDATE Product_info SET pname='" . $_POST['epname'] . "', category='". $_POST['ecategory'] . "', SKU='" .$_POST['esku']."', image='". $display. "', price='". $_POST['ePrice'] . "', description='". $_POST['eDescription'] . "',video='". $Video . "',qty='". $_POST['eQTY'] . "',Status='". $_POST['eStatus'] . "',create_at='$da',update_at='$ua' WHERE Id=".$_POST['eid'];
+  $result = mysqli_query($con, $query);
+   if($result) {
+   echo 1;
+  } else {
+   echo 0;
+  }
 }
 ?>

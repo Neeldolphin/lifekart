@@ -206,7 +206,7 @@ include('header.php');
                   <input type="number" class="form-control" id="esku" name="esku" placeholder="" value="" required="">
                 </div>
               </div>
-              <div id="displayimg"></div>
+              <div class="img_width" id="displayimg"></div>
               <div class="form-group">
                 <label for="file" class="col-sm-6 control-label">Image</label>
                 <div class="col-sm-9">
@@ -231,6 +231,7 @@ include('header.php');
                   <input type="number" class="form-control" id="eQTY" name="eQTY" placeholder="Enter Quantity" value="" required="">
                 </div>
               </div>
+              <div id="displayvideo"></div>
               <div class="form-group">
                 <label class="col-sm-6 control-label">Video</label>
                 <div class="col-sm-9">
@@ -326,16 +327,16 @@ $(document).ready(function(){
               $('#epname').val(result.data[0].pname);
               $('#ecategory').val(result.data[0].category);
               $('#esku').val(result.data[0].SKU);
-              $('#eimage').val(result.data[0].image);
               $('#ePrice').val(result.data[0].price);
               $('#eDescription').val(result.data[0].description);
               $('#eQTY').val(result.data[0].qty);
-              $('#eVideo').val(result.data[0].video);
+              $('#displayvideo').html("<video width='180' height='90' controls><source src='http://localhost/lifekart/Admin_login/uploads/" + result.data[0].video +"'type='video/mp4'></video>");
               $('#eStatus').val(result.data[0].Status);
                 var show = [];
-                for(i=0;i<10;i++){
-                  
+                for(i=0;i<result.img.length;i++){
+                  show.push("<img src='http://localhost/lifekart/Admin_login/uploads/" + result.img[i] +"'>");              
                 }
+                $("#displayimg").html(show.join(''));
           }
         });
 

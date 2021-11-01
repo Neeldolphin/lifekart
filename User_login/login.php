@@ -18,16 +18,17 @@
         // Check user is exist in the database
         $query    = "SELECT * FROM `customer_signup` WHERE username='$username'
                      AND password='" . md5($password) . "'";
-        $result = mysqli_query($con, $query) or die(mysql_error());
+        $result = mysqli_query($con, $query) or die(mysqli_error($con));
         $rows = mysqli_num_rows($result);
         if ($rows == 1) {
             $_SESSION['username'] = $username;
-            // Redirect to user dashboard page
-            header("Location: dashboard.php");
+            // Redirect to user home page
+            header("Location: home.php");
         } else {
             echo "<div class='form'>
                   <h3>Incorrect Username/password.</h3><br/>
                   <p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
+                  <p class='link'>Click here to <a href='home.php'>Home</a> again.</p>
                   </div>";
         }
     } else {

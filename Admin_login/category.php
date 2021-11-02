@@ -118,7 +118,7 @@ include('header.php');
               <div class="form-group">
                 <label for="file" class="col-sm-6 control-label">Image</label>
                 <div class="col-sm-12">
-                  <input type=" " class="form-control" id="eimage" name="eimage" placeholder="" value="" required="">
+                  <input type="file" class="form-control" id="eimage" name="eimage" placeholder="" value="" required="">
                 </div>
               </div>
               <div class="form-group">

@@ -1,6 +1,3 @@
- <div class="header" id="header">
-      <img src="images/download.png" alt="logo"/>
-    </div>
 
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
   <a class="navbar-brand" href="http://localhost/lifekart/User_login/home.php">Home</a>
@@ -10,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
   <ul class="nav navbar-nav">
       <li class="nav-item ">
-        <a class="nav-link" href="#">Category</a>
+        <a class="nav-link" href="http://localhost/lifekart/User_login/category.php">Category</a>
       </li>   
   </ul>
   <?php
@@ -28,10 +25,9 @@
           {?> 
 <ul class="nav navbar-nav ml-auto">
 <li class="nav-item account">
-  <p>Welcome to Home page!</p>
-      <a class="nav-link" href="http://localhost/lifekart/User_login/logout.php">Logout</a>
-      </li>
-</ul>
+<p style="color: white;">Welcome to Home page!</p>
+   <a class="nav-link" href="http://localhost/lifekart/User_login/logout.php">Logout</a>
+          </li>
 <?php } ?>
   </div>  
 </nav>

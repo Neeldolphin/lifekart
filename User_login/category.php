@@ -16,7 +16,8 @@ include 'navbar.php';
 	<div class="row">
 		<div class="col-md-12">
         <?php
-        $query="select * from category_info"; 
+        $id = (int)$_GET['id'];
+        $query="select * from category_info where id=".$id; 
 				$result=mysqli_query($con,$query);
         while($category=mysqli_fetch_row($result)):
             ?>
@@ -30,8 +31,6 @@ include 'navbar.php';
 	</div>
 </div>
 </body>
-
-
 
 <div class="footer">
 <?php

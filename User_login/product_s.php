@@ -1,9 +1,4 @@
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
-			<!-- Carousel indicators -->
-			<ol class="carousel-indicators">
-				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-				<li data-target="#myCarousel" data-slide-to="1"></li>
-			</ol>   
 			<!-- Wrapper for carousel items -->
 		<div class="carousel-inner">
         <?php 
@@ -22,23 +17,23 @@
                                 <img src="http://localhost/lifekart/User_login/images/<?php echo $var[0];?>" alt="" class="img-fluid" style= "width:100%" >						
 								</div>
 								<div class="thumb-content">
-									<h4><?php echo $array[1];?></h4>									
+									<h4><a href="http://localhost/lifekart/User_login/productDetails.php?page=array&id=<?php echo $array[0]?>"><?php echo $array[1];?></a></h4>									
 									<p class="item-price">Price:<?php echo $array[5];?></p>
 									<a href="#" class="btn btn-primary">Add to Cart</a>
 								</div>						
 							</div>
 						</div>
 						<?php if($i==3){?></div> </div><?php }?>
-						<?php if($i==count($array)-1){?></div></div><?php }?>		
-						
+			<?php if($i==count($array)-1){?></div></div><?php }?>				
+		
 			<!-- Carousel controls -->
 			<a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
 				<i class="fa fa-angle-left"></i>
 			</a>
 			<a class="carousel-control-next" href="#myCarousel" data-slide="next">
 				<i class="fa fa-angle-right"></i>
-			</a>  
-			 <?php $i++; }
-                        endwhile; ?>
-		</div>
+			</a>
+				 <?php $i++; }
+             endwhile; ?>
+			 </div>  
 		</div>

@@ -10,6 +10,11 @@
         <a class="nav-link" href="http://localhost/lifekart/User_login/category.php">Category</a>
       </li>   
   </ul>
+  <ul class="nav navbar-nav ml-auto">
+      <li class="nav-item ">
+      <input type="text" placeholder="Search.." name="search">
+    </li>   
+  </ul>
   <?php
   include("auth_session.php");
   if(!isset($_SESSION['username'])){?>

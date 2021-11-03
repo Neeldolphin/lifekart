@@ -29,7 +29,7 @@ $(document).ready(function(){
         while($category=mysqli_fetch_row($result)):
             ?>
 				<div>
-				<h2><a href="http://localhost/lifekart/User_login/category.php =' . $category->id . '"><?php echo $category[1];?></a></h2>             
+				<h2><a href="http://localhost/lifekart/User_login/category.php?page=category&id=<?php echo $category[0]?>"><?php echo $category[1];?></a></h2>             
 				<?php include 'product_s.php';?> 
             </div>	  
                 <?php

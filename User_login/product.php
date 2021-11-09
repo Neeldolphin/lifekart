@@ -1,19 +1,11 @@
-	<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
-	<ul class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-  </ul>
-			<!-- Wrapper for carousel items -->
-		<div class="carousel-inner">
-        <?php 
+        <div class='row'>
+            <?php 
         $query="select * from Product_info where category =$category[0]"; 
 				$result2=mysqli_query($con,$query);
         $i=0;
         while($array=mysqli_fetch_row($result2)): 
             $var=unserialize($array[4]);
-	    if($i<8){
-	    if($i==0){?><div class="item carousel-item active"><div class="row"><?php }
-		 if($i==4){?><div class="item carousel-item"><div class="row"><?php }?>
+	   ?>
 						<div class="col-sm-3">
 							<div class="thumb-wrapper">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
@@ -26,19 +18,7 @@
 									<a href="http://localhost/lifekart/User_login/productDetails.php?page=array&id=<?php echo $array[0]?>" class="btn btn-primary">buy </a>
 								</div>						
 							</div>
-						</div>
-						<?php if($i==3){?></div> </div><?php }?>
-			<?php if($i==count($array)-1){?></div></div><?php }?>				
-				 <?php $i++; }
+						</div>			
+				 <?php
              endwhile; ?>
-		</div>
-	</div>
-			 	<!-- Carousel controls -->
-			<a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
-				<i class="fa fa-angle-left"></i>
-			</a>
-			<a class="carousel-control-next" href="#myCarousel" data-slide="next">
-				<i class="fa fa-angle-right"></i>
-			</a>
-			 </div>  
-		</div>
+</div>

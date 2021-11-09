@@ -29,10 +29,10 @@
    <?php }else
           {?> 
 <ul class="nav navbar-nav ml-auto">
-<li class="nav-item account">
-<p style="color: white;">Welcome to Home page!</p>
-   <a class="nav-link" href="http://localhost/lifekart/User_login/logout.php">Logout</a>
-          </li>
+<p style="color: white;">Welcome to Home page!
+   <a class="nav-link" href="http://localhost/lifekart/User_login/logout.php">Logout</a></p>
+   <a href="view_cart.php?id=<?php echo $_SESSION['id']?>" >Cart <?php echo count($_SESSION['cart']); ?><i class="fas fa-shopping-cart"></i></a>
+</ul>
 <?php } ?>
   </div>  
 </nav>

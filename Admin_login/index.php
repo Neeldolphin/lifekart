@@ -1,19 +1,19 @@
-<!DOCTYPE html>
 <html>
   <head>
-<style>
-<?php 
- include 'style.css';
- include 'sidebar.php';
- ?>
-</style>
+  <link rel = "stylesheet" type = "text/css" href = "style.css"> 
   </head>
-  <body>
-    
-<div class="main">
-  <h2>Dashboard</h2>
-</div>
-
-  </body>
-
+<?php
+session_start();
+?>
+<body>
+<?php
+ include("auth_session.php");
+ if(!isset($_SESSION['username'])){?>
+<a href="http://localhost/lifekart/Admin_login/login.php">Login</a>
+<?php }else
+          {?> 
+      <p style="color: white;">Welcome to Dashboard!
+   <a  href="http://localhost/lifekart/Admin_login/logout.php">Logout</a></p>
+   <?php } ?>
+</body>
 </html> 

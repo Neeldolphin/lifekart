@@ -23,7 +23,7 @@ include 'navbar.php';
             ?>
 				<div>           
                 <h2><?php echo $category[1];?></h2>  
-				<?php include 'product_s.php';?> 
+				<?php include 'product.php';?> 
             </div>	  
                 <?php 
                 endwhile; ?>

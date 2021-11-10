@@ -285,10 +285,13 @@ $(document).ready(function(){
         },
         submitHandler: function(form) { 
         $('#custForm').submit(function() { 
+          var data=new FormData(this);
+          var action='product_details';
+          data.append('action',action);
         $.ajax({
             type:"POST",
-            url: "add.php",
-            data: new FormData(this), 
+            url: "action.php",
+            data: data, 
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
             dataType: 'json',
@@ -314,13 +317,14 @@ $(document).ready(function(){
 
      $('body').on('click', '.change', function () {
       var id = $(this).data('id');
-       $('#editModal').html("Edit Category");
+      var action='product_change';
+       $('#editModal').html("Edit Product");
        $('#edit-modal').modal('show');
 
         $.ajax({
             type:"POST",
-            url: "editproduct.php",
-            data: { id:id },
+            url: "action.php",
+            data: { id:id,action:action },
             dataType: 'json', 
             success: function(result){
               $('#eid').val(result.data[0].Id);
@@ -342,11 +346,14 @@ $(document).ready(function(){
 
     $("#editForm").on('submit',function(){
         var id = $(this).data('id');
+        var data=new FormData(this);
+          var action='product_update';
+          data.append('action',action);
 
         $.ajax({
             type:"POST",
-            url: "updateproduct.php",
-            data: new FormData(this),
+            url: "action.php",
+            data:data,
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
             dataType: 'json',
@@ -370,11 +377,11 @@ $(document).ready(function($){
  $('body').on('click', '.delete', function () {
        if (confirm("Delete Record?") == true) {
         var id = $(this).data('id');
-         
+        var action='product_delete';
         $.ajax({
             type:"POST",
-            url: "product_delete.php",
-            data: { id: id },
+            url: "action.php",
+            data: { id: id,action:action },
             dataType: 'json',
             success: function(result){
             if (result == 1) {

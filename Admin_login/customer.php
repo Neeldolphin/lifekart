@@ -45,7 +45,6 @@ include('header.php');
                     <td><?php echo $array[4];?></td>
                     <td><?php echo $array[5];?></td>
                     <td><?php echo $array[6];?></td>
-                    <td><?php echo $array[7];?></td>
                     <td>
                     <a href="javascript:void(0)" class="btn btn-primary delete" data-id="<?php echo $array[0];?>">Delete</a>
                     <a href="javascript:void(0)" class="btn btn-primary edit" data-id="<?php echo $array[0];?>">Edit</a>
@@ -193,61 +192,41 @@ $(document).ready( function () {
 $(document).ready(function(){
       $('#create').click(function () {
        $('#custForm').trigger("reset");
-       $('#custCrudModal').html("Add New product");
+       $('#custCrudModal').html("Add New customer");
        $('#ajax-modal').modal('show');
     });
         
-     $('body').on('click', '.add', function () {
-    $("#custForm").validate({
-        rules: {
-            FirstName: "required",
-            LastName: "required",
-            Address:"required",
-            phone_number: {
-              required: true,
-                digits:true,
-                minlength:10,
-                maxlength:10
-            }
-           },
-        messages: {
-            FirstName: "Enter your Name",
-        },
-        submitHandler: function(form) { 
-        $('#custForm').submit(function() { 
+     $('body').on('click', '.add', function(){
+        $('#custForm').submit(function(){ 
+          var data = $(this).serialize();
         $.ajax({
             type:"POST",
-            url: "add_customer.php",
-            data: $(this).serialize(),
+            url: "action.php",
+            data: data,
             dataType: 'json',
             success: function(result){
              window.location.reload(true);
              }
           });
           });
-               form.submit();
-              }
-            });
           });
        });
 
 </script>
-
-
-
 
 <script type="text/javascript">  
 $(document).ready(function(){
 
      $('body').on('click', '.edit', function () {
       var id = $(this).data('id');
-             $('#editModal').html("Edit Category");
+      var action='customer_edit';
+             $('#editModal').html("Edit Customer");
               $('#edit-modal').modal('show');
    
       $.ajax({
             type:"POST",
-            url: "edit_customer.php",
-            data: { id:id },
+            url: "action.php",
+            data: { id:id,action:action},
             dataType: 'json', 
             success: function(result){
               $('#eid').val(result[0].Id);
@@ -277,10 +256,11 @@ $(document).ready(function(){
         },
         submitHandler: function(form) { 
         var id = $(this).data('id');
+        var action='customer_update';
 
         $.ajax({
             type:"POST",
-            url: "update_customer.php",
+            url: "action.php",
             data: {
               Id: $('#eid').val(),
                FirstName: $('#eFirstName').val(),
@@ -288,7 +268,8 @@ $(document).ready(function(){
                 Email: $('#eEmail').val(),
                  phone_number: $('#ephone_number').val(),
                  Address: $('#eAddress').val(),
-                 country: $('#ecountry').val()
+                 country: $('#ecountry').val(),
+                 action:action
             },
             dataType: 'json',
             success: function(result){
@@ -310,11 +291,12 @@ $(document).ready(function($){
  $('body').on('click', '.delete', function () {
        if (confirm("Delete Record?") == true) {
         var id = $(this).data('id');
+        var action='customer_delete';
          
         $.ajax({
             type:"POST",
-            url: "customer_delete.php",
-            data: { id: id },
+            url: "action.php",
+            data: { id: id,action:action },
             dataType: 'json',
             success: function(result){
             if (result == 1) {

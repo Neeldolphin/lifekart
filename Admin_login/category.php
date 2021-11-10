@@ -86,6 +86,7 @@ include('header.php');
                 </div>
               </div>
               <div class="col-sm-offset-2 col-sm-10">
+              
                 <button type="submit" class="btn btn-primary add" id="btn-save" value="create">Add Product
                 </button>
               </div>
@@ -166,10 +167,14 @@ $(document).ready(function(){
         },
         submitHandler: function(form) { 
         $('#custForm').submit(function() { 
+          var data=new FormData(this);
+          var action='category_details';
+          data.append('action',action);
+
         $.ajax({
             type:"POST",
-            url: "addcategory.php",
-            data: new FormData(this), // get all form field value in 
+            url: "action.php",
+            data: data, // get all form field value in 
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
             dataType: 'json',
@@ -194,14 +199,15 @@ $(document).ready(function(){
 $(document).ready(function(){
 
 $('body').on('click', '.change', function () {
+          var action='category_edit';
         var id = $(this).data('id');
        $('#editModal').html("Edit Category");
        $('#edit-modal').modal('show');
    
     $.ajax({
             type:"POST",
-            url: "editcategory.php",
-            data: { id:id },
+            url: "action.php",
+            data: { id:id,action:action },
             dataType: 'json', 
             success: function(result){
               $('#eid').val(result[0].id);
@@ -213,11 +219,14 @@ $('body').on('click', '.change', function () {
 
     $("#editForm").on('submit',function(){
         var id = $(this).data('id');
+        var data=new FormData(this);
+          var action='category_update';
+          data.append('action',action);
 
         $.ajax({
             type:"POST",
-            url: "updatecategory.php",
-            data:  new FormData(this),
+            url: "action.php",
+            data: data,
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
             dataType: 'json',
@@ -241,11 +250,12 @@ $(document).ready(function($){
  $('body').on('click', '.delete', function () {
        if (confirm("Delete Record?") == true) {
         var id = $(this).data('id');
+        var action='category_delete';
          
         $.ajax({
             type:"POST",
-            url: "delete.php",
-            data: { id: id },
+            url: "action.php",
+            data: { id:id,action:action },
             dataType: 'json',
             success: function(result){
             if (result == 1) {

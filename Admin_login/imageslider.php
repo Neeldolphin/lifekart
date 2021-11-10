@@ -147,10 +147,13 @@ $(document).ready(function(){
         },
         submitHandler: function(form) { 
         $('#custForm').submit(function() { 
+          var data=new FormData(this);
+          var action='image_details';
+          data.append('action',action);
         $.ajax({
             type:"POST",
-            url: "addImage.php",
-            data: new FormData(this), 
+            url: "action.php",
+            data: data, 
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
             dataType: 'json',
@@ -175,13 +178,14 @@ $(document).ready(function(){
 
 $('body').on('click', '.change', function () {
         var id = $(this).data('id');
+        var action='image_edit';
        $('#editModal').html("Edit Image");
        $('#edit-modal').modal('show');
    
     $.ajax({
             type:"POST",
-            url: "editImage.php",
-            data: { id:id },
+            url: "action.php",
+            data: { id:id,action:action },
             dataType: 'json', 
             success: function(result){
               $('#eid').val(result[0].id);
@@ -197,11 +201,14 @@ $('body').on('click', '.change', function () {
 
     $("#editForm").on('submit',function(){
         var id = $(this).data('id');
+        var action='image_update';
+        var data=new FormData(this);
+          data.append('action',action);
 
         $.ajax({
             type:"POST",
-            url: "updateImage.php",
-            data:  new FormData(this),
+            url: "action.php",
+            data: data,
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
             dataType: 'json',
@@ -225,11 +232,11 @@ $(document).ready(function($){
  $('body').on('click', '.delete', function () {
        if (confirm("Delete Record?") == true) {
         var id = $(this).data('id');
-         
+        var action='image_delete';
         $.ajax({
             type:"POST",
-            url: "deleteImage.php",
-            data: { id: id },
+            url: "action.php",
+            data: { id: id,action:action},
             dataType: 'json',
             success: function(result){
             if (result == 1) {

@@ -183,7 +183,10 @@ include('header.php');
 
 <script type="text/javascript">
 $(document).ready( function () {
-    $('#datatab').DataTable();
+    $('#datatab').DataTable({
+    "scrollY":"400px",
+    "scrollCollapse": true
+    });
 } );
 </script>
 
@@ -198,12 +201,17 @@ $(document).ready(function(){
         
      $('body').on('click', '.add', function(){
         $('#custForm').submit(function(){ 
-          var data = $(this).serialize();
+          var data=new FormData(this);
+          var action='customer_details';
+          data.append('action',action);
+
         $.ajax({
             type:"POST",
             url: "action.php",
             data: data,
             dataType: 'json',
+            mimeType:"multipart/form-data",
+            contentType: false, cache: false, processData:false,
             success: function(result){
              window.location.reload(true);
              }
@@ -218,16 +226,17 @@ $(document).ready(function(){
 $(document).ready(function(){
 
      $('body').on('click', '.edit', function () {
-      var id = $(this).data('id');
-      var action='customer_edit';
              $('#editModal').html("Edit Customer");
               $('#edit-modal').modal('show');
+              var id = $(this).data('id');
+              var action='customer_edit';
    
       $.ajax({
             type:"POST",
             url: "action.php",
             data: { id:id,action:action},
-            dataType: 'json', 
+            dataType: 'json',
+            ContentType: 'multipart/form-data', 
             success: function(result){
               $('#eid').val(result[0].Id);
               $('#eFirstName').val(result[0].FirstName);

@@ -1,5 +1,4 @@
 <?php
-include('connection.php'); 
 
 if($_POST['action']=='image_details')
 { 

@@ -62,13 +62,13 @@ include 'navbar.php';
             <div class="col-lg-10 mt-4">
                 <div class="row">
                     <div class="col-lg-4 pb-4">
-                        <form method='POST' action="add_cart.php">
-                        <p>QTY<input type="number"  id="quantity" name="quantity" ></p>
-                        <input type="hidden" value="<?php echo $array[0];?>" id="msg" name="msg">
-                        <p id="msg1"></p>
-                        <input type="submit" >
+                        <form method='POST' action="action.php">
+                        <p>QTY<input type="number"  id="quantity" name="quantity" class="quantity" ></p>
+                        <input type="hidden" value="<?php echo $array[0];?>" class="msg" id="msg" name="msg">
+                        <input type="hidden" value="productdetail" name="action">
+                        <p id="msg1" class="msg1"></p>
+                        <input type="submit" class="btn btn-primary qtybutton" >
                     </form>
-                        <a href="add_cart.php?id=<?php echo $array[0];?>" class="btn btn-primary">Add To Cart</a>
                     </div>
                 </div>
             </div>

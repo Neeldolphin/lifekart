@@ -7,7 +7,7 @@ include 'index.php';
  ?>
   </head>
 <body>
-<div class="main">
+<div class="main" >
 <p style="color: white;">Welcome to Dashboard!
 </div>
     

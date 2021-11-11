@@ -1,7 +1,10 @@
 <?php
-	session_start();
-    //initialize cart if not set or is unset
-	if(!isset($_SESSION['cart'])){
+include 'connection.php';
+session_start();
+
+if($_POST['action']=='productdetail')
+{    
+    if(!isset($_SESSION['cart'])){
 		$_SESSION['cart'] = array();
 	}
 	//check if product is already in the cart
@@ -10,6 +13,8 @@
 	}
 	$key= count($_SESSION['cart']);
 	$_SESSION['qty'][$key] = $_POST['quantity'];
-	header("location: view_cart.php?id=".$_SESSION['id']);
+
+header("location: view_cart.php?id=".$_SESSION['id']);
+}
 
 ?>

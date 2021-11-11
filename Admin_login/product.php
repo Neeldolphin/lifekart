@@ -262,7 +262,10 @@ include('header.php');
 
 <script type="text/javascript">
 $(document).ready( function () {
-    $('#datatab').DataTable();
+  $('#datatab').DataTable({
+    "scrollY":"500px",
+    "scrollCollapse": true
+    });
 } );
 </script>
 

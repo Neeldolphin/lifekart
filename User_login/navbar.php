@@ -11,10 +11,15 @@
       </li>   
   </ul>
   <ul class="nav navbar-nav ml-auto">
-      <li class="nav-item ">
-      <input type="text" placeholder="Search.." name="search">
-    </li>   
-  </ul>
+  <form class="navbar-form form-inline ml-auto">
+			<div class="input-group search-box">
+				<input type="text" class="form-control" id="search">
+				<div class="input-group-append">
+					<button type="button" class="btn btn-danger" id="search_button"><span>Search</span></button>
+				</div>
+			</div>
+		</form>	
+</ul>
   <?php
   include("auth_session.php");
   if(!isset($_SESSION['username'])){?>
@@ -36,3 +41,27 @@
 <?php } ?>
   </div>  
 </nav>
+
+<script>
+$(document).ready(function() {
+   $("#search_button").click(function() {
+       var name = $('#search').val();
+           $.ajax({
+               type: "POST",
+               url: "livesearch.php",
+               data: {
+                   search: name
+               },
+               dataType: 'json', 
+               success: function(html) {
+                 if(html.pid!= null){
+                   window.location.href = 'http://localhost/lifekart/User_login/productDetails.php?page=array&id='+html.pid;
+                 }
+                 if(html.cid!= null){
+                 window.location.href = 'http://localhost/lifekart/User_login/category.php?page=category&id='+html.cid;
+               }
+              }
+           });
+         });
+      });
+</script>

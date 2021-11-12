@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('.quantity').on('change paste keyup', function() {
+    $('#quantity').on('change paste keyup', function() {
         var id=$("input:hidden#msg").val();
         var value=this.value;
         $('#msg').value;

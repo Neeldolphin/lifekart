@@ -15,3 +15,7 @@ include 'Action/imageAction.php';
 include 'Action/productAction.php';
     
 ?>
+<?php
+include 'Action/coupenAction.php';
+    
+?>

@@ -18,16 +18,13 @@ include 'navbar.php';
 		<div class="col-md-12">
         <?php
         $id = (int)$_GET['id'];
-        $query="select * from category_info where id=".$id; 
-				$result=mysqli_query($con,$query);
-        while($category=mysqli_fetch_row($result)):
+        $categoryGet=new category_main();
+        $category=$categoryGet->category_info($id);
             ?>
 				<div>           
                 <h2><?php echo $category[1];?></h2>  
 				<?php include 'product.php';?> 
             </div>	  
-                <?php 
-                endwhile; ?>
         </div>
 	</div>
 </div>

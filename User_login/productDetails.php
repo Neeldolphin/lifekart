@@ -1,6 +1,7 @@
 <?php
 include 'header.php';
 include 'logo.php';
+include 'class.php';
 ?>
 <?php
 include 'navbar.php';
@@ -11,9 +12,8 @@ include 'navbar.php';
             <div class="row">
                     <?php
                      $id = (int)$_GET['id'];
-                     $query="select * from Product_info where id=".$id; 
-				        $result=mysqli_query($con,$query);
-                        $array= mysqli_fetch_array($result);
+                     $details=new product_details();
+                     $array=$details->product_Details($id);
                             $var=unserialize($array[4]);
                             $i=0;
                     ?>

@@ -3,10 +3,12 @@
 			<!-- Wrapper for carousel items -->
 		<div class="carousel-inner">
         <?php 
-        $query="select * from Product_info where category =$category[0]"; 
-				$result2=mysqli_query($con,$query);
-        $i=0;
-        while($array=mysqli_fetch_row($result2)): 
+                $i=0;
+				$id=$category[0];
+				$productS=new product_details();
+				$rows=$productS->product_page($id);
+        		foreach($rows as $array){
+
             $var=unserialize($array[4]);
 	    if($i<8){?>
 	   <?php if($i==0){?><div class="item carousel-item active"><div class="row"><?php }?>
@@ -27,7 +29,7 @@
 						<?php if($i==3){?></div> </div><?php }?>
 			<?php if($i==count($array)-1){?></div></div><?php }?>				
 				 <?php $i++; }
-             endwhile; ?>
+             } ?>
 		</div>
 	</div>
 			 	<!-- Carousel controls -->

@@ -24,16 +24,17 @@ $(document).ready(function(){
 		<div class="col-md-12">
 			<h2>Featured <b>Category</b></h2>
         <?php
-        $query="select * from category_info"; 
-				$result=mysqli_query($con,$query);
-        while($category=mysqli_fetch_row($result)):
+
+		$cate=new category_main();
+        $rows=$cate->categoryMain();
+        foreach($rows as $category){
             ?>
 				<div>
 				<h2><a href="http://localhost/lifekart/User_login/category.php?page=category&id=<?php echo $category[0]?>"><?php echo $category[1];?></a></h2>             
 				<?php include 'product_s.php';?> 
             </div>	  
                 <?php
-                endwhile; ?>
+                }?>
         </div>
 	</div>
 </div>

@@ -2,9 +2,6 @@
   <head>
   <link rel = "stylesheet" type = "text/css" href = "style.css"> 
   </head>
-<?php
-session_start();
-?>
 <body>
 <?php
  include("auth_session.php");

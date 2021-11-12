@@ -263,4 +263,45 @@ class customer extends database{
         }
 }
 
+class coupen extends database{
+    public function __construct()
+    {
+     parent::__construct();   
+    }
+        public function insert($coupen_name,$coupen_discount)
+        {
+            if(!empty($_POST)){
+                $query = "INSERT INTO coupen_code(coupen_name,coupen_discount)
+                VALUES ('$coupen_name','$coupen_discount')";
+                $result = mysqli_query($this->con, $query); 
+                echo 1;
+               }
+        }
+        
+        public function edit($id)
+        {
+            $query="SELECT * from coupen_code WHERE coupen_id =".$id;
+            $result = mysqli_query($this->con,$query);
+            while ($cust = mysqli_fetch_assoc($result)) {
+                $data = $cust;
+            } 
+            if($data) {
+             echo json_encode($data);
+            } 
+        }
+
+        public function update($post)
+        {
+            $query = "UPDATE coupen_code SET coupen_name='" . $post['coupen_name'] . "', coupen_discount='" . $post['coupen_discount'] . "' WHERE coupen_id=".$post['coupen_id'];
+            $result = mysqli_query($this->con, $query);
+        }
+
+        public function delete($id)
+        {       
+            $query = "DELETE FROM coupen_code WHERE coupen_id=".$id;
+            $result =mysqli_query($this->con,$query);
+        }
+}
+
+
 ?>

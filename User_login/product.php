@@ -1,9 +1,9 @@
         <div class='row'>
             <?php 
-        $query="select * from Product_info where category =$category[0]"; 
-				$result2=mysqli_query($con,$query);
-        $i=0;
-        while($array=mysqli_fetch_row($result2)): 
+			$id=$category[0];
+			$productM=new product_details();
+			$rows=$productM->product_info($id);
+			foreach ($rows as $array) {
             $var=unserialize($array[4]);
 	   ?>
 						<div class="col-sm-3">
@@ -19,6 +19,5 @@
 								</div>						
 							</div>
 						</div>			
-				 <?php
-             endwhile; ?>
+				 <?php }?>
 </div>

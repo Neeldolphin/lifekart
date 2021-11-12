@@ -1,5 +1,6 @@
 <?php
 include 'header.php';
+include 'class.php';
 ?>
 <body>
 
@@ -15,10 +16,11 @@ include 'header.php';
   <!-- The slideshow -->
   <div class="carousel-inner">
  <?php
-        $query="select * from slider"; 
-				$result=mysqli_query($con,$query);
         $i=0;
-        while($array=mysqli_fetch_row($result)): 
+       $slide= new slider();
+       $rows=$slide->slidebar();
+
+        foreach($rows as $array){
         if($i==0){?>
 
     <div class="carousel-item active">
@@ -29,7 +31,8 @@ include 'header.php';
     <a href="<?php echo $array[2];?>"><img src="http://localhost/lifekart/Admin_login/uploads/<?php echo $array[1];?>" alt="" style= "width:100%" ></a>
     </div>
 <?php $i++; }
-   endwhile; ?>
+   }
+   ?>
   </div>
   
   <!-- Left and right controls -->

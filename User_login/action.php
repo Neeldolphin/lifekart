@@ -11,7 +11,7 @@ if($_POST['action']=='productdetail')
 	if(!in_array($_POST['msg'], $_SESSION['cart'])){
 		array_push($_SESSION['cart'], $_POST['msg']);
 	}
-	$key= count($_SESSION['cart']);
+	$key= count($_SESSION['cart'])-1;
 	$_SESSION['qty'][$key] = $_POST['quantity'];
 
 header("location: view_cart.php?id=".$_SESSION['id']);

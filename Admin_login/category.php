@@ -119,13 +119,13 @@ include('header.php');
               <div class="form-group">
                 <label for="file" class="col-sm-6 control-label">Image</label>
                 <div class="col-sm-12">
-                  <input type="file" class="form-control" id="eimage" name="eimage" placeholder="" value="" required="">
+                  <input type="file" class="form-control" id="eimage" name="eimage" placeholder="" value="" >
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-6 control-label">Description</label>
                 <div class="col-sm-12">
-                  <input type="text" class="form-control" id="edescription" name="edescription" required="">
+                  <input type="text" class="form-control" id="edescription" name="edescription" >
                 </div>
               </div>
               <div class="col-sm-offset-2 col-sm-10">
@@ -215,7 +215,6 @@ $('body').on('click', '.change', function () {
             success: function(result){
               $('#eid').val(result[0].id);
               $('#ecname').val(result[0].CName);
-              $('#eimage').val(result[0].image);
               $('#edescription').val(result[0].description);
            }
         });

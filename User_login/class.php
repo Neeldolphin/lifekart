@@ -42,6 +42,16 @@ class cart extends database{
         return $data;
     }
 }
+
+    public function coupen_view($coupen)
+    {
+    $query ="SELECT * FROM  coupen_code WHERE coupen_name='$coupen'";
+    $result=mysqli_query($this->con,$query);
+    while($array=mysqli_fetch_row($result)){
+        $data=$array;
+    }
+    return $data;
+    }
     
     public function qty_check($id)
     {
@@ -112,15 +122,49 @@ class product_details extends database{
    $array=array('pid'=>$data1,'cid'=>$data2);
     return $array;    
 }
-    public function product_info($id)
+    public function product_info($id,$order)
     {
-    $query="select * from Product_info where category =$id"; 
-    $result2=mysqli_query($this->con,$query);
-    while($array=mysqli_fetch_row($result2)){
-        $data[]=$array;
-    }
-    return $data;
-    }
+        
+        if ($order == 1) {
+          $query="select * from Product_info where category =$id order by price ASC"; 
+            $result2=mysqli_query($this->con,$query);
+            while($array=mysqli_fetch_row($result2)){
+                $data[]=$array;
+            }
+            return $data;
+            }
+         elseif ($order == 2) {
+            $query="select * from Product_info where category =$id order by price DESC"; 
+            $result2=mysqli_query($this->con,$query);
+            while($array=mysqli_fetch_row($result2)){
+                $data[]=$array;
+            }
+            return $data;
+            }
+        elseif ($order== 3) {
+            $query="select * from Product_info where category =$id order by pname ASC"; 
+            $result2=mysqli_query($this->con,$query);
+            while($array=mysqli_fetch_row($result2)){
+                $data[]=$array;
+            }
+            return $data;
+            }
+        elseif ($order == 4) {
+            $query="select * from Product_info where category =$id order by pname DESC "; 
+            $result2=mysqli_query($this->con,$query);
+            while($array=mysqli_fetch_row($result2)){
+                $data[]=$array;
+            }
+            return $data;
+            }else {
+                $query="select * from Product_info where category =".$id; 
+                $result2=mysqli_query($this->con,$query);
+                while($array=mysqli_fetch_row($result2)){
+                    $data[]=$array;
+                }
+                return $data;
+                }
+        }
 }
 
 

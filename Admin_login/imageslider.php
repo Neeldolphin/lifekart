@@ -103,12 +103,12 @@ include('header.php');
             <div class="form-group">
                 <label for="name" class="col-sm-6 control-label">Image Name</label>
                 <div class="col-sm-12">
-                  <input type="file" class="form-control" id="eimageName" name="eimageName" placeholder="Enter Name" value="" maxlength="50" required="">
+                  <input type="file" class="form-control" id="eimageName" name="eimageName" placeholder="Enter Name" value="" maxlength="50" >
                 </div>
               <div class="form-group">
                 <label class="col-sm-6 control-label">Link</label>
                 <div class="col-sm-12">
-                  <input type="text" class="form-control" id="elink" name="elink" required="">
+                  <input type="text" class="form-control" id="elink" name="elink" >
                 </div>
               </div>
               <div class="col-sm-offset-2 col-sm-10">
@@ -191,11 +191,6 @@ $('body').on('click', '.change', function () {
               $('#eid').val(result[0].id);
               $('#showimg').html("<img src='http://localhost/lifekart/Admin_login/uploads/" + result[0].imageName +"'>");
               $('#elink').val(result[0].link);
-              if (result == 1) {
-             window.location.reload(true);
-            }else{
-             alert('Sorry,unable update.');
-             }
            }
         });
 

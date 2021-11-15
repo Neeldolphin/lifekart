@@ -19,5 +19,53 @@ $(document).ready(function(){
             }
            }
         }); 
-      });    
+      }); 
+      $("#apply").click(function(){
+        var action ='coupen_apply';
+        if($('#promo_code').val()!=''){
+            $.ajax({
+                        type: "POST",
+                        url: "action.php",
+                        data:{
+                            coupen_code: $('#coupen_code').val(),
+                            action:action
+                        },
+                        success: function(){
+                        window.location.reload(true);
+                        }
+            });
+        }
+        else{
+            $('#message').html("Promocode can not be blank .Enter a Valid Promocode !");
+        }
+    });   
+
+    $("#remove").click(function(){
+        var action ='coupen_remove';
+        
+            $.ajax({
+                        type: "POST",
+                        url: "action.php",
+                        data:{
+                            action:action
+                        },
+                        success: function(){
+                        window.location.reload(true);
+                        }
+            });
+    });   
+
+    $("#dropdown").on('change', function(){
+        var action ='sort_dropdown';
+        var datasend = $(this).val();
+        var id =$('#sortBy').val();
+        window.location.href = 'http://localhost/lifekart/User_login/category.php?page=category&id='+id +'&datasend='+datasend; 
+        
+    });  
+
+
+
 });
+
+
+

@@ -1,8 +1,11 @@
         <div class='row'>
             <?php 
+			$order = (int)$_GET['id'];
+			if(isset($_GET['datasend'])){
+			$order = $_GET['datasend'];}
 			$id=$category[0];
 			$productM=new product_details();
-			$rows=$productM->product_info($id);
+			$rows=$productM->product_info($id,$order);
 			foreach ($rows as $array) {
             $var=unserialize($array[4]);
 	   ?>

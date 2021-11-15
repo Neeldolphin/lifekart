@@ -54,7 +54,7 @@ if(!empty($_POST['eid'])){
     $targetFilePath = $targetDir . $fileName;
     $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
 
-     if($_FILES['eimageName']['name']){
+     if(!empty($_FILES['eimageName']['name'])){
 
     $allowTypes = array('jpg','png','jpeg','gif');
      if(in_array($fileType, $allowTypes)){
@@ -64,18 +64,14 @@ if(!empty($_POST['eid'])){
     $image = $_FILES['eimageName']['name'];
 
 
- $query = "UPDATE slider SET imageName='". $image . "', link='" .$_POST['elink']."' WHERE id=".$_POST['eid'];
+ $query = "UPDATE slider SET imageName='". $image . "' WHERE id=".$_POST['eid'];
     $result = mysqli_query($con, $query);
-        if($result) {
-     echo 1;
-    } else {
-     echo 0;
-    }
-}else{ 
-    echo 0;
-    }
 }
 }
+$query = "UPDATE slider SET link='" .$_POST['elink']."' WHERE id=".$_POST['eid'];
+ $result = mysqli_query($con, $query);
+ echo 1;
+ }
 }
 
 

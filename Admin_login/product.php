@@ -210,7 +210,7 @@ include('header.php');
               <div class="form-group">
                 <label for="file" class="col-sm-6 control-label">Image</label>
                 <div class="col-sm-9">
-                  <input type="file" class="form-control" id="eimage" name="eimage[]" multiple required="">
+                  <input type="file" class="form-control" id="eimage" name="eimage[]" multiple >
                 </div>
               </div>
               <div class="form-group">
@@ -235,7 +235,7 @@ include('header.php');
               <div class="form-group">
                 <label class="col-sm-6 control-label">Video</label>
                 <div class="col-sm-9">
-                  <input type="file" class="form-control" id="eVideo" name="eVideo" placeholder="" value="" required="">
+                  <input type="file" class="form-control" id="eVideo" name="eVideo" placeholder="" value="" >
                 </div>
               </div>
               <div class="form-group">

@@ -101,7 +101,7 @@ class product extends database{
                $targetFilePath = $targetDir . $fileName;
                $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
             
-                if($files['eimage']['name'][$i]){
+               if(!empty($files['eimage']['name'][$i])){
             
                $allowTypes = array('jpg','png','jpeg','gif');
                 if(in_array($fileType, $allowTypes)){
@@ -112,9 +112,7 @@ class product extends database{
                 $load[]=$fileName;
             
                 }
-              }else{
-              echo 0;
-                 }
+            }
             }
             $display=serialize($load);
                $targetDir = "uploads/";
@@ -122,7 +120,7 @@ class product extends database{
                $targetFilePath = $targetDir . $fileName;
                $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
             
-                if($files['eVideo']['name']){
+               if(!empty($files['eVideo']['name'])){
                    $allowTypes = array('gif','mp4');
             
                 if(in_array($fileType, $allowTypes)){
@@ -131,17 +129,13 @@ class product extends database{
                
                $Video = $files['eVideo']['name'];
             
-              $query = "UPDATE Product_info SET pname='" . $post['epname'] . "', category='". $post['ecategory'] . "', SKU='" .$post['esku']."', image='". $display. "', price='". $post['ePrice'] . "', description='". $post['eDescription'] . "',video='". $Video . "',qty='". $post['eQTY'] . "',Status='". $post['eStatus'] . "',create_at='$create_at',update_at='$update_at' WHERE Id=".$post['eid'];
+              $query = "UPDATE Product_info SET  image='". $display. "',video='". $Video . "' WHERE Id=".$post['eid'];
                $result = mysqli_query($this->con, $query);
-                if($result) {
-                echo 1;
-               } else {
-                echo 0;
-               }
-            }else{ 
-               echo 0;
-               }
             }
+            }
+            $query = "UPDATE Product_info SET pname='" . $post['epname'] . "', category='". $post['ecategory'] . "', SKU='" .$post['esku']."', price='". $post['ePrice'] . "', description='". $post['eDescription'] . "',qty='". $post['eQTY'] . "',Status='". $post['eStatus'] . "',create_at='$create_at',update_at='$update_at' WHERE Id=".$post['eid'];
+               $result = mysqli_query($this->con, $query);
+               echo 1;
         }   
 
         public function delete($id)
@@ -200,7 +194,7 @@ class category extends database{
                 $targetFilePath = $targetDir . $fileName;
                 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
 
-                if($files['eimage']['name']){
+                if(!empty($files['eimage']['name'])){
 
                 $allowTypes = array('jpg','png','jpeg','gif');
                 if(in_array($fileType, $allowTypes)){
@@ -210,11 +204,14 @@ class category extends database{
                 $image = $files['eimage']['name'];
 
 
-            $query = "UPDATE category_info SET CName='" . $post['ecname'] . "', image='". $image . "', description='" .$post['edescription']."',create_at='$create_at',update_at='$update_at' WHERE id=".$post['eid'];
+            $query = "UPDATE category_info SET image='". $image . "' WHERE id=".$post['eid'];
                 $result = mysqli_query($this->con, $query);
             }
         }
+        $query = "UPDATE category_info SET CName='" . $post['ecname'] . "', description='" .$post['edescription']."',create_at='$create_at',update_at='$update_at' WHERE id=".$post['eid'];
+        $result = mysqli_query($this->con, $query);
         }
+
         public function delete($id)
         {
             $query = "DELETE FROM category_info WHERE id=".$id;

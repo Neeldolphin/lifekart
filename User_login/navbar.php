@@ -17,7 +17,6 @@
 </ul>
   <?php
   session_start();
-  include("auth_session.php");
   if(!isset($_SESSION['username'])){
     ?>
       <ul class="nav navbar-nav ml-auto">

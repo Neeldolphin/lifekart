@@ -1,6 +1,6 @@
-<?php       
-    include 'header.php';
-    include_once 'navbar.php';
+<?php include 'header.php';
+ include_once 'navbar.php';
+ if(isset($_SESSION["username"])){
     include 'class.php';
     ?>
     <div class="container">                
@@ -90,4 +90,13 @@
         </div>
             <!-- End row -->
         </div>
-        </div>
+        
+        <?php 
+ }else{
+     ?>
+     <div>
+     <h4 align="center"><a href="http://localhost/lifekart/User_login/login.php">Login First</a> </h4>
+     </div>
+     <?php }?>
+    
+    </div>

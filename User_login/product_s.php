@@ -1,8 +1,7 @@
-	<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000">
-		
-			<!-- Wrapper for carousel items -->
-		<div class="carousel-inner">
-        <?php 
+<div id="carousel<?php echo $category[0]?>" class="carousel slide" data-ride="carousel">
+
+  <div class="carousel-inner">
+  <?php 
                 $i=0;
 				$id=$category[0];
 				$productS=new product_details();
@@ -11,9 +10,9 @@
 
             $var=unserialize($array[4]);
 	    if($i<8){?>
-	   <?php if($i==0){?><div class="item carousel-item active"><div class="row"><?php }?>
-		<?php if($i==4){?><div class="item carousel-item"><div class="row"><?php }?>
-						<div class="col-sm-3">
+		 <?php if($i==0){?><div class="carousel-item active"><div class="row"><?php }?>
+		 <?php if($i==4){?><div class="carousel-item"><div class="row"><?php }?>
+	<div class="col-sm-3">
 							<div class="thumb-wrapper">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
@@ -26,20 +25,18 @@
 								</div>						
 							</div>
 						</div>
-						<?php if($i==3){?></div> </div><?php }?>
-			<?php if($i==count($array)-1){?></div></div><?php }?>				
-				 <?php $i++; }
+					<?php if($i==3){?></div> </div><?php }?>
+					<?php if($i==count($array)-1){?></div></div><?php }?>	
+					<?php $i++; }
              } ?>
-		</div>
-	</div>
-			 	<!-- Carousel controls -->
-			<a class="carousel-control-prev" href="#myCarousel" data-slide="prev" role="button">
-				<i class="fa fa-angle-left" aria-hidden="true"></i>
-				<span class="sr-only">Previous</span>
-			</a>
-			<a class="carousel-control-next" href="#myCarousel" data-slide="next">
-				<i class="fa fa-angle-right" aria-hidden="true" ></i>
-				<span class="sr-only">Next</span>
-			</a>
-		</div>
-			
+           </div>
+		   </div>
+  <a class="carousel-control-prev" href="#carousel<?php echo $category[0]?>" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carousel<?php echo $category[0]?>" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>

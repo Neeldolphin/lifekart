@@ -38,8 +38,8 @@ include('header.php');
                     <td><?php echo $array[1];?></td>
                     <td><?php echo $array[2];?></td>
                     <td>
-                    <a href="javascript:void(0)" class="btn btn-primary delete" data-id="<?php echo $array[0];?>">Delete</a>
-                    <a href="javascript:void(0)" class="btn btn-primary edit" data-id="<?php echo $array[0];?>">Edit</a>
+                    <a href="javascript:void(0)" class="btn btn-primary coupendelete" data-id="<?php echo $array[0];?>">Delete</a>
+                    <a href="javascript:void(0)" class="btn btn-primary coupenedit" data-id="<?php echo $array[0];?>">Edit</a>
                   </td>
                 </tr>
 
@@ -78,7 +78,7 @@ include('header.php');
                 </div>
               </div>
               <div class="col-sm-offset-2 col-sm-9">
-                <button type="submit" class="btn btn-primary add" id="btn-save" value="create">Add Coupen
+                <button type="submit" class="btn btn-primary coupenadd" id="btn-save" value="create">Add Coupen
                 </button>
               </div>
             </form>
@@ -123,120 +123,6 @@ include('header.php');
         </div>
       </div>
     </div>
-
-
-<script type="text/javascript">
-$(document).ready( function () {
-    $('#datatab').DataTable({
-    "scrollY":"400px",
-    "scrollCollapse": true
-    });
-} );
-</script>
-
-
-<script type="text/javascript">  
-$(document).ready(function(){
-      $('#create').click(function () {
-       $('#custForm').trigger("reset");
-       $('#custCrudModal').html("Add New Coupen");
-       $('#ajax-modal').modal('show');
-    });
-        
-     $('body').on('click', '.add', function(){
-        $('#custForm').submit(function(){ 
-          var data=new FormData(this);
-          var action='coupen_details';
-          data.append('action',action);
-
-        $.ajax({
-            type:"POST",
-            url: "action.php",
-            data: data,
-            dataType: 'json',
-            mimeType:"multipart/form-data",
-            contentType: false, cache: false, processData:false,
-            success: function(result){
-             window.location.reload(true);
-             }
-          });
-          });
-          });
-       });
-
-</script>
-
-<script type="text/javascript">  
-$(document).ready(function(){
-
-     $('body').on('click', '.edit', function () {
-             $('#editModal').html("Edit Coupen");
-              $('#edit-modal').modal('show');
-              var id = $(this).data('id');
-              var action='coupen_edit';
-   
-      $.ajax({
-            type:"POST",
-            url: "action.php",
-            data: { id:id,action:action},
-            dataType: 'json',
-            ContentType: 'multipart/form-data', 
-            success: function(result){
-              $('#eid').val(result.coupen_id);
-              $('#eCoupenCode').val(result.coupen_name);
-              $('#eCoupenDiscount').val(result.coupen_discount);
-           }
-        });
-
-    $("#editForm").submit(function(){
-
-        var id = $(this).data('id');
-        var action='coupen_update';
-
-        $.ajax({
-            type:"POST",
-            url: "action.php",
-            data: {
-                coupen_id: $('#eid').val(),
-                coupen_name: $('#eCoupenCode').val(),
-                coupen_discount: $('#eCoupenDiscount').val(),
-                 action:action
-            },
-            dataType: 'json',
-            success: function(result){
-             window.location.reload(true);
-             }
-          });
-            });
-          });
-       });
-
-</script>
-
-
-<script type="text/javascript">
-$(document).ready(function($){
-
- $('body').on('click', '.delete', function () {
-       if (confirm("Delete Record?") == true) {
-        var id = $(this).data('id');
-        var action='coupen_delete';
-         
-        $.ajax({
-            type:"POST",
-            url: "action.php",
-            data: { id: id,action:action },
-            dataType: 'json',
-            success: function(result){
-            if (result == 1) {
-             window.location.reload(true);
-            }
-           }
-        }); 
-       }
-    });
-});
-</script>
 
 </body>
 </html>

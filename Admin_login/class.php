@@ -92,16 +92,15 @@ class product extends database{
         
         public function update($files,$post,$create_at,$update_at)
         {
-            $load = array();
-  
-            for ($i=0; $i<count($files["eimage"]["name"]); $i++) { 
+            if(!empty($files['eimage']['name'][0])){
+                $load = array();
+                
+                for ($i=0; $i<count($files["eimage"]["name"]); $i++) { 
             
                $targetDir = "uploads/";
                $fileName = basename($files["eimage"]["name"][$i]);
                $targetFilePath = $targetDir . $fileName;
                $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-            
-               if(!empty($files['eimage']['name'][$i])){
             
                $allowTypes = array('jpg','png','jpeg','gif');
                 if(in_array($fileType, $allowTypes)){
@@ -110,17 +109,20 @@ class product extends database{
             
                $image = $files['eimage']['name'][$i];
                 $load[]=$fileName;
-            
-                }
             }
-            }
-            $display=serialize($load);
+        }
+        $display=serialize($load);
+         $query = "UPDATE Product_info SET  image='". $display. "' WHERE Id=".$post['eid'];
+        $result = mysqli_query($this->con, $query);
+     }
+
+    if(!empty($files['eVideo']['name'])){
+
                $targetDir = "uploads/";
                $fileName = basename($files["eVideo"]["name"]);
                $targetFilePath = $targetDir . $fileName;
                $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-            
-               if(!empty($files['eVideo']['name'])){
+
                    $allowTypes = array('gif','mp4');
             
                 if(in_array($fileType, $allowTypes)){
@@ -128,15 +130,15 @@ class product extends database{
             move_uploaded_file($files['eVideo']['tmp_name'], $targetFilePath); 
                
                $Video = $files['eVideo']['name'];
-            
-              $query = "UPDATE Product_info SET  image='". $display. "',video='". $Video . "' WHERE Id=".$post['eid'];
-               $result = mysqli_query($this->con, $query);
+               $load[]=$fileName;
             }
-            }
-            $query = "UPDATE Product_info SET pname='" . $post['epname'] . "', category='". $post['ecategory'] . "', SKU='" .$post['esku']."', price='". $post['ePrice'] . "', description='". $post['eDescription'] . "',qty='". $post['eQTY'] . "',Status='". $post['eStatus'] . "',create_at='$create_at',update_at='$update_at' WHERE Id=".$post['eid'];
+         $query = "UPDATE Product_info SET video='". $Video . "' WHERE Id=".$post['eid'];
+               $result = mysqli_query($this->con, $query);  
+    }   
+         $query = "UPDATE Product_info SET pname='" . $post['epname'] . "', category='". $post['ecategory'] . "', SKU='" .$post['esku']."', price='". $post['ePrice'] . "', description='". $post['eDescription'] . "',qty='". $post['eQTY'] . "',Status='". $post['eStatus'] . "',create_at='$create_at',update_at='$update_at' WHERE Id=".$post['eid'];
                $result = mysqli_query($this->con, $query);
-               echo 1;
-        }   
+               echo 1; 
+    }   
 
         public function delete($id)
         {

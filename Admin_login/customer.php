@@ -46,8 +46,8 @@ include('header.php');
                     <td><?php echo $array[5];?></td>
                     <td><?php echo $array[6];?></td>
                     <td>
-                    <a href="javascript:void(0)" class="btn btn-primary delete" data-id="<?php echo $array[0];?>">Delete</a>
-                    <a href="javascript:void(0)" class="btn btn-primary edit" data-id="<?php echo $array[0];?>">Edit</a>
+                    <a href="javascript:void(0)" class="btn btn-primary customerdelete" data-id="<?php echo $array[0];?>">Delete</a>
+                    <a href="javascript:void(0)" class="btn btn-primary customeredit" data-id="<?php echo $array[0];?>">Edit</a>
                   </td>
                 </tr>
 
@@ -110,7 +110,7 @@ include('header.php');
                 </div>
               </div>
               <div class="col-sm-offset-2 col-sm-9">
-                <button type="submit" class="btn btn-primary add" id="btn-save" value="create">Add Customer
+                <button type="submit" class="btn btn-primary customeradd" id="btn-save" value="create">Add Customer
                 </button>
               </div>
             </form>
@@ -179,144 +179,6 @@ include('header.php');
         </div>
       </div>
     </div>
-
-
-<script type="text/javascript">
-$(document).ready( function () {
-    $('#datatab').DataTable({
-    "scrollY":"400px",
-    "scrollCollapse": true
-    });
-} );
-</script>
-
-
-<script type="text/javascript">  
-$(document).ready(function(){
-      $('#create').click(function () {
-       $('#custForm').trigger("reset");
-       $('#custCrudModal').html("Add New customer");
-       $('#ajax-modal').modal('show');
-    });
-        
-     $('body').on('click', '.add', function(){
-        $('#custForm').submit(function(){ 
-          var data=new FormData(this);
-          var action='customer_details';
-          data.append('action',action);
-
-        $.ajax({
-            type:"POST",
-            url: "action.php",
-            data: data,
-            dataType: 'json',
-            mimeType:"multipart/form-data",
-            contentType: false, cache: false, processData:false,
-            success: function(result){
-             window.location.reload(true);
-             }
-          });
-          });
-          });
-       });
-
-</script>
-
-<script type="text/javascript">  
-$(document).ready(function(){
-
-     $('body').on('click', '.edit', function () {
-             $('#editModal').html("Edit Customer");
-              $('#edit-modal').modal('show');
-              var id = $(this).data('id');
-              var action='customer_edit';
-   
-      $.ajax({
-            type:"POST",
-            url: "action.php",
-            data: { id:id,action:action},
-            dataType: 'json',
-            ContentType: 'multipart/form-data', 
-            success: function(result){
-              $('#eid').val(result[0].Id);
-              $('#eFirstName').val(result[0].FirstName);
-              $('#eLastName').val(result[0].LastName);
-              $('#eEmail').val(result[0].Email);
-              $('#ephone_number').val(result[0].phone_number);
-              $('#eAddress').val(result[0].Address);
-              $('#ecountry').val(result[0].country);
-           }
-        });
-
-    $("#editForm").validate({
-        rules: {
-            FirstName: "required",
-            LastName: "required",
-            Address:"required",
-            phone_number: {
-              required: true,
-                digits:true,
-                minlength:10,
-                maxlength:10
-            }
-           },
-        messages: {
-            FirstName: "Enter your Name",
-        },
-        submitHandler: function(form) { 
-        var id = $(this).data('id');
-        var action='customer_update';
-
-        $.ajax({
-            type:"POST",
-            url: "action.php",
-            data: {
-              Id: $('#eid').val(),
-               FirstName: $('#eFirstName').val(),
-               LastName: $('#eLastName').val(),
-                Email: $('#eEmail').val(),
-                 phone_number: $('#ephone_number').val(),
-                 Address: $('#eAddress').val(),
-                 country: $('#ecountry').val(),
-                 action:action
-            },
-            dataType: 'json',
-            success: function(result){
-             window.location.reload(true);
-             }
-          });
-               form.submit();
-              }
-            });
-          });
-       });
-
-</script>
-
-
-<script type="text/javascript">
-$(document).ready(function($){
-
- $('body').on('click', '.delete', function () {
-       if (confirm("Delete Record?") == true) {
-        var id = $(this).data('id');
-        var action='customer_delete';
-         
-        $.ajax({
-            type:"POST",
-            url: "action.php",
-            data: { id: id,action:action },
-            dataType: 'json',
-            success: function(result){
-            if (result == 1) {
-             window.location.reload(true);
-            }
-           }
-        }); 
-       }
-    });
-});
-</script>
 
 </body>
 </html>

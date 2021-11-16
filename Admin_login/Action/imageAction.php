@@ -19,7 +19,7 @@ if($_POST['action']=='image_details')
     $image = $_FILES['imageName']['name'];
     if(!empty($_POST)){
  
- echo $query = "INSERT INTO slider(imageName,link) VALUES ('$image','$link')";
+  $query = "INSERT INTO slider(imageName,link) VALUES ('$image','$link')";
       $result = mysqli_query($con, $query); 
                 echo 1;
      }

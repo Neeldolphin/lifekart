@@ -38,8 +38,8 @@ include('header.php');
                     <td><img class="img_width" src="http://localhost/lifekart/Admin_login/uploads/<?php echo $array[1];?>"></td>
                     <td><?php echo $array[2];?></td>
                     <td>
-                    <a href="javascript:void(0)" class="btn btn-primary delete" data-id="<?php echo $array[0];?>">Delete</a>
-                  <a href="javascript:void(0)" class="btn btn-primary change" data-id="<?php echo $array[0];?>">Edit</a>
+                    <a href="javascript:void(0)" class="btn btn-primary imagesdelete" data-id="<?php echo $array[0];?>">Delete</a>
+                  <a href="javascript:void(0)" class="btn btn-primary imageschange" data-id="<?php echo $array[0];?>">Edit</a>
                   </td>
                 </tr>
 
@@ -78,7 +78,7 @@ include('header.php');
                 </div>
               </div>
               <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary add" id="btn-save" value="create">Add Image
+                <button type="submit" class="btn btn-primary imagesadd" id="btn-save" value="create">Add Image
                 </button>
               </div>
             </form>
@@ -122,127 +122,6 @@ include('header.php');
         </div>
       </div>
     </div>
-
-<script type="text/javascript">
-$(document).ready( function () {
-    $('#datatab').DataTable();
-} );
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
-      $('#create').click(function () {
-       $('#custForm').trigger("reset");
-       $('#custCrudModal').html("Add New Image");
-       $('#ajax-modal').modal('show');
-    });
-        
-     $('body').on('click', '.add', function () {
-    $("#custForm").validate({
-        rules: {
-            imageName: "required"
-           },
-        messages: {
-            imageName: "Enter your Image",
-        },
-        submitHandler: function(form) { 
-        $('#custForm').submit(function() { 
-          var data=new FormData(this);
-          var action='image_details';
-          data.append('action',action);
-        $.ajax({
-            type:"POST",
-            url: "action.php",
-            data: data, 
-            mimeType:"multipart/form-data",
-            contentType: false, cache: false, processData:false,
-            dataType: 'json',
-            success: function(result){
-              if (result == 1) {
-             window.location.reload(true);
-            }else
-             alert('Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.');
-             }
-          });
-          });
-               form.submit();
-              }
-            });
-          });
-       });
-</script>
-
-
-<script type="text/javascript">
-$(document).ready(function(){
-
-$('body').on('click', '.change', function () {
-        var id = $(this).data('id');
-        var action='image_edit';
-       $('#editModal').html("Edit Image");
-       $('#edit-modal').modal('show');
-   
-    $.ajax({
-            type:"POST",
-            url: "action.php",
-            data: { id:id,action:action },
-            dataType: 'json', 
-            success: function(result){
-              $('#eid').val(result[0].id);
-              $('#showimg').html("<img src='http://localhost/lifekart/Admin_login/uploads/" + result[0].imageName +"'>");
-              $('#elink').val(result[0].link);
-           }
-        });
-
-    $("#editForm").on('submit',function(){
-        var id = $(this).data('id');
-        var action='image_update';
-        var data=new FormData(this);
-          data.append('action',action);
-
-        $.ajax({
-            type:"POST",
-            url: "action.php",
-            data: data,
-            mimeType:"multipart/form-data",
-            contentType: false, cache: false, processData:false,
-            dataType: 'json',
-            success: function(result){
-              if (result == 1) {
-             window.location.reload(true);
-            }else{
-             alert('Sorry,unable update.');
-             }
-           }
-          });
-            });
-          });
-       });
-
-</script>
-
-<script type="text/javascript">
-$(document).ready(function($){
-
- $('body').on('click', '.delete', function () {
-       if (confirm("Delete Record?") == true) {
-        var id = $(this).data('id');
-        var action='image_delete';
-        $.ajax({
-            type:"POST",
-            url: "action.php",
-            data: { id: id,action:action},
-            dataType: 'json',
-            success: function(result){
-            if (result == 1) {
-             window.location.reload(true);
-            }
-           }
-        }); 
-       }
-    });
-});
-</script>
 
 </body>
 </html>

@@ -15,7 +15,6 @@
   <style>
   <?php 
  include 'style.css';
- include 'connection.php';
  ?>
   </style>
 </head>

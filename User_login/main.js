@@ -34,8 +34,7 @@ $(document).ready(function(){
                         window.location.reload(true);
                         }
             });
-        }
-        else{
+        }else{
             $('#message').html("Promocode can not be blank .Enter a Valid Promocode !");
         }
     });   
@@ -56,15 +55,45 @@ $(document).ready(function(){
     });   
 
     $("#dropdown").on('change', function(){
-        var action ='sort_dropdown';
         var datasend = $(this).val();
         var id =$('#sortBy').val();
-        window.location.href = 'http://localhost/lifekart/User_login/category.php?page=category&id='+id +'&datasend='+datasend; 
+        var page_id =$('#pageId').val();
+
+        window.location.href = 'http://localhost/lifekart/User_login/category.php?page=category&id='+id+'&datasend='+datasend+'&page_id='+page_id; 
         
     });  
 
 
+    $(".totalPages").on('click', function(){
+        var category_id =$('#sortBy').val();
+        var orderby = $('#page').val();
+        var id =$(this).html();
+         window.location.href = 'http://localhost/lifekart/User_login/category.php?id='+category_id+'&datasend='+orderby+'&page_id='+id;
+    });  
 
+        $("#search_button").click(function() {
+            var name = $('#search').val();
+            if($('#search').val()!=''){
+                $.ajax({
+                    type: "POST",
+                    url: "livesearch.php",
+                    data: {
+                        search: name
+                    },
+                    dataType: 'json', 
+                    success: function(html) {
+                      if(html.pid!= null){
+                        window.location.href = 'http://localhost/lifekart/User_login/productDetails.php?page=array&id='+html.pid;
+                      }
+                      else if(html.cid!= null){
+                      window.location.href = 'http://localhost/lifekart/User_login/category.php?page=category&id='+html.cid;
+                    }else{$('#message').html("Enter a Valid Search!");}
+     
+                   }
+                });
+               }else{$('#message').html("Enter a Valid Search!");}
+              });
+           
 });
 
 

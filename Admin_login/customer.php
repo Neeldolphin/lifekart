@@ -1,5 +1,6 @@
 <?php 
 include('header.php');
+include 'class.php';
  ?>
 <body>
 <div class="w3-top">
@@ -29,14 +30,10 @@ include('header.php');
               <tbody>
 
 				<?php
-				include('connection.php');  
-				$query="select * from customer_info"; 
-				$result=mysqli_query($con,$query);
+          $cate=new customer();
+          $rows=$cate->customerInfo();
+          foreach($rows as $array){
 				?>
-
-				<?php if ($result->num_rows > 0): ?>
-				<?php while($array=mysqli_fetch_row($result)): ?>
-
                 <tr>
                     <th scope="row"><?php echo $array[0];?></th>
                     <td><?php echo $array[1];?></td>
@@ -51,9 +48,8 @@ include('header.php');
                   </td>
                 </tr>
 
-                <?php endwhile; ?>
-                <?php endif; ?>
                 <?php mysqli_free_result($result); ?>
+                <?php } ?>
               </tbody>
           </table>
       			</div>

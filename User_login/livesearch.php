@@ -1,6 +1,5 @@
 <?php
 include 'class.php';
-include 'connection.php';
 if (isset($_POST['search'])) {
 
   $Name = $_POST['search'];

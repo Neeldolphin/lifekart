@@ -145,6 +145,38 @@ class product extends database{
             $query = "DELETE FROM Product_info WHERE Id=".$id;
             $result =mysqli_query($this->con,$query);
         }
+
+        public function removeimage($post)
+        {
+            $id = $post['id'];
+            $key = $post['imgname'];
+            $query="SELECT * from Product_info WHERE Id =".$id;
+            $result = mysqli_query($this->con,$query);
+            while($row = mysqli_fetch_array($result)){
+                    $image=$row[4];
+            }
+            $img1=unserialize($image);
+            
+
+            if (($key = array_search($key, $img1)) !== false) {
+                unset($img1[$key]);
+            }
+                $img2=array_values($img1);
+                $img2=serialize($img2);
+                
+            echo $query = "UPDATE Product_info SET image='". $img2. "'WHERE Id=".$id;
+            $result = mysqli_query($this->con, $query);
+        }
+        public function productInfo()
+        {
+            $query="select * from Product_info INNER JOIN category_info ON Product_info.category=category_info.id "; 
+            $result=mysqli_query($this->con,$query);
+            while($product=mysqli_fetch_row($result)){
+                $data[]=$product;
+            }
+            return $data;
+        }
+       
 }
 
 class category extends database{
@@ -219,6 +251,18 @@ class category extends database{
             $query = "DELETE FROM category_info WHERE id=".$id;
             $result =mysqli_query($this->con,$query);
         }
+
+        public function categoryInfo()
+        {
+            $query="select * from category_info"; 
+            $result=mysqli_query($this->con,$query);
+            while($category=mysqli_fetch_row($result)){
+                $data[]=$category;
+            }
+            return $data;
+        }
+
+
 }
 
 class customer extends database{
@@ -260,6 +304,17 @@ class customer extends database{
             $query = "DELETE FROM customer_info WHERE Id=".$id;
             $result =mysqli_query($this->con,$query);
         }
+
+        public function customerInfo()
+        {
+            
+				$query="select * from customer_info"; 
+				$result=mysqli_query($this->con,$query);
+                while($customer=mysqli_fetch_row($result)){
+                    $data[]=$customer;
+                }
+                return $data;
+        }
 }
 
 class coupen extends database{
@@ -300,7 +355,152 @@ class coupen extends database{
             $query = "DELETE FROM coupen_code WHERE coupen_id=".$id;
             $result =mysqli_query($this->con,$query);
         }
+        
+        public function coupenInfo()
+        {
+            
+			$query="select * from coupen_code"; 
+            $result=mysqli_query($this->con,$query);
+                while($coupen=mysqli_fetch_row($result)){
+                    $data[]=$coupen;
+                }
+                return $data;
+        }
+
+        
 }
 
 
-?>
+class carousel extends database{
+    public function __construct()
+    {
+     parent::__construct();   
+    }
+        public function insertcarousel($post,$files)
+        {
+            $link = $post['link'];
+
+            $targetDir = "uploads/";
+            $fileName = basename($files["imageName"]["name"]);
+            $targetFilePath = $targetDir . $fileName;
+            $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+
+            if($files['imageName']['name']){
+
+            $allowTypes = array('jpg','png','jpeg','gif');
+            if(in_array($fileType, $allowTypes)){
+
+            move_uploaded_file($files['imageName']['tmp_name'], $targetFilePath); 
+        
+            $image = $files['imageName']['name'];
+            if(!empty($post)){
+        
+        $query = "INSERT INTO slider(imageName,link) VALUES ('$image','$link')";
+            $result = mysqli_query($this->con, $query); 
+                        echo 1;
+            }
+            }else{
+                echo 0;
+            }
+          }  
+
+        }
+        
+        public function editcarousel($post)
+        {
+            $id = $post['id'];
+            $query="SELECT * from slider WHERE id =".$id;
+            $result = mysqli_query($this->con,$query);
+            $data = array();
+            while ($cust = mysqli_fetch_assoc($result)) {
+                $data[] = $cust;
+            } 
+            if($data) {
+             echo json_encode($data);
+            } 
+        }
+
+        public function updatecarousel($post,$files)
+        {
+            if(!empty($post['eid'])){
+
+                $targetDir = "uploads/";
+                $fileName = basename($files["eimageName"]["name"]);
+                $targetFilePath = $targetDir . $fileName;
+                $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+            
+                 if(!empty($files['eimageName']['name'])){
+            
+                $allowTypes = array('jpg','png','jpeg','gif');
+                 if(in_array($fileType, $allowTypes)){
+            
+                move_uploaded_file($files['eimageName']['tmp_name'], $targetFilePath); 
+             
+                $image = $files['eimageName']['name'];
+            
+            
+             $query = "UPDATE slider SET imageName='". $image . "' WHERE id=".$_POST['eid'];
+                $result = mysqli_query($this->con, $query);
+            }
+            }
+            $query = "UPDATE slider SET link='" .$post['elink']."' WHERE id=".$_POST['eid'];
+             $result = mysqli_query($this->con, $query);
+             echo 1;
+             }
+        }
+
+        public function deletecarousel($post)
+        {       
+            $id = $post['id'];
+            $query = "DELETE FROM slider WHERE id=".$id;
+            $result =mysqli_query($this->con,$query);
+            echo 1;
+        }
+        public function carouselInfo()
+        {
+            
+				$query="select * from slider"; 
+				$result=mysqli_query($this->con,$query);
+                while($carousel=mysqli_fetch_row($result)){
+                    $data[]=$carousel;
+                }
+                return $data;
+        }
+
+}
+
+
+
+class login extends database{
+    public function __construct()
+    {
+     parent::__construct();   
+    }
+
+    public function admin($post,$request)
+    {
+        if (isset($post['username'])) {
+            $username = stripslashes($request['username']);    // removes backslashes
+            $username = mysqli_real_escape_string($this->con, $username);
+            $password = stripslashes($request['password']);
+            $password = mysqli_real_escape_string($this->con, $password);
+            // Check user is exist in the database
+            $query    = "SELECT * FROM `Admin_login` WHERE username='$username'
+                         AND password='$password'";
+            $result = mysqli_query($this->con, $query) or die(mysqli_error($this->con));
+            $rows = mysqli_num_rows($result);
+            $array = mysqli_fetch_array($result);
+            if ($rows == 1) {
+                $_SESSION['username'] = $username;
+                $_SESSION['id'] = $array[0];
+                // Redirect to user home page
+                header("Location: home.php");
+        }else {
+                echo 'Incorrect Username/password.';
+        }
+    }
+    
+    }
+        
+        
+}

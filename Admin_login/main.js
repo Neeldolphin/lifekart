@@ -30,7 +30,7 @@ $('body').on('click', '.categoeryadd', function () {
 
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: data, // get all form field value in 
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
@@ -59,7 +59,7 @@ $('body').on('click', '.categorychange', function () {
    
     $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: { id:id,action:action },
             dataType: 'json', 
             success: function(result){
@@ -78,7 +78,7 @@ $('body').on('click', '.categorychange', function () {
 
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: data,
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
@@ -103,7 +103,7 @@ $(document).ready(function($){
          
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: { id:id,action:action },
             dataType: 'json',
             success: function(result){
@@ -136,7 +136,7 @@ $('body').on('click', '.customeradd', function(){
 
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: data,
             dataType: 'json',
             mimeType:"multipart/form-data",
@@ -160,7 +160,7 @@ $(document).ready(function(){
    
       $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: { id:id,action:action},
             dataType: 'json',
             ContentType: 'multipart/form-data', 
@@ -196,7 +196,7 @@ $(document).ready(function(){
 
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: {
               Id: $('#eid').val(),
                FirstName: $('#eFirstName').val(),
@@ -227,7 +227,7 @@ $(document).ready(function($){
          
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: { id: id,action:action },
             dataType: 'json',
             success: function(result){
@@ -269,7 +269,7 @@ $(document).ready(function(){
           data.append('action',action);
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: data, 
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
@@ -300,7 +300,7 @@ $(document).ready(function(){
 
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: { id:id,action:action },
             dataType: 'json', 
             success: function(result){
@@ -329,7 +329,7 @@ $(document).ready(function(){
 
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data:data,
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
@@ -355,7 +355,7 @@ $(document).ready(function($){
         var action='product_delete';
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: { id: id,action:action },
             dataType: 'json',
             success: function(result){
@@ -415,7 +415,7 @@ $(document).ready(function(){
           data.append('action',action);
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: data, 
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
@@ -444,7 +444,7 @@ $('body').on('click', '.imageschange', function () {
    
     $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: { id:id,action:action },
             dataType: 'json', 
             success: function(result){
@@ -462,7 +462,7 @@ $('body').on('click', '.imageschange', function () {
 
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: data,
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
@@ -488,7 +488,7 @@ $(document).ready(function($){
         var action='image_delete';
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: { id: id,action:action},
             dataType: 'json',
             success: function(result){
@@ -518,7 +518,7 @@ $(document).ready(function(){
 
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: data,
             dataType: 'json',
             mimeType:"multipart/form-data",
@@ -542,7 +542,7 @@ $(document).ready(function(){
    
       $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: { id:id,action:action},
             dataType: 'json',
             ContentType: 'multipart/form-data', 
@@ -560,7 +560,7 @@ $(document).ready(function(){
 
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: {
                 coupen_id: $('#eid').val(),
                 coupen_name: $('#eCoupenCode').val(),
@@ -586,7 +586,7 @@ $(document).ready(function($){
          
         $.ajax({
             type:"POST",
-            url: "action.php",
+            url: "control.php",
             data: { id: id,action:action },
             dataType: 'json',
             success: function(result){

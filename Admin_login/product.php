@@ -3,6 +3,7 @@
   // ini_set('display_startup_errors', 1);
   // error_reporting(E_ALL);
 include('header.php');
+include 'class.php';
  ?>
 <body>
 <div class="w3-top">
@@ -34,14 +35,11 @@ include('header.php');
               </thead>
               <tbody>
 				<?php
-        include('connection.php');
-      //  $query="select * from Product_info"; 
-     $query="select * from Product_info INNER JOIN category_info ON Product_info.category=category_info.id "; 
-				$result=mysqli_query($con,$query);
+        $cate=new product();
+        $rows=$cate->productInfo();
+        foreach($rows as $array){
 				?>
-
-				<?php if ($result->num_rows > 0): ?>
-				<?php while($array=mysqli_fetch_row($result)): 
+				<?php 
           $var=unserialize($array[4]);
           ?>
                 <tr>
@@ -61,10 +59,8 @@ include('header.php');
                      <a href="javascript:void(0)" class="btn btn-primary productchange" data-id="<?php echo $array[0];?>">Edit</a>
                   </td>
                 </tr>
-
-                <?php endwhile; ?>
-                <?php endif; ?>
                 <?php mysqli_free_result($result); ?>
+                <?php } ?>
               </tbody>
           </table>
       			</div>

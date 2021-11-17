@@ -80,6 +80,7 @@
                 <div class="form-group">
                 <label for="promo_code"><b>Apply Promocode:</b></label> 
                 <td><input type="text" class="form-control" id="coupen_code"  placeholder="Enter Promocode" name="coupen_code"></td>
+                <p id="mes"></p>
                 <td><button class="btn btn-success btn-sm" id="apply" >Apply</button></td>
                 <?php if(isset($_SESSION['coupen_name'])){ ?>
                 <label>Applied Promocode is:<?php echo $_SESSION['coupen_name']?></label> 

@@ -1,5 +1,4 @@
 <?php
-include 'connection.php';
 include 'class.php';
                      $id = (int)$_POST['id'];
                      $check= new cart();

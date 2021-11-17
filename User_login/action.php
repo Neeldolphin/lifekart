@@ -1,5 +1,4 @@
 <?php
-include 'connection.php';
 include 'class.php';
 session_start();
 

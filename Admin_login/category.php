@@ -1,5 +1,9 @@
 <?php 
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 include('header.php');
+include 'class.php';
  ?>
 <body>
 <div class="w3-top">
@@ -25,15 +29,11 @@ include('header.php');
               </thead>
               <tbody>
 
-				<?php
-				include('connection.php');  
-				$query="select * from category_info"; 
-				$result=mysqli_query($con,$query);
+				<?php 
+         $cate=new category();
+         $rows=$cate->categoryInfo();
+         foreach($rows as $array){
 				?>
-
-				<?php if ($result->num_rows > 0): ?>
-				<?php while($array=mysqli_fetch_row($result)): ?>
-
                 <tr>
                     <th scope="row"><?php echo $array[0];?></th>
                     <td><?php echo $array[1];?></td>
@@ -44,10 +44,7 @@ include('header.php');
                   <a href="javascript:void(0)" class="btn btn-primary categorychange" data-id="<?php echo $array[0];?>">Edit</a>
                   </td>
                 </tr>
-
-                <?php endwhile; ?>
-                <?php endif; ?>
-                <?php mysqli_free_result($result); ?>
+                <?php }?>
               </tbody>
           </table>
       			</div>

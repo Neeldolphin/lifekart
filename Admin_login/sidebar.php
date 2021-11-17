@@ -22,7 +22,6 @@
     <a href="http://localhost/lifekart/Admin_login/customer.php">Customer</a>
     <a href="http://localhost/lifekart/Admin_login/imageslider.php">Image Slider</a>
     <a href="http://localhost/lifekart/Admin_login/coupen.php">Coupen</a>
-   <a href="#About">About</a>
 </div>
 
 

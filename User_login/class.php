@@ -165,6 +165,15 @@ class product_details extends database{
                 return $data;
                 }
         }
+        public function Pagination($id)
+        {
+            $perPage = 2;
+            $query = "select * from Product_info where category =".$id; 
+            $result = mysqli_query($this->con, $query);
+            $totalRecords = mysqli_num_rows($result);
+            $totalPages = ceil($totalRecords/$perPage);
+            return $totalPages;
+        }
 }
 
 
@@ -200,8 +209,13 @@ class log_in extends database {
     {
      parent::__construct();   
     }
-    public function signIn($username,$password)
+    public function signIn($post,$request)
     {
+        if (isset($post['username'])) {
+            $username = stripslashes($request['username']);    // removes backslashes
+            $username = mysqli_real_escape_string($this->con, $username);
+            $password = stripslashes($request['password']);
+            $password = mysqli_real_escape_string($this->con, $password);
         $query = "SELECT * FROM `customer_signup` WHERE username='$username'
                      AND password='" . md5($password) . "'";
         $result = mysqli_query($this->con, $query) ;
@@ -219,6 +233,7 @@ class log_in extends database {
                   <p class='link'>Click here to <a href='home.php'>Home</a> again.</p>
                   </div>";
         }
+    }
     }
 
 

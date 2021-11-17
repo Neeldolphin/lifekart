@@ -1,5 +1,6 @@
 <?php 
 include('header.php');
+include 'class.php';
  ?>
 <body>
 <div class="w3-top">
@@ -25,14 +26,10 @@ include('header.php');
               <tbody>
 
 				<?php
-				include('connection.php');  
-				$query="select * from slider"; 
-				$result=mysqli_query($con,$query);
+        $cate=new carousel();
+        $rows=$cate->carouselInfo();
+        foreach($rows as $array){
 				?>
-
-				<?php if ($result->num_rows > 0): ?>
-				<?php while($array=mysqli_fetch_row($result)): ?>
-
                 <tr>
                     <th scope="row"><?php echo $array[0];?></th>
                     <td><img class="img_width" src="http://localhost/lifekart/Admin_login/uploads/<?php echo $array[1];?>"></td>
@@ -43,9 +40,8 @@ include('header.php');
                   </td>
                 </tr>
 
-                <?php endwhile; ?>
-                <?php endif; ?>
                 <?php mysqli_free_result($result); ?>
+                <?php } ?>
               </tbody>
           </table>
       			</div>

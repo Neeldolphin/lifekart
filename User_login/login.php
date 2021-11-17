@@ -8,19 +8,11 @@
 <body>
 <?php
 include 'class.php';
-  require('connection.php');
     session_start();
-    // When form submitted, check and create user session.
-    if (isset($_POST['username'])) {
-        $username = stripslashes($_REQUEST['username']);    // removes backslashes
-        $username = mysqli_real_escape_string($con, $username);
-        $password = stripslashes($_REQUEST['password']);
-        $password = mysqli_real_escape_string($con, $password);
-        // Check user is exist in the database
+    $post=$_POST;
+    $request=$_REQUEST;
         $login=new log_in();
-        $login->signIn($username,$password);
-
-    } else {
+        $login->signIn($post,$request);
 ?>
     <form class="form" method="post" name="login">
         <h1 class="login-title">Login</h1>
@@ -29,8 +21,5 @@ include 'class.php';
         <input type="submit" value="Login" name="submit" class="login-button"/>
         <p class="link"><a href="signUp.php">New Sign Up</a></p>
   </form>
-<?php
-    }
-?>
 </body>
 </html>

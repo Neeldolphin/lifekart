@@ -7,6 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
   <ul class="nav navbar-nav ml-auto">
   <form class="navbar-form form-inline ml-auto">
+    <p id="message" style="color:white;"></p>
 			<div class="input-group search-box">
 				<input type="text" class="form-control" id="search">
 				<div class="input-group-append">
@@ -37,27 +38,3 @@
 <?php } ?>
   </div>  
 </nav>
-
-<script>
-$(document).ready(function() {
-   $("#search_button").click(function() {
-       var name = $('#search').val();
-           $.ajax({
-               type: "POST",
-               url: "livesearch.php",
-               data: {
-                   search: name
-               },
-               dataType: 'json', 
-               success: function(html) {
-                 if(html.pid!= null){
-                   window.location.href = 'http://localhost/lifekart/User_login/productDetails.php?page=array&id='+html.pid;
-                 }
-                 if(html.cid!= null){
-                 window.location.href = 'http://localhost/lifekart/User_login/category.php?page=category&id='+html.cid;
-               }
-              }
-           });
-         });
-      });
-</script>

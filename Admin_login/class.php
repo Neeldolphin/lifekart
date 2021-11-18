@@ -176,6 +176,15 @@ class product extends database{
             }
             return $data;
         }
+        public function categoryInfo()
+        {
+            $query="SELECT * FROM category_info";
+            $result = mysqli_query($this->con,$query);
+            while($category=mysqli_fetch_row($result)){
+                $data[]=$category;
+            }
+            return $data;
+        }
        
 }
 

@@ -1,7 +1,7 @@
 <?php 
-  // ini_set('display_errors', 1);
-  // ini_set('display_startup_errors', 1);
-  // error_reporting(E_ALL);
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ALL);
 include('header.php');
 include 'class.php';
  ?>
@@ -55,11 +55,10 @@ include 'class.php';
                     <td><?php echo $array[8];?></td>
                     <td><?php echo $array[9];?></td>
                     <td>
-                    <a href="javascript:void(0)" class="btn btn-primary productdelete" data-id="<?php echo $array[0];?>">Delete</a>
-                     <a href="javascript:void(0)" class="btn btn-primary productchange" data-id="<?php echo $array[0];?>">Edit</a>
+                    <a  class="btn btn-primary productdelete" data-id="<?php echo $array[0];?>">Delete</a>
+                     <a class="btn btn-primary productchange" data-id="<?php echo $array[0];?>">Edit</a>
                   </td>
-                </tr>
-                <?php mysqli_free_result($result); ?>
+                </tr> 
                 <?php } ?>
               </tbody>
           </table>
@@ -90,12 +89,11 @@ include 'class.php';
                   <select class="form-control" name="category" id="category">
                       <option value=""></option>
                           <?php
-                              $query="SELECT * FROM category_info";
-                              $result = mysqli_query($con,$query);
-                                 while($array = mysqli_fetch_array($result))
-                                {
-                          ?>
-                                  <option value="<?php echo $array['id']; ?>"><?php echo $array['CName']; ?>
+                              $cate=new product();
+                              $rows=$cate->categoryInfo();
+                              foreach($rows as $array){
+                              ?>
+                                  <option value="<?php echo $array[0]; ?>"><?php echo $array[1]; ?>
                                     </option>
                           <?php
                                 }
@@ -182,13 +180,12 @@ include 'class.php';
                 <div class="col-sm-9">
                   <select class="form-control" name="ecategory" id="ecategory">
                       <option value=""></option>
-                          <?php
-                              $query="SELECT * FROM category_info";
-                              $result = mysqli_query($con,$query);
-                                 while($array = mysqli_fetch_array($result))
-                                {
-                          ?>
-                                  <option value="<?php echo $array['id']; ?>"><?php echo $array['CName']; ?>
+                      <?php
+                              $cate=new product();
+                              $rows=$cate->categoryInfo();
+                              foreach($rows as $array){
+                              ?>
+                                  <option value="<?php echo $array[0]; ?>"><?php echo $array[1]; ?>
                                     </option>
                           <?php
                                 }

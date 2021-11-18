@@ -20,23 +20,23 @@
                         <th>Remove</th>
                     </thead>
                     <tbody>
-                        <?php 
-                                 $index=0;
+                    <p id="msg1" class="msg1"></p></td>
+                        <?php    $sr=1;
+                                 $index=0;$shipping=0;
                                 $total=0;
                                 $session=$_SESSION;
                                 $view= new cart();
                                 $rows=$view->view_cart($session);
                                 if(!empty($_SESSION['cart'])){
                                  foreach($rows as $row){
-                                     $sr=1;
-                                     $shipping=0;
                                     ?>
                                     <tr>
                                     <td><?php echo $sr; ?></td>
                                         <td><?php echo $row['pname']; ?></td>
                                         <td><?php echo number_format($row['price'], 2); ?></td>
+                                        <td><input type="text" class="form-control quantity1" data-id="<?php echo $row['Id']?>" value="<?php echo $_SESSION['qty'][$index]; ?>" name="qty_<?php echo $index; ?>"></td>
+                                        <input type="hidden" class="msg" >
                                         <input type="hidden" name="indexes[]"  value="<?php echo $index; ?>">
-                                        <td><input type="text" class="form-control" value="<?php echo $_SESSION['qty'][$index]; ?>" name="qty_<?php echo $index; ?>"></td>
                                         <td><?php echo number_format($_SESSION['qty'][$index]*$row['price'], 2); ?></td>
                                         <?php $total+=$_SESSION['qty'][$index]*$row['price']; ?>
                                         <?php if(isset($_SESSION['coupen_discount'])){ ?>
@@ -49,9 +49,9 @@
                                     </tr>
                                     <?php
                                     $index ++;
-                                    $sr++;
+                                    $sr ++;
                                 }
-                            }
+                             }
                                 ?>
                         <tr>
                             <td colspan="4" align="right"><b>Total</b></td>
@@ -71,7 +71,7 @@
                         </tr>
                     </tbody>
                         </table>
-                <button type="submit" class="btn btn-success" name="save">Save Changes</button>
+                <button type="submit" class="btn btn-success qtybutton" name="save">Save Changes</button>
                 <a href="clear_cart.php" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Clear Cart</a>
                 <a href="checkout.php" class="btn btn-success"><span class="glyphicon glyphicon-check"></span> Checkout</a>
                 </form>

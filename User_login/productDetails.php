@@ -58,12 +58,11 @@ include 'navbar.php';
                 <p><b>Name :<?php echo $array[1];?></b></p> 
                 <p><b>Price :<?php echo $array[5];?></b></p>
                 <p><b>Description :<?php echo $array[6];?></b></p> 
-                <p><b>Status :<?php echo $array[9];?></b></p> 
             <div class="col-lg-10 mt-4">
                 <div class="row">
                     <div class="col-lg-4 pb-4">
                         <form method='POST' action="action.php">
-                        <p>QTY<input type="number"  id="quantity" name="quantity" class="quantity" ></p>
+                        <p>QTY<input type="number"  id="quantity" name="quantity" class="quantity" min="1" ></p>
                         <input type="hidden" value="<?php echo $array[0];?>" class="msg" id="msg" name="msg">
                         <input type="hidden" value="productdetail" name="action">
                         <p id="msg1" class="msg1"></p>

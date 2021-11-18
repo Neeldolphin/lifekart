@@ -7,7 +7,6 @@ $(document).ready( function () {
     });
 } );
 
-
 $(document).ready(function(){
       $('#create').click(function () {
        $('#custForm').trigger("reset");
@@ -115,13 +114,13 @@ $(document).ready(function($){
        }
     });
 });
-
 //////////////categoery////////////////
 
 
+
+
+
 ////////////////////////customer////////////////////////////////
-
-
 $(document).ready(function(){
       $('#create').click(function () {
        $('#custForm').trigger("reset");
@@ -243,9 +242,9 @@ $(document).ready(function($){
 ////////////////////////customer////////////////////////////////
 
 
+
+
 ////////////////////product////////////////////////////
-
-
 $(document).ready(function(){
       $('#create').click(function () {
        $('#custForm').trigger("reset");
@@ -387,12 +386,13 @@ $(document).ready(function(){
         });
 }); 
 }); 
-
 ////////////////////product////////////////////////////
 
 
-/////////////////image slider////////////////////////
 
+
+
+/////////////////image slider////////////////////////
 $(document).ready(function(){
       $('#create').click(function () {
        $('#custForm').trigger("reset");
@@ -501,6 +501,11 @@ $(document).ready(function($){
     });
 });
 /////////////////image slider////////////////////////
+
+
+
+
+
 
 //////////////////coupen//////////////////////////////////////
 $(document).ready(function(){

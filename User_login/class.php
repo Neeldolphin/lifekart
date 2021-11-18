@@ -55,7 +55,7 @@ class cart extends database{
     
     public function qty_check($id)
     {
-        $query="select qty from Product_info where id=".$id; 
+        $query="select qty from Product_info where Id=".$id; 
         $result=mysqli_query($this->con,$query);
         $array= mysqli_fetch_array($result);
         return $array;

@@ -127,7 +127,7 @@ include 'class.php';
                 </div>
               </div>
               <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary edit" id="ebtn-save" value="create">Edit Product
+                <button type="submit" class="btn btn-primary edit" id="ebtn-save" value="create">Edit Category
                 </button>
               </div>
             </form>

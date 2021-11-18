@@ -59,7 +59,6 @@ include 'navbar.php';
         </nav>  
 	</div>
 </div>
-        </div>
 <div class="footer">
 <?php
 include 'footer.php';

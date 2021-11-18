@@ -10,6 +10,7 @@
 			$rows=$productM->product_info($id,$order,$page_id);
 			foreach ($rows as $array) {
             $var=unserialize($array[4]);
+			if($array[9] =='Enable'){
 	   ?>
 						<div class="col-sm-3">
 							<div class="thumb-wrapper">
@@ -24,5 +25,6 @@
 								</div>						
 							</div>
 						</div>			
-				 <?php }?>
+				 <?php }
+				 }?>
 </div>

@@ -1,5 +1,6 @@
 <?php 
 include('header.php');
+include 'class.php';
  ?>
 <body>
 <div class="w3-top">
@@ -29,14 +30,10 @@ include('header.php');
               <tbody>
 
 				<?php
-				include('connection.php');  
-				$query="select * from customer_info"; 
-				$result=mysqli_query($con,$query);
+          $cate=new customer();
+          $rows=$cate->customerInfo();
+          foreach($rows as $array){
 				?>
-
-				<?php if ($result->num_rows > 0): ?>
-				<?php while($array=mysqli_fetch_row($result)): ?>
-
                 <tr>
                     <th scope="row"><?php echo $array[0];?></th>
                     <td><?php echo $array[1];?></td>
@@ -45,16 +42,14 @@ include('header.php');
                     <td><?php echo $array[4];?></td>
                     <td><?php echo $array[5];?></td>
                     <td><?php echo $array[6];?></td>
-                    <td><?php echo $array[7];?></td>
                     <td>
-                    <a href="javascript:void(0)" class="btn btn-primary delete" data-id="<?php echo $array[0];?>">Delete</a>
-                    <a href="javascript:void(0)" class="btn btn-primary edit" data-id="<?php echo $array[0];?>">Edit</a>
+                    <a href="javascript:void(0)" class="btn btn-primary customerdelete" data-id="<?php echo $array[0];?>">Delete</a>
+                    <a href="javascript:void(0)" class="btn btn-primary customeredit" data-id="<?php echo $array[0];?>">Edit</a>
                   </td>
                 </tr>
 
-                <?php endwhile; ?>
-                <?php endif; ?>
                 <?php mysqli_free_result($result); ?>
+                <?php } ?>
               </tbody>
           </table>
       			</div>
@@ -111,7 +106,7 @@ include('header.php');
                 </div>
               </div>
               <div class="col-sm-offset-2 col-sm-9">
-                <button type="submit" class="btn btn-primary add" id="btn-save" value="create">Add Customer
+                <button type="submit" class="btn btn-primary customeradd" id="btn-save" value="create">Add Customer
                 </button>
               </div>
             </form>
@@ -180,152 +175,6 @@ include('header.php');
         </div>
       </div>
     </div>
-
-
-<script type="text/javascript">
-$(document).ready( function () {
-    $('#datatab').DataTable();
-} );
-</script>
-
-
-<script type="text/javascript">  
-$(document).ready(function(){
-      $('#create').click(function () {
-       $('#custForm').trigger("reset");
-       $('#custCrudModal').html("Add New product");
-       $('#ajax-modal').modal('show');
-    });
-        
-     $('body').on('click', '.add', function () {
-    $("#custForm").validate({
-        rules: {
-            FirstName: "required",
-            LastName: "required",
-            Address:"required",
-            phone_number: {
-              required: true,
-                digits:true,
-                minlength:10,
-                maxlength:10
-            }
-           },
-        messages: {
-            FirstName: "Enter your Name",
-        },
-        submitHandler: function(form) { 
-        $('#custForm').submit(function() { 
-        $.ajax({
-            type:"POST",
-            url: "add_customer.php",
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(result){
-             window.location.reload(true);
-             }
-          });
-          });
-               form.submit();
-              }
-            });
-          });
-       });
-
-</script>
-
-
-
-
-<script type="text/javascript">  
-$(document).ready(function(){
-
-     $('body').on('click', '.edit', function () {
-      var id = $(this).data('id');
-             $('#editModal').html("Edit Category");
-              $('#edit-modal').modal('show');
-   
-      $.ajax({
-            type:"POST",
-            url: "edit_customer.php",
-            data: { id:id },
-            dataType: 'json', 
-            success: function(result){
-              $('#eid').val(result[0].Id);
-              $('#eFirstName').val(result[0].FirstName);
-              $('#eLastName').val(result[0].LastName);
-              $('#eEmail').val(result[0].Email);
-              $('#ephone_number').val(result[0].phone_number);
-              $('#eAddress').val(result[0].Address);
-              $('#ecountry').val(result[0].country);
-           }
-        });
-
-    $("#editForm").validate({
-        rules: {
-            FirstName: "required",
-            LastName: "required",
-            Address:"required",
-            phone_number: {
-              required: true,
-                digits:true,
-                minlength:10,
-                maxlength:10
-            }
-           },
-        messages: {
-            FirstName: "Enter your Name",
-        },
-        submitHandler: function(form) { 
-        var id = $(this).data('id');
-
-        $.ajax({
-            type:"POST",
-            url: "update_customer.php",
-            data: {
-              Id: $('#eid').val(),
-               FirstName: $('#eFirstName').val(),
-               LastName: $('#eLastName').val(),
-                Email: $('#eEmail').val(),
-                 phone_number: $('#ephone_number').val(),
-                 Address: $('#eAddress').val(),
-                 country: $('#ecountry').val()
-            },
-            dataType: 'json',
-            success: function(result){
-             window.location.reload(true);
-             }
-          });
-               form.submit();
-              }
-            });
-          });
-       });
-
-</script>
-
-
-<script type="text/javascript">
-$(document).ready(function($){
-
- $('body').on('click', '.delete', function () {
-       if (confirm("Delete Record?") == true) {
-        var id = $(this).data('id');
-         
-        $.ajax({
-            type:"POST",
-            url: "customer_delete.php",
-            data: { id: id },
-            dataType: 'json',
-            success: function(result){
-            if (result == 1) {
-             window.location.reload(true);
-            }
-           }
-        }); 
-       }
-    });
-});
-</script>
 
 </body>
 </html>

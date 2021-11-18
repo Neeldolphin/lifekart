@@ -1,5 +1,9 @@
 <?php 
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 include('header.php');
+include 'class.php';
  ?>
 <body>
 <div class="w3-top">
@@ -25,29 +29,22 @@ include('header.php');
               </thead>
               <tbody>
 
-				<?php
-				include('connection.php');  
-				$query="select * from category_info"; 
-				$result=mysqli_query($con,$query);
+				<?php 
+         $cate=new category();
+         $rows=$cate->categoryInfo();
+         foreach($rows as $array){
 				?>
-
-				<?php if ($result->num_rows > 0): ?>
-				<?php while($array=mysqli_fetch_row($result)): ?>
-
                 <tr>
                     <th scope="row"><?php echo $array[0];?></th>
                     <td><?php echo $array[1];?></td>
                     <td><img class="img_width" src="http://localhost/lifekart/Admin_login/uploads/<?php echo $array[2];?>"></td>
                     <td><?php echo $array[3];?></td>
                     <td>
-                    <a href="javascript:void(0)" class="btn btn-primary delete" data-id="<?php echo $array[0];?>">Delete</a>
-                  <a href="javascript:void(0)" class="btn btn-primary change" data-id="<?php echo $array[0];?>">Edit</a>
+                    <a href="javascript:void(0)" class="btn btn-primary categorydelete" data-id="<?php echo $array[0];?>">Delete</a>
+                  <a href="javascript:void(0)" class="btn btn-primary categorychange" data-id="<?php echo $array[0];?>">Edit</a>
                   </td>
                 </tr>
-
-                <?php endwhile; ?>
-                <?php endif; ?>
-                <?php mysqli_free_result($result); ?>
+                <?php }?>
               </tbody>
           </table>
       			</div>
@@ -86,7 +83,8 @@ include('header.php');
                 </div>
               </div>
               <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary add" id="btn-save" value="create">Add Product
+              
+                <button type="submit" class="btn btn-primary categoeryadd" id="btn-save" value="create">Add Product
                 </button>
               </div>
             </form>
@@ -116,19 +114,20 @@ include('header.php');
                 </div>
               </div>  
               <div class="form-group">
+              <div class="img_width" id="showimg"></div>
                 <label for="file" class="col-sm-6 control-label">Image</label>
                 <div class="col-sm-12">
-                  <input type=" " class="form-control" id="eimage" name="eimage" placeholder="" value="" required="">
+                  <input type="file" class="form-control" id="eimage" name="eimage" placeholder="" value="" >
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-6 control-label">Description</label>
                 <div class="col-sm-12">
-                  <input type="text" class="form-control" id="edescription" name="edescription" required="">
+                  <input type="text" class="form-control" id="edescription" name="edescription" >
                 </div>
               </div>
               <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary edit" id="ebtn-save" value="create">Edit Product
+                <button type="submit" class="btn btn-primary edit" id="ebtn-save" value="create">Edit Category
                 </button>
               </div>
             </form>
@@ -138,125 +137,6 @@ include('header.php');
         </div>
       </div>
     </div>
-
-
-
-
-<script type="text/javascript">
-$(document).ready( function () {
-    $('#datatab').DataTable();
-} );
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
-      $('#create').click(function () {
-       $('#custForm').trigger("reset");
-       $('#custCrudModal').html("Add New Category");
-       $('#ajax-modal').modal('show');
-    });
-        
-     $('body').on('click', '.add', function () {
-    $("#custForm").validate({
-        rules: {
-          cname: "required"
-           },
-        messages: {
-          cname: "Enter your Category",
-        },
-        submitHandler: function(form) { 
-        $('#custForm').submit(function() { 
-        $.ajax({
-            type:"POST",
-            url: "addcategory.php",
-            data: new FormData(this), // get all form field value in 
-            mimeType:"multipart/form-data",
-            contentType: false, cache: false, processData:false,
-            dataType: 'json',
-            success: function(result){
-              if (result == 1) {
-             window.location.reload(true);
-            }else
-             alert('Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.');
-             }
-          });
-          });
-               form.submit();
-              }
-            });
-          });
-       });
-
-</script>
-
-
-<script type="text/javascript">
-$(document).ready(function(){
-
-$('body').on('click', '.change', function () {
-        var id = $(this).data('id');
-       $('#editModal').html("Edit Category");
-       $('#edit-modal').modal('show');
-   
-    $.ajax({
-            type:"POST",
-            url: "editcategory.php",
-            data: { id:id },
-            dataType: 'json', 
-            success: function(result){
-              $('#eid').val(result[0].id);
-              $('#ecname').val(result[0].CName);
-              $('#eimage').val(result[0].image);
-              $('#edescription').val(result[0].description);
-           }
-        });
-
-    $("#editForm").on('submit',function(){
-        var id = $(this).data('id');
-
-        $.ajax({
-            type:"POST",
-            url: "updatecategory.php",
-            data:  new FormData(this),
-            mimeType:"multipart/form-data",
-            contentType: false, cache: false, processData:false,
-            dataType: 'json',
-            success: function(result){
-              if (result == 1) {
-             window.location.reload(true);
-            }else{
-             alert('Sorry,unable update.');
-             }
-           }
-          });
-            });
-          });
-       });
-
-</script>
-
-<script type="text/javascript">
-$(document).ready(function($){
-
- $('body').on('click', '.delete', function () {
-       if (confirm("Delete Record?") == true) {
-        var id = $(this).data('id');
-         
-        $.ajax({
-            type:"POST",
-            url: "delete.php",
-            data: { id: id },
-            dataType: 'json',
-            success: function(result){
-            if (result == 1) {
-             window.location.reload(true);
-            }
-           }
-        }); 
-       }
-    });
-});
-</script>
 
 </body>
 </html>

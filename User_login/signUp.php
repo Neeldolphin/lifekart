@@ -1,4 +1,7 @@
- <!DOCTYPE html>
+<?php
+include 'class.php';
+?>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -7,7 +10,6 @@
 </head>
 <body>
 <?php
-    require('connection.php');
     // When form submitted, insert values into the database.
     if (isset($_REQUEST['username'])) {
         // removes backslashes
@@ -22,20 +24,9 @@
         $email    = mysqli_real_escape_string($con, $email);
         $password = stripslashes($_REQUEST['password']);
         $password = mysqli_real_escape_string($con, $password);
-        $query    = "INSERT into `customer_signup` (FirstName,LastName,username, password, email)
-                     VALUES ('$FirstName','$LastName','$username', '" . md5($password) . "', '$email')";           
-        $result   = mysqli_query($con, $query); 
-        if ($result) {
-            echo "<div class='form'>
-                  <h3>You are registered successfully.</h3><br/>
-                  <p class='link'>Click here to <a href='login.php'>Login</a></p>
-                  </div>";
-        } else {
-            echo "<div class='form'>
-                  <h3>Required fields are missing.</h3><br/>
-                  <p class='link'>Click here to <a href='signUp.php'>Sign Up</a> again.</p>
-                  </div>";
-        }
+        $sign_up=new log_in();
+        $sign_up->signUp($FirstName,$LastName,$username,$password,$email);
+
     } else {
 ?>
     <form class="form" action="" method="post">

@@ -122,11 +122,13 @@ class product_details extends database{
    $array=array('pid'=>$data1,'cid'=>$data2);
     return $array;    
 }
-    public function product_info($id,$order)
+    public function product_info($id,$order,$page_id)
     {
-        
+        $perPage = 3;
+        if(isset($page_id)){$page=$page_id;}else{$page=1;};
+        $start_from=($page-1)* $perPage;
         if ($order == 1) {
-          $query="select * from Product_info where category =$id order by price ASC"; 
+          $query="select * from Product_info where category =$id order by price ASC LIMIT $start_from,$perPage"; 
             $result2=mysqli_query($this->con,$query);
             while($array=mysqli_fetch_row($result2)){
                 $data[]=$array;
@@ -134,7 +136,7 @@ class product_details extends database{
             return $data;
             }
          elseif ($order == 2) {
-            $query="select * from Product_info where category =$id order by price DESC"; 
+            $query="select * from Product_info where category =$id order by price DESC LIMIT $start_from,$perPage"; 
             $result2=mysqli_query($this->con,$query);
             while($array=mysqli_fetch_row($result2)){
                 $data[]=$array;
@@ -142,7 +144,7 @@ class product_details extends database{
             return $data;
             }
         elseif ($order== 3) {
-            $query="select * from Product_info where category =$id order by pname ASC"; 
+            $query="select * from Product_info where category =$id order by pname ASC LIMIT $start_from,$perPage"; 
             $result2=mysqli_query($this->con,$query);
             while($array=mysqli_fetch_row($result2)){
                 $data[]=$array;
@@ -150,14 +152,14 @@ class product_details extends database{
             return $data;
             }
         elseif ($order == 4) {
-            $query="select * from Product_info where category =$id order by pname DESC "; 
+            $query="select * from Product_info where category =$id order by pname DESC LIMIT $start_from,$perPage"; 
             $result2=mysqli_query($this->con,$query);
             while($array=mysqli_fetch_row($result2)){
                 $data[]=$array;
             }
             return $data;
             }else {
-                $query="select * from Product_info where category =".$id; 
+                $query="select * from Product_info where category =".$id." LIMIT $start_from,$perPage"; 
                 $result2=mysqli_query($this->con,$query);
                 while($array=mysqli_fetch_row($result2)){
                     $data[]=$array;
@@ -167,7 +169,7 @@ class product_details extends database{
         }
         public function Pagination($id)
         {
-            $perPage = 2;
+            $perPage = 3;
             $query = "select * from Product_info where category =".$id; 
             $result = mysqli_query($this->con, $query);
             $totalRecords = mysqli_num_rows($result);

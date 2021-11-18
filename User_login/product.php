@@ -4,8 +4,10 @@
 			if(isset($_GET['datasend'])){
 			$order = $_GET['datasend'];}
 			$id=$category[0];
+			if(isset($_GET['page_id'])){
+				$page_id = $_GET['page_id'];}
 			$productM=new product_details();
-			$rows=$productM->product_info($id,$order);
+			$rows=$productM->product_info($id,$order,$page_id);
 			foreach ($rows as $array) {
             $var=unserialize($array[4]);
 	   ?>

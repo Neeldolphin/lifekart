@@ -9,7 +9,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script src="main.js"></script>
+    <script src="../Controller/js/main.js"></script>
 
      
      <style type="text/css">
@@ -18,7 +18,7 @@
   if(!isset($_SESSION["username"])){
     header("Location: login.php");
   }
- include 'style.css';
+ include '../Controller/css/style.css';
  ?>
     </style>
 </head>

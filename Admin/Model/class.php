@@ -29,7 +29,7 @@ class product extends database{
    
      for ($i=0; $i<count($files["image"]["name"]); $i++) { 
            
-          $targetDir = "uploads/";
+          $targetDir = "../uploads/";
          $fileName = basename($files["image"]["name"][$i]);
          $targetFilePath = $targetDir . $fileName;
          $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
@@ -49,7 +49,7 @@ class product extends database{
            }
      }
      $display=serialize($load);
-         $targetDir = "uploads/";
+         $targetDir = "../uploads/";
          $fileName = basename($files["Video"]["name"]);
          $targetFilePath = $targetDir . $fileName;
          $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
@@ -97,7 +97,7 @@ class product extends database{
                 
                 for ($i=0; $i<count($files["eimage"]["name"]); $i++) { 
             
-               $targetDir = "uploads/";
+               $targetDir = "../uploads/";
                $fileName = basename($files["eimage"]["name"][$i]);
                $targetFilePath = $targetDir . $fileName;
                $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
@@ -118,7 +118,7 @@ class product extends database{
 
     if(!empty($files['eVideo']['name'])){
 
-               $targetDir = "uploads/";
+               $targetDir = "../uploads/";
                $fileName = basename($files["eVideo"]["name"]);
                $targetFilePath = $targetDir . $fileName;
                $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
@@ -195,7 +195,7 @@ class category extends database{
     }
         public function insert($files,$CName,$image,$description,$create_at,$update_at)
         {
-            $targetDir = "uploads/";
+            $targetDir = "../uploads/";
             $fileName = basename($files["image"]["name"]);
             $targetFilePath = $targetDir . $fileName;
             $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
@@ -232,7 +232,7 @@ class category extends database{
         
         public function update($files,$post,$create_at,$update_at)
         {
-            $targetDir = "uploads/";
+            $targetDir = "../uploads/";
                 $fileName = basename($files["eimage"]["name"]);
                 $targetFilePath = $targetDir . $fileName;
                 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
@@ -389,7 +389,7 @@ class carousel extends database{
         {
             $link = $post['link'];
 
-            $targetDir = "uploads/";
+            $targetDir = "../uploads/";
             $fileName = basename($files["imageName"]["name"]);
             $targetFilePath = $targetDir . $fileName;
             $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
@@ -433,7 +433,7 @@ class carousel extends database{
         {
             if(!empty($post['eid'])){
 
-                $targetDir = "uploads/";
+                $targetDir = "../uploads/";
                 $fileName = basename($files["eimageName"]["name"]);
                 $targetFilePath = $targetDir . $fileName;
                 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);

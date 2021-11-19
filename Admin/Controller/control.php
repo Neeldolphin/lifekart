@@ -1,5 +1,5 @@
 <?php 
-include 'class.php';
+include '../Model/class.php';
 
 $action_id=$_POST['action'];
 

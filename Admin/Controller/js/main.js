@@ -29,7 +29,7 @@ $('body').on('click', '.categoeryadd', function () {
 
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: data, // get all form field value in 
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
@@ -58,13 +58,13 @@ $('body').on('click', '.categorychange', function () {
    
     $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: { id:id,action:action },
             dataType: 'json', 
             success: function(result){
               $('#eid').val(result[0].id);
               $('#ecname').val(result[0].CName);
-              $('#showimg').html("<img src='http://localhost/lifekart/Admin_login/uploads/" + result[0].image +"'>");
+              $('#showimg').html("<img src='http://localhost/lifekart/Admin/uploads/" + result[0].image +"'>");
               $('#edescription').val(result[0].description);
            }
         });
@@ -77,7 +77,7 @@ $('body').on('click', '.categorychange', function () {
 
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: data,
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
@@ -102,7 +102,7 @@ $(document).ready(function($){
          
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: { id:id,action:action },
             dataType: 'json',
             success: function(result){
@@ -135,7 +135,7 @@ $('body').on('click', '.customeradd', function(){
 
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: data,
             dataType: 'json',
             mimeType:"multipart/form-data",
@@ -159,7 +159,7 @@ $(document).ready(function(){
    
       $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: { id:id,action:action},
             dataType: 'json',
             ContentType: 'multipart/form-data', 
@@ -195,7 +195,7 @@ $(document).ready(function(){
 
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: {
               Id: $('#eid').val(),
                FirstName: $('#eFirstName').val(),
@@ -226,7 +226,7 @@ $(document).ready(function($){
          
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: { id: id,action:action },
             dataType: 'json',
             success: function(result){
@@ -268,7 +268,7 @@ $(document).ready(function(){
           data.append('action',action);
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: data, 
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
@@ -299,7 +299,7 @@ $(document).ready(function(){
 
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: { id:id,action:action },
             dataType: 'json', 
             success: function(result){
@@ -310,11 +310,11 @@ $(document).ready(function(){
               $('#ePrice').val(result.data[0].price);
               $('#eDescription').val(result.data[0].description);
               $('#eQTY').val(result.data[0].qty);
-              $('#displayvideo').html("<video width='180' height='90' controls><source src='http://localhost/lifekart/Admin_login/uploads/" + result.data[0].video +"'type='video/mp4'></video>");
+              $('#displayvideo').html("<video width='180' height='90' controls><source src='http://localhost/lifekart/Admin/uploads/" + result.data[0].video +"'type='video/mp4'></video>");
               $('#eStatus').val(result.data[0].Status);
                 var show = [];
                 for(i=0;i<result.img.length;i++){
-                  show.push("<img src='http://localhost/lifekart/Admin_login/uploads/" + result.img[i] +"'><span class='single_remove' data-id='"+ result.img[i] +"'>X</span>");              
+                  show.push("<img src='http://localhost/lifekart/Admin/uploads/" + result.img[i] +"'><span class='single_remove' data-id='"+ result.img[i] +"'>X</span>");              
                 }
                 $("#displayimg").html(show.join(''));
           }
@@ -328,7 +328,7 @@ $(document).ready(function(){
 
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data:data,
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
@@ -354,7 +354,7 @@ $(document).ready(function($){
         var action='product_delete';
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: { id: id,action:action },
             dataType: 'json',
             success: function(result){
@@ -375,7 +375,7 @@ $(document).ready(function(){
     var imgname = $(this).data('id');
         $.ajax({
                     type: "POST",
-                    url: "Action/productAction.php",
+                    url: "../Controller/control.php",
                     data:{id:id,
                       imgname:imgname,
                       action:action
@@ -415,7 +415,7 @@ $(document).ready(function(){
           data.append('action',action);
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: data, 
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
@@ -444,12 +444,12 @@ $('body').on('click', '.imageschange', function () {
    
     $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: { id:id,action:action },
             dataType: 'json', 
             success: function(result){
               $('#eid').val(result[0].id);
-              $('#showimg').html("<img src='http://localhost/lifekart/Admin_login/uploads/" + result[0].imageName +"'>");
+              $('#showimg').html("<img src='http://localhost/lifekart/Admin/uploads/" + result[0].imageName +"'>");
               $('#elink').val(result[0].link);
            }
         });
@@ -462,7 +462,7 @@ $('body').on('click', '.imageschange', function () {
 
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: data,
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
@@ -488,7 +488,7 @@ $(document).ready(function($){
         var action='image_delete';
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: { id: id,action:action},
             dataType: 'json',
             success: function(result){
@@ -523,7 +523,7 @@ $(document).ready(function(){
 
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: data,
             dataType: 'json',
             mimeType:"multipart/form-data",
@@ -547,7 +547,7 @@ $(document).ready(function(){
    
       $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: { id:id,action:action},
             dataType: 'json',
             ContentType: 'multipart/form-data', 
@@ -565,7 +565,7 @@ $(document).ready(function(){
 
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: {
                 coupen_id: $('#eid').val(),
                 coupen_name: $('#eCoupenCode').val(),
@@ -591,7 +591,7 @@ $(document).ready(function($){
          
         $.ajax({
             type:"POST",
-            url: "control.php",
+            url: "../Controller/control.php",
             data: { id: id,action:action },
             dataType: 'json',
             success: function(result){

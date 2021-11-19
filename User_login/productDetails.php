@@ -61,8 +61,8 @@ include 'navbar.php';
             <div class="col-lg-10 mt-4">
                 <div class="row">
                     <div class="col-lg-4 pb-4">
-                        <form method='POST' action="action.php">
-                        <p>QTY<input type="number"  id="quantity" name="quantity" class="quantity" min="1" ></p>
+                        <form method='POST' action="control.php">
+                        <p>QTY<input type="number"  id="quantity" name="quantity" class="quantity" min="1" required=""></p>
                         <input type="hidden" value="<?php echo $array[0];?>" class="msg" id="msg" name="msg">
                         <input type="hidden" value="productdetail" name="action">
                         <p id="msg1" class="msg1"></p>

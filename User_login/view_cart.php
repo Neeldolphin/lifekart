@@ -22,7 +22,8 @@
                     <tbody>
                     <p id="msg1" class="msg1"></p></td>
                         <?php    $sr=1;
-                                 $index=0;$shipping=0;
+                                 $index=0;
+                                 $shipping=0;
                                 $total=0;
                                 $session=$_SESSION;
                                 $view= new cart();
@@ -34,7 +35,7 @@
                                     <td><?php echo $sr; ?></td>
                                         <td><?php echo $row['pname']; ?></td>
                                         <td><?php echo number_format($row['price'], 2); ?></td>
-                                        <td><input type="text" class="form-control quantity1" data-id="<?php echo $row['Id']?>" value="<?php echo $_SESSION['qty'][$index]; ?>" name="qty_<?php echo $index; ?>"></td>
+                                        <td><input type="text" class="form-control quantity1" data-id="<?php echo $row['Id']?>" required=""  value="<?php echo $_SESSION['qty'][$index]; ?>" name="qty_<?php echo $index; ?>"></td>
                                         <input type="hidden" class="msg" >
                                         <input type="hidden" name="indexes[]"  value="<?php echo $index; ?>">
                                         <td><?php echo number_format($_SESSION['qty'][$index]*$row['price'], 2); ?></td>

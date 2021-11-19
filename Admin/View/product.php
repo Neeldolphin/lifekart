@@ -3,7 +3,7 @@
   ini_set('display_startup_errors', 1);
   error_reporting(E_ALL);
 include('header.php');
-include 'class.php';
+include '../Model/class.php';
  ?>
 <body>
 <div class="w3-top">
@@ -47,11 +47,11 @@ include 'class.php';
                     <td><?php echo $array[1];?></td>
                     <td><?php echo $array[13];?></td>
                     <td><?php echo $array[3];?></td>
-                    <td><?php for($i=0; $i<count($var); $i++){ ?><img class="img_width" src="http://localhost/lifekart/Admin_login/uploads/<?php echo $var[$i];?>"><?php } ?></td>
+                    <td><?php for($i=0; $i<count($var); $i++){ ?><img class="img_width" src="http://localhost/lifekart/Admin/uploads/<?php echo $var[$i];?>"><?php } ?></td>
                     <td><?php echo $array[5];?></td>
                     <td><?php echo $array[6];?></td>
                     <td><video width="180" height="90" controls>
-                    <source src="http://localhost/lifekart/Admin_login/uploads/<?php echo $array[7];?>" type="video/mp4"></video></td>
+                    <source src="http://localhost/lifekart/Admin/uploads/<?php echo $array[7];?>" type="video/mp4"></video></td>
                     <td><?php echo $array[8];?></td>
                     <td><?php echo $array[9];?></td>
                     <td>
@@ -178,7 +178,7 @@ include 'class.php';
               <div class="form-group">
                 <label class="col-sm-6 control-label">Category</label>
                 <div class="col-sm-9">
-                  <select class="form-control" name="ecategory" id="ecategory">
+                  <select class="form-control" name="ecategory" id="ecategory" required="">
                       <option value=""></option>
                       <?php
                               $cate=new product();

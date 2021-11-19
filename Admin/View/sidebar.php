@@ -1,27 +1,32 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+?>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 <?php 
- include 'style.css';
+ include '../Controller/css/style.css';
  ?>
 </style>
 </head>
 <body>
 
 <div class="sidenav">
-<a href="http://localhost/lifekart/Admin_login/index.php">Dashboard</a>
+<a href="http://localhost/lifekart/Admin/View/index.php">Dashboard</a>
  <button class="dropdown-btn">Catelog
     <i class="fa fa-caret-down"></i>
   </button>
   <div class="dropdown-container">
-    <a href="http://localhost/lifekart/Admin_login/product.php">product </a>
-    <a href="http://localhost/lifekart/Admin_login/category.php">Category</a>
+    <a href="http://localhost/lifekart/Admin/View/product.php">product </a>
+    <a href="http://localhost/lifekart/Admin/View/category.php">Category</a>
   </div>
-    <a href="http://localhost/lifekart/Admin_login/customer.php">Customer</a>
-    <a href="http://localhost/lifekart/Admin_login/imageslider.php">Image Slider</a>
-    <a href="http://localhost/lifekart/Admin_login/coupen.php">Coupen</a>
+    <a href="http://localhost/lifekart/Admin/View/customer.php">Customer</a>
+    <a href="http://localhost/lifekart/Admin/View/imageslider.php">Image Slider</a>
+    <a href="http://localhost/lifekart/Admin/View/coupen.php">Coupen</a>
 </div>
 
 

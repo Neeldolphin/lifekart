@@ -1,6 +1,6 @@
 <?php 
 include('header.php');
-include('class.php');  
+include '../Model/class.php';  
  ?>
 <body>
 <div class="w3-top">
@@ -39,7 +39,7 @@ include('class.php');
                     <a href="javascript:void(0)" class="btn btn-primary coupenedit" data-id="<?php echo $array[0];?>">Edit</a>
                   </td>
                 </tr>
-                <?php mysqli_free_result($result); ?>
+              
                 <?php } ?>
               </tbody>
           </table>

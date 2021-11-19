@@ -1,6 +1,6 @@
 <?php 
 include('header.php');
-include 'class.php';
+include '../Model/class.php';
  ?>
 <body>
 <div class="w3-top">
@@ -48,7 +48,6 @@ include 'class.php';
                   </td>
                 </tr>
 
-                <?php mysqli_free_result($result); ?>
                 <?php } ?>
               </tbody>
           </table>

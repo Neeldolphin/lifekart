@@ -1,6 +1,6 @@
 <?php 
 include('header.php');
-include 'class.php';
+include '../Model/class.php';
  ?>
 <body>
 <div class="w3-top">
@@ -32,15 +32,13 @@ include 'class.php';
 				?>
                 <tr>
                     <th scope="row"><?php echo $array[0];?></th>
-                    <td><img class="img_width" src="http://localhost/lifekart/Admin_login/uploads/<?php echo $array[1];?>"></td>
+                    <td><img class="img_width" src="http://localhost/lifekart/Admin/uploads/<?php echo $array[1];?>"></td>
                     <td><?php echo $array[2];?></td>
                     <td>
                     <a href="javascript:void(0)" class="btn btn-primary imagesdelete" data-id="<?php echo $array[0];?>">Delete</a>
                   <a href="javascript:void(0)" class="btn btn-primary imageschange" data-id="<?php echo $array[0];?>">Edit</a>
                   </td>
                 </tr>
-
-                <?php mysqli_free_result($result); ?>
                 <?php } ?>
               </tbody>
           </table>

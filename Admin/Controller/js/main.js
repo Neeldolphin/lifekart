@@ -37,7 +37,9 @@ $('body').on('click', '.categoeryadd', function () {
             success: function(result){
               if (result == 1) {
              window.location.reload(true);
-            }else
+            }else if(result == 5){
+              alert('Already exist!!!!!!!!!!')
+          }else
              alert('Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.');
              }
           });
@@ -141,8 +143,12 @@ $('body').on('click', '.customeradd', function(){
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
             success: function(result){
-             window.location.reload(true);
+              if (result == 1) {
+                window.location.reload(true);
+               }else if(result == 5){
+                 alert('Already exist!!!!!!!!!!')
              }
+              }
           });
           });
           });
@@ -276,6 +282,7 @@ $(document).ready(function(){
             success: function(result){
               if (result == 1) {
              window.location.reload(true);
+            }else if(result == 5){ alert('already exist !!!!!!!!!!');
             }else{
                 alert('Sorry, only JPG, JPEG, PNG, GIF files are allowed to upload.');
             }

@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <title>Login</title>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="../Controller/css/style.css"/>
 </head>
 <body>
 <?php
-include 'class.php';
+include '../Model/class.php';
     session_start();
     $post=$_POST;
     $request=$_REQUEST;

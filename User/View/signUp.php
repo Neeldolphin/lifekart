@@ -1,12 +1,12 @@
 <?php
-include 'class.php';
+include '../Model/class.php';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <title>Sign Up</title>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="../Controller/css/style.css"/>
 </head>
 <body>
 <?php

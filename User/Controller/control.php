@@ -1,5 +1,5 @@
-<?php 
-include 'class.php';
+<?php
+include '../Model/class.php';
 session_start();
 
 $action_id=$_POST['action'];
@@ -23,6 +23,12 @@ class action{
                             case 'on_search':
                                 return $this->onSearch();
                                 break;
+                                case 'clear_cart':
+                                    return $this->clear_Cart();
+                                    break;
+                                    case 'delete_Item':
+                                        return $this->DeleteItem();
+                                        break;
 
                 default:
             
@@ -44,7 +50,7 @@ public function productDetail()
 	$_SESSION['qty'][$key] = $_POST['quantity'];
 
 
-header("location: view_cart.php?id=".$_SESSION['id']);
+header("location: ../View/view_cart.php?id=".$_SESSION['id']);
 }
 
 public function coupenApply()
@@ -74,7 +80,9 @@ public function qtyCheck()
     $array=$check->qty_check($id);
        if($array[0]<$_POST['value']){
            echo 1;
-       }else{
+       }else if($_POST['value']==0){
+        echo 1;
+         }else{
            echo 2;
        }
 }
@@ -87,7 +95,27 @@ public function onSearch()
           echo json_encode($array); 
 }
 
+public function clear_Cart()
+{
+    unset($_SESSION['cart']);
+	unset($_SESSION['coupen_name']);
+    unset($_SESSION['coupen_discount']);
+	unset($_SESSION['qty']);
+    header('location: ../View/view_cart.php?id='.$_SESSION['id']);
+}
 
+public function DeleteItem()
+{
+    	//remove the id from our cart array
+	$key = array_search($_POST['id'], $_SESSION['cart']);	
+	unset($_SESSION['cart'][$key]);
+
+	unset($_SESSION['qty'][$_POST['index']]);
+	//rearrange array after unset
+    $_SESSION['cart'] = array_values($_SESSION['cart']);
+	$_SESSION['qty'] = array_values($_SESSION['qty']);
+    header('location: ../View/view_cart.php?id='.$_SESSION['id']);
+}
 }
 $action = new action();
 $action->getAction($action_id);

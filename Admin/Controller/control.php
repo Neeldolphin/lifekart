@@ -169,7 +169,6 @@ class action{
             $customer_insert = new customer();
             $customer_insert->insert($FirstName,$LastName,$Email,$phone_number,$Address,$country,$create_at,$update_at);
             }
-            echo 1;
     }
     public function editCustomerDetail()
     {
@@ -207,7 +206,6 @@ class action{
        $files = $_FILES;
        $image = new category();
        $image->insert($files,$CName,$image,$description,$create_at,$update_at);
-       echo 1;
         
     }
     public function editCategoryDetail()

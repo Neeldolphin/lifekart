@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Open+Sans">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="http://localhost/lifekart/User_login/myCarousel.css">
+<link rel="stylesheet" href="../Controller/css/myCarousel.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -39,7 +39,7 @@ $(document).ready(function(){
 				$productS=new product_details();
 				$rows=$productS->product_page($id);
 				if($rows != '') { ?>
-					<h2><a href="http://localhost/lifekart/User_login/category.php?page=category&id=<?php echo $id?>"><?php echo $category[1];?></a></h2>
+					<h2><a href="http://localhost/lifekart/User/View/category.php?page=category&id=<?php echo $id?>"><?php echo $category[1];?></a></h2>
         		<?php
 				foreach($rows as $array){
 					if($array[9]=='Enable'){
@@ -51,12 +51,12 @@ $(document).ready(function(){
 							<div class="thumb-wrapper">
 								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
-                                <img src="http://localhost/lifekart/User_login/images/<?php echo $var[0];?>" alt="" class="img-fluid" style= "width:100%" >						
+                                <img src="http://localhost/lifekart/User/images/<?php echo $var[0];?>" alt="" class="img-fluid" style= "width:100%" >						
 								</div>
 								<div class="thumb-content">
-									<h4><a href="http://localhost/lifekart/User_login/productDetails.php?page=array&id=<?php echo $array[0]?>"><?php echo $array[1];?></a></h4>									
+									<h4><a href="http://localhost/lifekart/User/View/productDetails.php?page=array&id=<?php echo $array[0]?>"><?php echo $array[1];?></a></h4>									
 									<p class="item-price">Price:<?php echo $array[5];?></p>
-									<a href="http://localhost/lifekart/User_login/productDetails.php?page=array&id=<?php echo $array[0]?>" class="btn btn-primary">buy </a>
+									<a href="http://localhost/lifekart/User/View/productDetails.php?page=array&id=<?php echo $array[0]?>" class="btn btn-primary">buy </a>
 								</div>						
 							</div>
 						</div>

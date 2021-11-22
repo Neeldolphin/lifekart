@@ -27,18 +27,19 @@ class cart extends database{
 
     public function view_cart($session)
     {
-         //initialize total
         if(!empty($session['cart'])){
-        //create array of initail qty which is 1
          if(!isset($session['qty'])){
              $session['qty'] = array_fill(0, count($session['cart']), 1);
          }
-        $sql = "SELECT * FROM Product_info WHERE id IN (".implode(',',$session['cart']).")";
-        $query = $this->con->query($sql);
-        $data=array();
+         $rows=($session['cart']);
+         $data=array();
+         foreach($rows as $row){
+        $sql = "SELECT * FROM Product_info WHERE id=".$row;
+        $query = mysqli_query($this->con,$sql);
         while($row = $query->fetch_assoc()){
             $data[]=$row;
         }
+         }
         return $data;
     }
 }

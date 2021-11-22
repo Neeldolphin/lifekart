@@ -1,7 +1,7 @@
 <?php include 'header.php';
  include_once 'navbar.php';
  if(isset($_SESSION["username"])){
-    include 'class.php';
+    include '../Model/class.php';
     ?>
     <div class="container">                
     <div class="contentbar">  
@@ -45,7 +45,9 @@
                                         <?php $discount =($total*$_SESSION['coupen_discount'])/100; ?>
                                         <?php }?>
                                         <td>
-										<a href="delete_item.php?id=<?php echo $row['Id']; ?>&index=<?php echo $index; ?>" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash">X</span></a>
+                                        <input type="hidden" class="DeleteId" value="<?php echo $row['Id'];?>">
+                                        <input type="hidden" class="indexId" value="<?php echo $index;?>">
+										<a class="btn btn-danger btn-sm deleteItem"><span class="glyphicon glyphicon-trash">X</span></a>
 									</td>
                                     </tr>
                                     <?php
@@ -73,8 +75,7 @@
                     </tbody>
                         </table>
                 <button type="submit" class="btn btn-success qtybutton" name="save">Save Changes</button>
-                <a href="clear_cart.php" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Clear Cart</a>
-                <a href="checkout.php" class="btn btn-success"><span class="glyphicon glyphicon-check"></span> Checkout</a>
+                <a class="btn btn-danger clearCart"><span class="glyphicon glyphicon-trash"></span> Clear Cart</a>
                 </form>
             </div>
             <div class="col-sm-3 offset-md-1">
@@ -97,7 +98,7 @@
  }else{
      ?>
      <div>
-     <h4 align="center"><a href="http://localhost/lifekart/User_login/login.php">Login First</a> </h4>
+     <h4 align="center"><a href="http://localhost/lifekart/User/View/login.php">Login First</a> </h4>
      </div>
      <?php }?>
     

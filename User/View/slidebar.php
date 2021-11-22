@@ -1,6 +1,6 @@
 <?php
 include 'header.php';
-include 'class.php';
+include '../Model/class.php';
 ?>
 <body>
 
@@ -24,11 +24,11 @@ include 'class.php';
         if($i==0){?>
 
     <div class="carousel-item active">
-     <a href="<?php echo $array[2];?>"><img src="http://localhost/lifekart/Admin_login/uploads/<?php echo $array[1];?>" alt="" style= "width:100%" ></a>
+     <a href="<?php echo $array[2];?>"><img src="http://localhost/lifekart/Admin/uploads/<?php echo $array[1];?>" alt="" style= "width:100%" ></a>
     </div>
 <?php $i++; }else{?> 
       <div class="carousel-item">
-    <a href="<?php echo $array[2];?>"><img src="http://localhost/lifekart/Admin_login/uploads/<?php echo $array[1];?>" alt="" style= "width:100%" ></a>
+    <a href="<?php echo $array[2];?>"><img src="http://localhost/lifekart/Admin/uploads/<?php echo $array[1];?>" alt="" style= "width:100%" ></a>
     </div>
 <?php $i++; }
    }

@@ -65,11 +65,18 @@ class product extends database{
      
       
       if(!empty($_POST)){
+        $check="select count(1) from Product_info where SKU='$SKU' ";
+        $exists=mysqli_query($this->con,$check);
+        $row=mysqli_fetch_row($exists);
+        if($row[0] >= 1) {
+            echo 5;
+             }else{
             $query = "INSERT INTO Product_info(pname,category ,SKU,image,price,description,video,qty,  Status,create_at,update_at)
            VALUES ('$pname','$category','$SKU','$display','$price','$description','$Video ','$qty','$Status','$create_at','$update_at')";
            $result = mysqli_query($this->con, $query); 
           echo 1;
           }
+        }
           }else{
            echo 0;
           }
@@ -209,10 +216,17 @@ class category extends database{
          
             $image = $files['image']['name'];
             if(!empty($_POST)){
-         
+                $check="select count(1) from category_info where CName='$CName' ";
+                $exists=mysqli_query($this->con,$check);
+                $row=mysqli_fetch_row($exists);
+                if($row[0] >= 1) {
+                    echo 5;
+                     }else{
               $query = "INSERT INTO category_info(CName,image,description,create_at,update_at)
               VALUES ('$CName','$image','$description','$create_at','$update_at')";
               $result = mysqli_query($this->con, $query);
+              echo 1;
+                     }
             }
         }
     }
@@ -282,11 +296,18 @@ class customer extends database{
         public function insert($FirstName,$LastName,$Email,$phone_number,$Address,$country,$create_at,$update_at)
         {
             if(!empty($_POST)){
+                $check="select count(1) from customer_info where Email='$Email' ";
+                $exists=mysqli_query($this->con,$check);
+                $row=mysqli_fetch_row($exists);
+                if($row[0] >= 1) {
+                    echo 5;
+                     }else{
                 $query = "INSERT INTO customer_info(FirstName,LastName,Email,phone_number,Address,country,create_at,update_at)
                 VALUES ('$FirstName','$LastName','$Email','$phone_number','$Address','$country','$create_at','$update_at')";
                 $result = mysqli_query($this->con, $query); 
                 echo 1;
                }
+            }
         }
         
         public function edit($id)

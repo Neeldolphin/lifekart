@@ -43,7 +43,8 @@
                                         <?php if(isset($_SESSION['coupen_discount'])){ ?>
                                         <?php $coupen =$total-($total*$_SESSION['coupen_discount'])/100; ?>
                                         <?php $discount =($total*$_SESSION['coupen_discount'])/100; ?>
-                                        <?php }?>
+                                        <?php }
+                                        ?>
                                         <td>
                                         <input type="hidden" class="DeleteId" value="<?php echo $row['Id'];?>">
                                         <input type="hidden" class="indexId" value="<?php echo $index;?>">
@@ -55,7 +56,7 @@
                                     $sr ++;
                                 }
                              }
-                                ?>
+                           ?>
                         <tr>
                             <td colspan="4" align="right"><b>Total</b></td>
                             <td><b><?php echo number_format($total, 2); ?></b></td>

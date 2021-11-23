@@ -20,6 +20,9 @@ class action{
                         case 'qty_check':
                             return $this->qtyCheck();
                             break;
+                            case 'qty_check2':
+                                return $this->qtyCheck2();
+                                break;
                             case 'on_search':
                                 return $this->onSearch();
                                 break;
@@ -42,14 +45,16 @@ public function productDetail()
     if(!isset($_SESSION['cart'])){
 		$_SESSION['cart'] = array();
 	}
-	
+
 	if(!in_array($_POST['msg'], $_SESSION['cart'])){
 		array_push($_SESSION['cart'], $_POST['msg']);
-	}
-	$key= count($_SESSION['qty']);
-	$_SESSION['qty'][$key] = $_POST['quantity'];
-
-
+        $key= count($_SESSION['qty']);
+        $_SESSION['qty'][$key] = $_POST['quantity'];   
+    }
+    else{
+             $key=array_search($_POST['msg'],$_SESSION['cart']);
+             $_SESSION['qty'][$key] += $_POST['quantity'];  
+        }
 header("location: ../View/view_cart.php?id=".$_SESSION['id']);
 }
 
@@ -74,13 +79,32 @@ public function coupenRemove()
 }
 
 public function qtyCheck()
-{   
+{   $value=$_POST['value'];
     $id = (int)$_POST['id'];
     $check= new cart();
     $array=$check->qty_check($id);
-       if($array[0]<$_POST['value']){
+    if (array_search($_POST['id'],$_SESSION['cart']) !== ''){
+        
+        $key=array_search($_POST['id'],$_SESSION['cart']);
+        $value += $_SESSION['qty'][$key];
+    }
+    if($array[0]<$value){
            echo 1;
-       }else if($_POST['value']==0){
+       }else if($value==0){
+        echo 1;
+         }else{
+           echo 2;
+       }
+}
+
+public function qtyCheck2()
+{   $value=$_POST['value'];
+    $id = (int)$_POST['id'];
+    $check= new cart();
+    $array=$check->qty_check($id);
+    if($array[0]<$value){
+           echo 1;
+       }else if($value==0){
         echo 1;
          }else{
            echo 2;

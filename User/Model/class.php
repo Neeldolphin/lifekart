@@ -240,9 +240,31 @@ class log_in extends database {
     }
 
 
-    public function signUp($FirstName,$LastName,$username,$password,$email)
+    public function signUp($request)
     {
-        $query    = "INSERT into `customer_signup` (FirstName,LastName,username, password, email)
+           if (isset($request['username'])) {
+                 // removes backslashes
+                $FirstName = stripslashes($request['FirstName']);
+                $FirstName = mysqli_real_escape_string($this->con, $FirstName);
+                $LastName = stripslashes($request['LastName']);
+                $LastName = mysqli_real_escape_string($this->con, $LastName);
+                $username = stripslashes($request['username']);
+                //escapes special characters in a string
+                $username = mysqli_real_escape_string($this->con, $username);
+                $email    = stripslashes($request['email']);
+                $email    = mysqli_real_escape_string($this->con, $email);
+                $password = stripslashes($request['password']);
+                $password = mysqli_real_escape_string($this->con, $password);
+
+                $check="select count(1) from customer_signup where email='$email' ";
+                $exists=mysqli_query($this->con,$check);
+                $row=mysqli_fetch_row($exists);
+                if($row[0] >= 1) {
+                    echo "<div class='form'>
+                    <h3>Email already exists!!!!!!!</h3><br/>
+                    </div>";;
+                     }else{
+       $query    = "INSERT into customer_signup (FirstName,LastName,username, password, email)
                      VALUES ('$FirstName','$LastName','$username', '" . md5($password) . "', '$email')";           
         $result   = mysqli_query($this->con, $query); 
         if ($result) {
@@ -256,6 +278,8 @@ class log_in extends database {
                   <p class='link'>Click here to <a href='signUp.php'>Sign Up</a> again.</p>
                   </div>";
         }
-    }
+           }
+        }
+}
 }
 ?>

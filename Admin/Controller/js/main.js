@@ -513,7 +513,6 @@ $(document).ready(function($){
 
 
 
-
 //////////////////coupen//////////////////////////////////////
 $(document).ready(function(){
       $('#create').click(function () {
@@ -536,7 +535,11 @@ $(document).ready(function(){
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
             success: function(result){
-             window.location.reload(true);
+              if (result == 1) {
+                window.location.reload(true);
+               }else if(result == 5){
+                 alert('Already exist!!!!!!!!!!')
+             }
              }
           });
           });

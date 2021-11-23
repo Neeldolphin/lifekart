@@ -247,7 +247,6 @@ class action{
             $coupen_insert = new coupen();
             $coupen_insert->insert($CoupenCode,$CoupenDiscount);
             }
-            echo 1;
     }
     public function editCoupenDetail()
     {

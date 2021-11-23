@@ -355,12 +355,19 @@ class coupen extends database{
         public function insert($coupen_name,$coupen_discount)
         {
             if(!empty($_POST)){
+                $check="select count(1) from coupen_code where coupen_name='$coupen_name' ";
+                $exists=mysqli_query($this->con,$check);
+                $row=mysqli_fetch_row($exists);
+                if($row[0] >= 1) {
+                    echo 5;
+                     }else{
                 $query = "INSERT INTO coupen_code(coupen_name,coupen_discount)
                 VALUES ('$coupen_name','$coupen_discount')";
                 $result = mysqli_query($this->con, $query); 
                 echo 1;
                }
         }
+    }
         
         public function edit($id)
         {

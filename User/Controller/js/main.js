@@ -25,7 +25,7 @@ $(document).ready(function(){
       $('.quantity1').on('change paste keyup', function() {
         var id=$(this).data('id');
         var value=this.value;
-        var action='qty_check';
+        var action='qty_check2';
         $('#msg').value;
         $.ajax({
             type:"POST",    

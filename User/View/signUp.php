@@ -10,24 +10,9 @@ include '../Model/class.php';
 </head>
 <body>
 <?php
-    // When form submitted, insert values into the database.
-    if (isset($_REQUEST['username'])) {
-        // removes backslashes
-         $FirstName = stripslashes($_REQUEST['FirstName']);
-         $FirstName = mysqli_real_escape_string($con, $FirstName);
-         $LastName = stripslashes($_REQUEST['LastName']);
-         $LastName = mysqli_real_escape_string($con, $LastName);
-        $username = stripslashes($_REQUEST['username']);
-        //escapes special characters in a string
-        $username = mysqli_real_escape_string($con, $username);
-        $email    = stripslashes($_REQUEST['email']);
-        $email    = mysqli_real_escape_string($con, $email);
-        $password = stripslashes($_REQUEST['password']);
-        $password = mysqli_real_escape_string($con, $password);
+        $request=$_REQUEST;
         $sign_up=new log_in();
-        $sign_up->signUp($FirstName,$LastName,$username,$password,$email);
-
-    } else {
+        $sign_up->signUp($request);
 ?>
     <form class="form" action="" method="post">
         <h1 class="login-title">Sign Up</h1>
@@ -39,8 +24,5 @@ include '../Model/class.php';
         <input type="submit" name="submit" value="Register" class="login-button">
         <p class="link"><a href="login.php">Click to Login</a></p>
     </form>
-<?php
-    }
-?>
 </body>
 </html>

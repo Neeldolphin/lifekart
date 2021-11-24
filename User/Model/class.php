@@ -228,12 +228,12 @@ class log_in extends database {
             $_SESSION['username'] = $username;
             $_SESSION['id'] = $array[0];
             // Redirect to user home page
-            header("Location: home.php");
+            header("Location: index.php");
         } else {
             echo "<div class='form'>
                   <h3>Incorrect Username/password.</h3><br/>
                   <p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
-                  <p class='link'>Click here to <a href='home.php'>Home</a> again.</p>
+                  <p class='link'>Click here to <a href='index.php'>Home</a> again.</p>
                   </div>";
         }
     }

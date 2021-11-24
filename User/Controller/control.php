@@ -83,7 +83,7 @@ public function qtyCheck()
     $id = (int)$_POST['id'];
     $check= new cart();
     $array=$check->qty_check($id);
-    if (array_search($_POST['id'],$_SESSION['cart']) !== ''){
+    if (in_array($_POST['id'],$_SESSION['cart'])){
         
         $key=array_search($_POST['id'],$_SESSION['cart']);
         $value += $_SESSION['qty'][$key];

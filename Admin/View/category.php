@@ -126,6 +126,32 @@ include '../Model/class.php';
                   <input type="text" class="form-control" id="edescription" name="edescription" >
                 </div>
               </div>
+              <div class="form-group">
+              <table class="table" id="datatab">
+              <thead>
+                <tr>
+                  <th scope="col">ProductId</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Select</th>
+                </tr>
+              </thead>
+              <tbody>
+				<?php 
+         $cate=new product();
+         $rows=$cate->ProductInfo();
+         foreach($rows as $array){
+				?>
+                <tr>
+                <td scope="row"><?php echo $array[0];?></td>
+                <td><?php echo $array[1];?></td>
+                <td>
+                    <input type="checkbox" id="checkbox" name="check_list[]" value="<?php echo $array[0];?>">
+                  </td>
+                </tr>
+                <?php }?>
+              </tbody>
+              </table>
+              </div>
               <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary edit" id="ebtn-save" value="create">Edit Category
                 </button>

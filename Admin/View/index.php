@@ -7,10 +7,8 @@
  include 'auth_session.php';
  if(!isset($_SESSION['username'])){?>
 <a href="login.php">Login</a>
-<?php }else
-          {?> 
-      <p style="color: white;">Welcome to Dashboard!
-   <a  href="logout.php">Logout</a></p>
-   <?php } ?>
+<?php }
+include 'sidebar.php';?> 
+
 </body>
 </html> 

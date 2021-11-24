@@ -76,7 +76,7 @@ $('body').on('click', '.categorychange', function () {
         var data=new FormData(this);
           var action='category_update';
           data.append('action',action);
-
+          
         $.ajax({
             type:"POST",
             url: "../Controller/control.php",

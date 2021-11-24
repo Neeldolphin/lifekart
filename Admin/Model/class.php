@@ -245,7 +245,9 @@ class category extends database{
         }
         
         public function update($files,$post,$create_at,$update_at)
-        {
+        {   
+            $categoryName=trim($post['ecname']);
+            if($categoryName!=''){
             $targetDir = "../uploads/";
                 $fileName = basename($files["eimage"]["name"]);
                 $targetFilePath = $targetDir . $fileName;
@@ -265,9 +267,18 @@ class category extends database{
                 $result = mysqli_query($this->con, $query);
             }
         }
-        $query = "UPDATE category_info SET CName='" . $post['ecname'] . "', description='" .$post['edescription']."',create_at='$create_at',update_at='$update_at' WHERE id=".$post['eid'];
-        $result = mysqli_query($this->con, $query);
+       if($post['check_list']!=''){ 
+           foreach($post['check_list'] as $id){
+            $query="UPDATE Product_info SET category='".$post['eid']."' WHERE Id=".$id;
+            $result = mysqli_query($this->con, $query);
+           }
         }
+        $query = "UPDATE category_info SET CName='$categoryName', description='" .$post['edescription']."',create_at='$create_at',update_at='$update_at' WHERE id=".$post['eid'];
+        $result = mysqli_query($this->con, $query);
+        }else {
+            echo 5;
+        }
+    }
 
         public function delete($id)
         {
@@ -531,7 +542,7 @@ class login extends database{
                 $_SESSION['username'] = $username;
                 $_SESSION['id'] = $array[0];
                 // Redirect to user home page
-                header("Location: home.php");
+                header("Location: index.php");
         }else {
                 echo 'Incorrect Username/password.';
         }

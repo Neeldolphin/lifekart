@@ -89,7 +89,7 @@ include '../Model/class.php';
               <div class="form-group">
                 <label for="phone_number" class="col-sm-6 control-label">Phone Number</label>
                 <div class="col-sm-9">
-                  <input type="number" class="form-control" id="phone_number" name="phone_number" placeholder="" value="" required="">
+                  <input type="number" class="form-control" id="phone_number" name="phone_number" placeholder="" value="" min="7111111110" max="9999999999" required="" >
                 </div>
               </div>
               <div class="form-group">
@@ -148,7 +148,7 @@ include '../Model/class.php';
               <div class="form-group">
                 <label for="phone_number" class="col-sm-6 control-label">Phone Number</label>
                 <div class="col-sm-9">
-                  <input type="number" class="form-control" id="ephone_number" name="ephone_number" placeholder="" value="" required="">
+                  <input type="number" class="form-control" id="ephone_number" name="ephone_number" placeholder="" value=""  min="7111111110" max="9999999999"  required="">
                 </div>
               </div>
               <div class="form-group">

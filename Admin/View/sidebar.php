@@ -16,7 +16,7 @@ error_reporting(E_ALL);
 <body>
 
 <div class="sidenav">
-<a href="http://localhost/lifekart/Admin/View/index.php">Dashboard</a>
+<a href="http://localhost/lifekart/Admin/View/logout.php">logout</a>
  <button class="dropdown-btn">Catelog
     <i class="fa fa-caret-down"></i>
   </button>

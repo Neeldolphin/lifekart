@@ -145,7 +145,7 @@ include '../Model/class.php';
                 <td scope="row"><?php echo $array[0];?></td>
                 <td><?php echo $array[1];?></td>
                 <td>
-                    <input type="checkbox" id="checkbox" name="check_list[]" value="<?php echo $array[0];?>">
+                    <input type="checkbox" id="<?php echo $array[0];?>" name="check_list[]" value="<?php echo $array[0];?>">
                   </td>
                 </tr>
                 <?php }?>

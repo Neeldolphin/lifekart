@@ -101,8 +101,8 @@ class product_details extends database{
     }
     public function product_page($id)
     {
-        $query="select * from Product_info where category =$id"; 
-        $result2=mysqli_query($this->con,$query);
+       $query="select * from Product_info where concat(',',category,',') like '%,$id,%'"; 
+       $result2=mysqli_query($this->con,$query);
         while($array=mysqli_fetch_row($result2)){
             $data[]=$array;
         }
@@ -129,7 +129,7 @@ class product_details extends database{
         if(isset($page_id)){$page=$page_id;}else{$page=1;};
         $start_from=($page-1)* $perPage;
         if ($order == 1) {
-          $query="select * from Product_info where category =$id order by price ASC LIMIT $start_from,$perPage"; 
+          $query="select * from Product_info where concat(',',category,',') like '%,$id,%' order by price ASC LIMIT $start_from,$perPage"; 
             $result2=mysqli_query($this->con,$query);
             while($array=mysqli_fetch_row($result2)){
                 $data[]=$array;
@@ -137,7 +137,7 @@ class product_details extends database{
             return $data;
             }
          elseif ($order == 2) {
-            $query="select * from Product_info where category =$id order by price DESC LIMIT $start_from,$perPage"; 
+            $query="select * from Product_info where concat(',',category,',') like '%,$id,%' order by price DESC LIMIT $start_from,$perPage"; 
             $result2=mysqli_query($this->con,$query);
             while($array=mysqli_fetch_row($result2)){
                 $data[]=$array;
@@ -145,7 +145,7 @@ class product_details extends database{
             return $data;
             }
         elseif ($order== 3) {
-            $query="select * from Product_info where category =$id order by pname ASC LIMIT $start_from,$perPage"; 
+            $query="select * from Product_info where concat(',',category,',') like '%,$id,%' order by pname ASC LIMIT $start_from,$perPage"; 
             $result2=mysqli_query($this->con,$query);
             while($array=mysqli_fetch_row($result2)){
                 $data[]=$array;
@@ -153,14 +153,14 @@ class product_details extends database{
             return $data;
             }
         elseif ($order == 4) {
-            $query="select * from Product_info where category =$id order by pname DESC LIMIT $start_from,$perPage"; 
+            $query="select * from Product_info where concat(',',category,',') like '%,$id,%' order by pname DESC LIMIT $start_from,$perPage"; 
             $result2=mysqli_query($this->con,$query);
             while($array=mysqli_fetch_row($result2)){
                 $data[]=$array;
             }
             return $data;
             }else {
-                $query="select * from Product_info where category =".$id." LIMIT $start_from,$perPage"; 
+                $query="select * from Product_info where concat(',',category,',') like '%,$id,%' LIMIT $start_from,$perPage"; 
                 $result2=mysqli_query($this->con,$query);
                 while($array=mysqli_fetch_row($result2)){
                     $data[]=$array;
@@ -171,7 +171,7 @@ class product_details extends database{
         public function Pagination($id)
         {
             $perPage = 3;
-            $query = "select * from Product_info where category =".$id; 
+            $query = "select * from Product_info where concat(',',category,',') like '%,$id,%'"; 
             $result = mysqli_query($this->con, $query);
             $totalRecords = mysqli_num_rows($result);
             $totalPages = ceil($totalRecords/$perPage);

@@ -178,19 +178,16 @@ include '../Model/class.php';
               <div class="form-group">
                 <label class="col-sm-6 control-label">Category</label>
                 <div class="col-sm-9">
-                  <select class="form-control" name="ecategory" id="ecategory" required="">
-                      <option value=""></option>
                       <?php
                               $cate=new product();
                               $rows=$cate->categoryInfo();
-                              foreach($rows as $array){
+                              foreach($rows as $array){ 
                               ?>
-                                  <option value="<?php echo $array[0]; ?>"><?php echo $array[1]; ?>
-                                    </option>
-                          <?php
-                                }
+                <input type="checkbox" id="<?php echo $array[0];?>" class="form-control check_box" name="check_list[]" value="<?php echo $array[0];?>">
+                <label> <?php echo $array[1];?></label>
+                              <?php
+                              }
                            ?>
-                              </select>
                 </div>
               </div> 
               <div class="form-group">

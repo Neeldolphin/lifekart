@@ -1,4 +1,7 @@
 <?php 
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 include '../Model/class.php';
 
 $action_id=$_POST['action'];
@@ -102,7 +105,6 @@ class action{
     }
     public function updateProductDetail(){
         if(!empty($_POST['eid'])){
-    
             $create_at=date("Y/m/d");
             $update_at=date("Y/m/d");
             $files=$_FILES;
@@ -111,6 +113,7 @@ class action{
             $update->update($files,$post,$create_at,$update_at);   
         }
     }
+
     public function deleteProductDetail(){
         $id = $_POST['id'];
         $delete=new product();

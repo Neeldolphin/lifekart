@@ -183,6 +183,7 @@ class product extends database{
             }
             return $data;
         }
+        
         public function categoryInfo()
         {
             $query="SELECT * FROM category_info";
@@ -239,7 +240,12 @@ class category extends database{
             while ($cust = mysqli_fetch_assoc($result)) {
                 $data[] = $cust;
             } 
-            if($data) {
+         $query1="select Id,pname from Product_info where concat(',',category,',') like '%,$id,%'"; 
+            $result1=mysqli_query($this->con,$query1);
+            while($product[]=mysqli_fetch_row($result1)){                
+               $data[1]=$product;
+            }
+                if($data) {
              echo json_encode($data);
             } 
         }
@@ -269,9 +275,22 @@ class category extends database{
         }
        if($post['check_list']!=''){ 
            foreach($post['check_list'] as $id){
-            $query="UPDATE Product_info SET category='".$post['eid']."' WHERE Id=".$id;
+            $sql="select category from Product_info where Id=".$id;
+            $result1 = mysqli_query($this->con, $sql);
+            $data=array();
+            while($Categoryid=mysqli_fetch_array($result1)){
+               
+                $value= explode(',', $Categoryid['category']);
+                if(!in_array($post['eid'],$value)){
+                 $data[]=$Categoryid['category'];
+                 $arr=array($Categoryid['category'],$post['eid']);
+               $imploded=implode(",",$arr);      
+        }else{
+            $imploded=$Categoryid['category']; 
+        }
+           $query="UPDATE Product_info SET category='$imploded' WHERE Id=".$id;
             $result = mysqli_query($this->con, $query);
-           }
+           }}
         }
         $query = "UPDATE category_info SET CName='$categoryName', description='" .$post['edescription']."',create_at='$create_at',update_at='$update_at' WHERE id=".$post['eid'];
         $result = mysqli_query($this->con, $query);

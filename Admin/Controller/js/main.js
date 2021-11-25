@@ -57,7 +57,7 @@ $('body').on('click', '.categorychange', function () {
         var id = $(this).data('id');
        $('#editModal').html("Edit Category");
        $('#edit-modal').modal('show');
-   
+
     $.ajax({
             type:"POST",
             url: "../Controller/control.php",
@@ -68,6 +68,9 @@ $('body').on('click', '.categorychange', function () {
               $('#ecname').val(result[0].CName);
               $('#showimg').html("<img src='http://localhost/lifekart/Admin/uploads/" + result[0].image +"'>");
               $('#edescription').val(result[0].description);
+              for(i=0;i<result[1].length;i++){
+                $('#'+result[1][i][0]).prop('checked', true);
+              }
            }
         });
 

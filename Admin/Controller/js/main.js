@@ -316,6 +316,11 @@ $(document).ready(function(){
               $('#eid').val(result.data[0].Id);
               $('#epname').val(result.data[0].pname);
               $('#ecategory').val(result.data[0].category);
+              var text=result.data[0].category;
+              const checkCategory =text.split(",");
+              for (i= 0;i<checkCategory.length;i++) { 
+                $('#'+checkCategory[i]).prop('checked', true);
+              }
               $('#esku').val(result.data[0].SKU);
               $('#ePrice').val(result.data[0].price);
               $('#eDescription').val(result.data[0].description);

@@ -35,10 +35,13 @@ include 'navbar.php';
                 <label for="dropdown">SortBy:</label>
                     <select name="dropdown" id="dropdown">
                     <option value="0"></option>
-                    <option value="1">Price:low to high</option>
-                    <option value="2">Price:high to low</option>
-                    <option value="3">Name:ascending</option>
-                    <option value="4">Name:descending</option>
+                    <?php $val=$_GET['datasend']?>
+                    <option <?php if(isset($val) && $val=="1") {?> selected="selected"<?php } ?> value="1">Price:low to high</option>
+                    <option <?php if(isset($val) && $val=="2") {?> selected="selected"<?php } ?> value="2">Price:high to low</option>
+                    <option <?php if(isset($val) && $val=="3") {?> selected="selected"<?php } ?> value="3" >Name:ascending</option>
+                    <option <?php if(isset($val) && $val=="4") {?> selected="selected"<?php } ?> value="4" >Name:descending</option>
+                    <option <?php if(isset($val) && $val=="5") {?> selected="selected"<?php } ?> value="5" >Position:low to high</option>
+                    <option <?php if(isset($val) && $val=="6") {?> selected="selected"<?php } ?> value="6" >Position:high to low</option>
                     </select>   
                      <div class='row'>
             <?php 

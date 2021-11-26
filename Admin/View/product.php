@@ -45,7 +45,11 @@ include '../Model/class.php';
                 <tr>
                     <td scope="row"><?php echo $array[0];?></td>
                     <td><?php echo $array[1];?></td>
-                    <td><?php echo $array[13];?></td>
+                    <?php 
+                    $id=$array[2];
+                    $cate=new product();
+                    $rows22=$cate->categoryName($id);?>
+                    <td><?php echo $rows22;?></td>
                     <td><?php echo $array[3];?></td>
                     <td><?php for($i=0; $i<count($var); $i++){ ?><img class="img_width" src="http://localhost/lifekart/Admin/uploads/<?php echo $var[$i];?>"><?php } ?></td>
                     <td><?php echo $array[5];?></td>
@@ -183,8 +187,8 @@ include '../Model/class.php';
                               $rows=$cate->categoryInfo();
                               foreach($rows as $array){ 
                               ?>
-                <input type="checkbox" id="<?php echo $array[0];?>" class="form-control check_box" name="check_list[]" value="<?php echo $array[0];?>">
-                <label> <?php echo $array[1];?></label>
+                <input type="checkbox" id="<?php echo $array[0];?>" name="check_list[]" value="<?php echo $array[0];?>">
+                <label> <?php echo $array[1];?></label><br>
                               <?php
                               }
                            ?>

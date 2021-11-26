@@ -142,8 +142,14 @@ class product extends database{
          $query = "UPDATE Product_info SET video='". $Video . "' WHERE Id=".$post['eid'];
                $result = mysqli_query($this->con, $query);  
     }   
-         $query = "UPDATE Product_info SET pname='" . $post['epname'] . "', category='". $post['ecategory'] . "', SKU='" .$post['esku']."', price='". $post['ePrice'] . "', description='". $post['eDescription'] . "',qty='". $post['eQTY'] . "',Status='". $post['eStatus'] . "',create_at='$create_at',update_at='$update_at' WHERE Id=".$post['eid'];
-               $result = mysqli_query($this->con, $query);
+           if($post['check_list']!=''){ 
+           foreach($post['check_list'] as $id){
+            $Cateid[]=$id;    
+        }
+        $imploded=implode(",",$Cateid);  
+    }
+            $query = "UPDATE Product_info SET pname='" . $post['epname'] . "', category='$imploded', SKU='" .$post['esku']."', price='". $post['ePrice'] . "', description='". $post['eDescription'] . "',qty='". $post['eQTY'] . "',Status='". $post['eStatus'] . "',create_at='$create_at',update_at='$update_at' WHERE Id=".$post['eid'];
+              $result = mysqli_query($this->con, $query);
                echo 1; 
     }   
 
@@ -176,14 +182,28 @@ class product extends database{
         }
         public function productInfo()
         {
-            $query="select * from Product_info INNER JOIN category_info ON Product_info.category=category_info.id "; 
+            $query="select * from Product_info"; 
             $result=mysqli_query($this->con,$query);
             while($product=mysqli_fetch_row($result)){
                 $data[]=$product;
             }
             return $data;
         }
-        
+
+        public function categoryName($id)
+        { 
+        $data=array();
+         $value=explode(",",$id);
+         foreach($value as $id){
+          $query="SELECT CName FROM category_info WHERE id=".$id;
+            $result = mysqli_query($this->con,$query);
+            while($category=mysqli_fetch_array($result)){
+                $data[]=$category['CName'];
+            }
+        }
+            $imploded=implode(",",$data);  
+            return $imploded; 
+}
         public function categoryInfo()
         {
             $query="SELECT * FROM category_info";
@@ -287,10 +307,20 @@ class category extends database{
                $imploded=implode(",",$arr);      
         }else{
             $imploded=$Categoryid['category']; 
+        }  
+      $query="UPDATE Product_info SET category='$imploded' WHERE Id=".$id;
+        $result = mysqli_query($this->con, $query);
+           }
         }
-           $query="UPDATE Product_info SET category='$imploded' WHERE Id=".$id;
-            $result = mysqli_query($this->con, $query);
-           }}
+        }
+        if($post['Position']!=''){
+            $i=0;
+            foreach($post['posid'] as $id){
+               $Position=$post['Position'];
+                $query="UPDATE Product_info SET Position=".$Position[$i]." WHERE Id=".$id;
+                $result = mysqli_query($this->con, $query);
+                  $i++;
+         }
         }
         $query = "UPDATE category_info SET CName='$categoryName', description='" .$post['edescription']."',create_at='$create_at',update_at='$update_at' WHERE id=".$post['eid'];
         $result = mysqli_query($this->con, $query);

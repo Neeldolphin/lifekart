@@ -125,7 +125,7 @@ class product_details extends database{
 }
     public function product_info($id,$order,$page_id)
     {
-        $perPage = 3;
+        $perPage = 5;
         if(isset($page_id)){$page=$page_id;}else{$page=1;};
         $start_from=($page-1)* $perPage;
         if ($order == 1) {
@@ -159,6 +159,22 @@ class product_details extends database{
                 $data[]=$array;
             }
             return $data;
+            }
+        elseif ($order == 5) {
+                $query="select * from Product_info where concat(',',category,',') like '%,$id,%' order by Position ASC LIMIT $start_from,$perPage"; 
+                $result2=mysqli_query($this->con,$query);
+                while($array=mysqli_fetch_row($result2)){
+                    $data[]=$array;
+                }
+                return $data;
+            }
+        elseif ($order == 6) {
+                $query="select * from Product_info where concat(',',category,',') like '%,$id,%' order by Position DESC LIMIT $start_from,$perPage"; 
+                $result2=mysqli_query($this->con,$query);
+                while($array=mysqli_fetch_row($result2)){
+                    $data[]=$array;
+                }
+                return $data;
             }else {
                 $query="select * from Product_info where concat(',',category,',') like '%,$id,%' LIMIT $start_from,$perPage"; 
                 $result2=mysqli_query($this->con,$query);
@@ -170,7 +186,7 @@ class product_details extends database{
         }
         public function Pagination($id)
         {
-            $perPage = 3;
+            $perPage = 5;
             $query = "select * from Product_info where concat(',',category,',') like '%,$id,%'"; 
             $result = mysqli_query($this->con, $query);
             $totalRecords = mysqli_num_rows($result);

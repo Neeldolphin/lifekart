@@ -126,13 +126,14 @@ include '../Model/class.php';
                   <input type="text" class="form-control" id="edescription" name="edescription" >
                 </div>
               </div>
-              <div class="form-group">
+              <div>
               <table class="table" id="datatab">
               <thead>
                 <tr>
                   <th scope="col">ProductId</th>
                   <th scope="col">Name</th>
                   <th scope="col">Select</th>
+                  <th scope="col">Position</th>
                 </tr>
               </thead>
               <tbody>
@@ -141,12 +142,14 @@ include '../Model/class.php';
          $rows=$cate->ProductInfo();
          foreach($rows as $array){
 				?>
-                <tr>
+                <tr> 
                 <td scope="row"><?php echo $array[0];?></td>
                 <td><?php echo $array[1];?></td>
                 <td>
                     <input type="checkbox" id="<?php echo $array[0];?>" name="check_list[]" value="<?php echo $array[0];?>">
-                  </td>
+                   </td> 
+                    <td><input type="number" id="<?php echo $array[0];?>" min="0" name="Position[]" value="<?php echo $array[12];?>">
+                  <input type="hidden" value="<?php echo $array[0];?>" name="posid[]"></td>
                 </tr>
                 <?php }?>
               </tbody>

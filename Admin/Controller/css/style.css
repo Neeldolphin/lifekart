@@ -117,3 +117,11 @@
         right: 18px;
         top: 40px;
     }
+
+    .position{
+      width: 60px;
+    }
+
+    .hide {
+      display: none;
+    }

@@ -7,7 +7,8 @@ include '../Model/class.php';
  ?>
 <body>
 <div class="w3-top">
-	 <div class="container-fluid"> 
+	 <div class="container-fluid">
+   <form action="../Controller/control.php" id="csvForm" name="csvForm" method="POST" enctype="multipart/form-data"> 
             <div class="row">
             	<div class="col-md-2">
             		<?php
@@ -15,11 +16,35 @@ include '../Model/class.php';
 					?>
             	</div>
                 <div class="col-md-10 mt-1 offset-md-2"><h2 class="text-white bg-dark"> Product Details</h2></div>
-                <div class="col-md-12 datatables "><button type="button" id="addProduct" data-toggle="modal" data-target="#ajax-modal" class="btn btn-success">Add Product </button></div>
+                <div class="col-md-2  mt-1 offset-md-2">
+                <input type="hidden" id="Id" value="">  
+                   <label class="col-md-6 control-label">CSV</label>
+                      <select class="div-toggle" data-target=".file-upload" name="action" id="CSV">
+                       <option value="">Select</option>
+                      <option value="import_csv" name="Import" data-show=".import">IMPORT</option>
+                      <option value="export_csv" name="Export" data-show=".export">EXPORT</option>
+                      <option value="delete_csv" name="Delete" data-show=".delete">DELETE</option>
+                  </select>
+                    <div class="file-upload">
+                    <div class="import hide">
+                    <input type="file" id="upload-1" name="file">
+                    <p class="file-name"></p>
+                    </div>
+                    <div class="delete hide">
+                    <input type="file" id="upload-2" name="file1">
+                    <p class="file-name"></p>
+                    </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="btn-save" value="create">Submit
+                        </button>
+                  </div>
+                  <div class="col-md-8 datatables "><button type="button" id="addProduct" data-toggle="modal" data-target="#ajax-modal" class="btn btn-success">Add Product </button></div>
+              </div>
                 <div class="col-md-10  offset-md-2 ">
 			<table class="table " id="datatab">
               <thead>
                 <tr>
+                  <th scope="col">Select</th>
                   <th scope="col">Id</th>
                   <th scope="col">Name</th>
                   <th scope="col">Category</th>
@@ -43,6 +68,7 @@ include '../Model/class.php';
           $var=unserialize($array[4]);
           ?>
                 <tr>
+                    <td><input type="checkbox" id="<?php echo $array[0];?>" name="select_csv[]" value="<?php echo $array[0];?>"></td>
                     <td scope="row"><?php echo $array[0];?></td>
                     <td><?php echo $array[1];?></td>
                     <?php 
@@ -67,6 +93,7 @@ include '../Model/class.php';
               </tbody>
           </table>
       			</div>
+            </form>
             </div>
         </div>
  	</div>

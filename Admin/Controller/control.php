@@ -25,6 +25,15 @@ class action{
                             case 'single_remove':
                                 return $this->removeImage();
                                 break;
+                                case 'export_csv':
+                                    return $this->exportCSV();
+                                    break;
+                                    case 'import_csv':
+                                        return $this->importCSV();
+                                        break;
+                                        case 'delete_csv':
+                                            return $this->deleteCSV();
+                                            break;
                                 case 'image_details':
                                     return $this->insertImageDetails();
                                     break;
@@ -274,6 +283,25 @@ class action{
         echo 1;
     }
 
+    public function exportCSV()
+    {       
+            $post=$_POST;
+            $export=new product();
+            $export->ExportCsv($post);
+    }
+
+    public function importCSV()
+    {
+            $files=$_FILES;
+            $import=new product();
+            $import->ImportCsv($files);
+    }
+    public function deleteCSV()
+    {
+        $files=$_FILES;
+        $delete=new product();
+        $delete->DeleteCsv($files);
+    }
 
 }
 

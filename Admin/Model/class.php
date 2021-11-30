@@ -22,6 +22,123 @@ class product extends database{
       parent::__construct();   
      }
 
+        public function ExportCsv($post)
+        {  
+            header('Content-Type: text/csv');  
+            header('Content-Disposition: attachment; filename="data.csv"');  
+
+            $output = fopen("php://output", "wb");  
+
+            fputcsv($output,array("Id","pname","category","SKU","image","price","description","video","qty","Status","create_at","update_at","Position"));  
+            
+
+            foreach($post['select_csv'] as $id){
+
+            $query = "SELECT * from Product_info where Id=".$id;  
+            $result = mysqli_query($this->con, $query);  
+            $count=0;
+
+            while($row = mysqli_fetch_assoc($result))  
+            { 
+                $count++;
+                 $store=array();
+                 $img = unserialize($row['image']);
+                foreach($img as $line){
+                    $img1="http://localhost/lifekart/Admin/uploads/".$line;
+                    $store[]=$img1;
+                }
+                $row['image']=implode(",",$store); 
+                 fputcsv($output, $row);  
+            }
+            if(!isset($result)){
+                echo "<script type=\"text/javascript\">
+                alert(\"CSV File has been successfully Imported..count($count)\");
+                window.location = \"../View/product.php\"
+              </script>";
+            }  
+        }
+            fclose($output);
+
+        }
+
+public function ImportCsv($files)
+        {
+            $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
+            if(!empty($files['file']['name']) && in_array($files['file']['type'], $csvMimes)){
+                if(is_uploaded_file($files['file']['tmp_name'])){
+           
+                    $csvFile = fopen($files['file']['tmp_name'], 'r');
+       
+                $variable=fgetcsv($csvFile);    
+
+                 while (($getData = fgetcsv($csvFile, 10000, ",")) !== FALSE)
+                  { $getData=array_combine($variable,$getData);
+                    $prevQuery = "SELECT Id FROM Product_info WHERE ID= '".$getData[0]."'";
+                    $prevResult = $this->con->query($prevQuery);
+
+                    $count=0;
+                    $add=0;
+                    if($prevResult->num_rows > 0){
+                        $count++;
+                    }else{
+                        $add++;
+                    $rows=array();
+                    $row=explode(",",$getData['image']);
+                    foreach($row as $line){
+                    $rows[]=str_replace("http://localhost/lifekart/Admin/uploads/","",$line);
+                      }
+                    $setData['image']=serialize($rows);
+
+          $sql = "INSERT INTO Product_info(pname,category ,SKU,image,price,description,video,qty,Status,create_at,update_at,Position) 
+                           values ('".$getData['pname']."','".$getData['category']."','".$getData['SKU']."','".$setData['image']."','".$getData['price']."','".$getData['description']."','".$getData['video']."','".$getData['qty']."','".$getData['Status']."','".$getData['create_at']."','".$getData['update_at']."','".$getData['Position']."')";
+                           $result = mysqli_query($this->con, $sql);
+                    }
+               if(!isset($result))
+               {
+                 echo "<script type=\"text/javascript\">
+                     alert(\"CSV File has been successfully Imported.skipped($count).count($add)\");
+                     window.location = \"../View/product.php\"
+                     </script>";    
+               }    
+               else {
+                   echo "<script type=\"text/javascript\">
+                   alert(\"CSV File has been successfully Imported.skipped($count).count($add).\");
+                   window.location = \"../View/product.php\"
+                 </script>";
+               }
+                  }
+                       }
+                  fclose($csvFile);  
+        }
+    }
+    public function DeleteCsv($files)
+        {
+            $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
+            if(!empty($files['file1']['name']) && in_array($files['file1']['type'], $csvMimes)){
+                if(is_uploaded_file($files['file1']['tmp_name'])){
+           
+                    $csvFile = fopen($files['file1']['tmp_name'], 'r');
+       
+                    fgetcsv($csvFile);
+                    $count=0;
+                 while (($getData = fgetcsv($csvFile, 10000, ",")) !== FALSE)
+                  {  
+                      $count++;
+                    $sql = "DELETE FROM Product_info WHERE SKU= '".$getData[0]."'";
+                    $result = mysqli_query($this->con, $sql);
+                  }
+                if(isset($result))
+               {
+                 echo "<script type=\"text/javascript\">
+                     alert(\"count($count)files have been deleted\");
+                     window.location = \"../View/product.php\"
+                     </script>";    
+               }
+            }
+                  fclose($csvFile);  
+        }
+        }
+
         public function insert($files,$pname,$category,$SKU,$price,$description,$qty,$Status,$create_at,$update_at)
         {
        

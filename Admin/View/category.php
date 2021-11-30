@@ -148,7 +148,7 @@ include '../Model/class.php';
                 <td>
                     <input type="checkbox" id="<?php echo $array[0];?>" name="check_list[]" value="<?php echo $array[0];?>">
                    </td> 
-                    <td><input type="number" id="<?php echo $array[0];?>" min="0" name="Position[]" value="<?php echo $array[12];?>">
+                    <td><input type="number" id="<?php echo $array[0];?>" min="0" name="Position[]" class="position" value="<?php echo $array[12];?>">
                   <input type="hidden" value="<?php echo $array[0];?>" name="posid[]"></td>
                 </tr>
                 <?php }?>

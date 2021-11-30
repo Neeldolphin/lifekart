@@ -6,6 +6,7 @@ include '../Model/class.php';
 
 $action_id=$_POST['action'];
 
+
 class action{
     public function getAction($action_id)
     {

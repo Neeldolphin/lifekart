@@ -24,19 +24,20 @@ class product extends database{
 
         public function ExportCsv($post)
         {  
+            session_start();
             header('Content-Type: text/csv');  
             header('Content-Disposition: attachment; filename="data.csv"');  
 
             $output = fopen("php://output", "wb");  
 
             fputcsv($output,array("Id","pname","category","SKU","image","price","description","video","qty","Status","create_at","update_at","Position"));  
-            
+            $count=0;
 
             foreach($post['select_csv'] as $id){
 
             $query = "SELECT * from Product_info where Id=".$id;  
             $result = mysqli_query($this->con, $query);  
-            $count=0;
+           
 
             while($row = mysqli_fetch_assoc($result))  
             { 
@@ -47,14 +48,14 @@ class product extends database{
                     $img1="http://localhost/lifekart/Admin/uploads/".$line;
                     $store[]=$img1;
                 }
-                $row['image']=implode(",",$store); 
+                $row['image']=implode(",",$store);
+                $row['video']="http://localhost/lifekart/Admin/uploads/".$row['video'];
+    
                  fputcsv($output, $row);  
             }
             if(!isset($result)){
-                echo "<script type=\"text/javascript\">
-                alert(\"CSV File has been successfully Imported..count($count)\");
-                window.location = \"../View/product.php\"
-              </script>";
+                $_SESSION['success_message']="CSV File has been successfully Exported.added:$count";
+                header("Location: ../View/product.php");
             }  
         }
             fclose($output);
@@ -63,31 +64,55 @@ class product extends database{
 
 public function ImportCsv($files)
         {
+            session_start();
             $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
             if(!empty($files['file']['name']) && in_array($files['file']['type'], $csvMimes)){
                 if(is_uploaded_file($files['file']['tmp_name'])){
            
                     $csvFile = fopen($files['file']['tmp_name'], 'r');
        
-                $variable=fgetcsv($csvFile);    
-
+                $variable=fgetcsv($csvFile);  
+                $count=0;
+                $add=0;
                  while (($getData = fgetcsv($csvFile, 10000, ",")) !== FALSE)
                   { $getData=array_combine($variable,$getData);
-                    $prevQuery = "SELECT Id FROM Product_info WHERE ID= '".$getData[0]."'";
+                    $prevQuery = "SELECT Id FROM Product_info WHERE Id=".$getData['Id'];
                     $prevResult = $this->con->query($prevQuery);
 
-                    $count=0;
-                    $add=0;
                     if($prevResult->num_rows > 0){
                         $count++;
+                    $rows=array();
+                    $row=explode(",",$getData['image']);
+                    foreach($row as $line){
+                        $imag2=str_replace("http://localhost/lifekart/Admin/uploads/","",$line);
+                        $check=explode(".",$imag2);
+                        if(in_array($check[1],array('jpg','jpeg','png'))){
+                            $rows[]=$imag2;
+                        }else{
+                            $_SESSION['success_message']="invalid image type.updated:$count skipped:$add";
+                        }
+                    }
+                    $setData['image']=serialize($rows);
+
+                    $getData['video']=str_replace("http://localhost/lifekart/Admin/uploads/","",$getData['video']);
+                        $sql = "UPDATE Product_info set pname='".$getData['pname']."',category='".$getData['category']."',SKU='".$getData['SKU']."',image='".$setData['image']."',price='".$getData['price']."',description='".$getData['description']."',video='".$getData['video']."',qty='".$getData['qty']."',Status='".$getData['Status']."',create_at='".$getData['create_at']."',update_at='".$getData['update_at']."',Position='".$getData['Position']."' where Id=".$getData['Id'];
+                        $result = mysqli_query($this->con, $sql);
                     }else{
                         $add++;
                     $rows=array();
                     $row=explode(",",$getData['image']);
                     foreach($row as $line){
-                    $rows[]=str_replace("http://localhost/lifekart/Admin/uploads/","",$line);
-                      }
+                    $imag2=str_replace("http://localhost/lifekart/Admin/uploads/","",$line);
+                    $check=explode(".",$imag2);
+                        if(in_array($check[1],array('jpg','jpeg','png'))){
+                            $rows[]=$imag2;
+                        }else{    
+                            $_SESSION['success_message']="invalid image type.updated:$count skipped:$add";
+                        }
+                        }
                     $setData['image']=serialize($rows);
+
+                    $getData['video']=str_replace("http://localhost/lifekart/Admin/uploads/","",$getData['video']);
 
           $sql = "INSERT INTO Product_info(pname,category ,SKU,image,price,description,video,qty,Status,create_at,update_at,Position) 
                            values ('".$getData['pname']."','".$getData['category']."','".$getData['SKU']."','".$setData['image']."','".$getData['price']."','".$getData['description']."','".$getData['video']."','".$getData['qty']."','".$getData['Status']."','".$getData['create_at']."','".$getData['update_at']."','".$getData['Position']."')";
@@ -95,24 +120,22 @@ public function ImportCsv($files)
                     }
                if(!isset($result))
                {
-                 echo "<script type=\"text/javascript\">
-                     alert(\"CSV File has been successfully Imported.skipped($count).count($add)\");
-                     window.location = \"../View/product.php\"
-                     </script>";    
+                $_SESSION['success_message']="CSV File has been successfully Imported.updated:$count added:$add";
+                header("Location: ../View/product.php");
                }    
                else {
-                   echo "<script type=\"text/javascript\">
-                   alert(\"CSV File has been successfully Imported.skipped($count).count($add).\");
-                   window.location = \"../View/product.php\"
-                 </script>";
-               }
-                  }
-                       }
+                $_SESSION['success_message']="CSV File has been successfully Imported.updated:$count added:$add";
+                header("Location: ../View/product.php");
+                   }
+                }
+             }
                   fclose($csvFile);  
         }
     }
-    public function DeleteCsv($files)
-        {
+
+    public function DeleteCsv($files){
+
+            session_start();
             $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
             if(!empty($files['file1']['name']) && in_array($files['file1']['type'], $csvMimes)){
                 if(is_uploaded_file($files['file1']['tmp_name'])){
@@ -128,19 +151,16 @@ public function ImportCsv($files)
                     $result = mysqli_query($this->con, $sql);
                   }
                 if(isset($result))
-               {
-                 echo "<script type=\"text/javascript\">
-                     alert(\"count($count)files have been deleted\");
-                     window.location = \"../View/product.php\"
-                     </script>";    
+               {  
+                $_SESSION['success_message']="$count files have been deleted";
+                header("Location: ../View/product.php");    
                }
             }
                   fclose($csvFile);  
         }
         }
 
-        public function insert($files,$pname,$category,$SKU,$price,$description,$qty,$Status,$create_at,$update_at)
-        {
+    public function insert($files,$pname,$category,$SKU,$price,$description,$qty,$Status,$create_at,$update_at){
        
      $load = array();
    

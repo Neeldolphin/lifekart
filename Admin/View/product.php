@@ -35,6 +35,12 @@ include '../Model/class.php';
                     <p class="file-name"></p>
                     </div>
                     </div>
+                    <?php if (isset($_SESSION['success_message']) && !empty($_SESSION['success_message'])) { ?>
+                        <div class="success-message" style="margin-bottom: 20px;font-size: 20px;color: green;"><?php echo $_SESSION['success_message']; ?></div>
+                        <?php
+                        unset($_SESSION['success_message']);
+                    }
+                    ?>
                     <button type="submit" class="btn btn-primary" id="btn-save" value="create">Submit
                         </button>
                   </div>

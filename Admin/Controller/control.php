@@ -1,7 +1,7 @@
 <?php 
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 include '../Model/class.php';
 
 $action_id=$_POST['action'];
@@ -26,6 +26,9 @@ class action{
                             case 'single_remove':
                                 return $this->removeImage();
                                 break;
+                                case 'video_remove':
+                                    return $this->removeVideo();
+                                    break;
                                 case 'export_csv':
                                     return $this->exportCSV();
                                     break;
@@ -35,6 +38,9 @@ class action{
                                         case 'delete_csv':
                                             return $this->deleteCSV();
                                             break;
+                                            case 'select_delete_csv':
+                                                return $this->selectdeleteCsv();
+                                                break;
                                 case 'image_details':
                                     return $this->insertImageDetails();
                                     break;
@@ -92,13 +98,12 @@ class action{
     }
 
     public function insertProductDetail(){
+   
         $pname = $_POST['pname'];
         $category = $_POST['category'];
         $SKU = $_POST['sku'];
-        $image = $_POST['image'];
         $price = $_POST['Price'];
         $description = $_POST['Description'];
-        $Video = $_POST['Video'];
         $qty = $_POST['QTY'];
         $Status = $_POST['Status'];
         $create_at=date("Y/m/d");
@@ -106,6 +111,7 @@ class action{
         $files = $_FILES;
         $image = new product();
         $image->insert($files,$pname,$category,$SKU,$price,$description,$qty,$Status,$create_at,$update_at);
+
     }
 
     public function changeProductDetail(){
@@ -135,6 +141,14 @@ class action{
         $post = $_POST;
         $remove=new product();
         $remove->removeimage($post);
+        echo 1;
+
+    }
+
+    public function removeVideo(){
+        $post = $_POST;
+        $remove=new product();
+        $remove->removevideo($post);
         echo 1;
 
     }
@@ -302,6 +316,14 @@ class action{
         $files=$_FILES;
         $delete=new product();
         $delete->DeleteCsv($files);
+    }
+
+    public function selectdeleteCsv()
+    {
+        
+        $post=$_POST;
+        $delete=new product();
+        $delete->SelectDeleteCsv($post);
     }
 
 }

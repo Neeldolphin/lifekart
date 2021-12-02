@@ -79,7 +79,8 @@ include '../Model/class.php';
               <div class="form-group">
                 <label class="col-sm-6 control-label">Description</label>
                 <div class="col-sm-12">
-                  <input type="text" class="form-control" id="description" name="description" placeholder=" Description" value="" required="">
+                  <textarea type="text" class="form-control" id="description" rows="4" cols="50" name="description" placeholder=" Description" value="" required="">
+                  </textarea>
                 </div>
               </div>
               <div class="col-sm-offset-2 col-sm-10">
@@ -123,7 +124,7 @@ include '../Model/class.php';
               <div class="form-group">
                 <label class="col-sm-6 control-label">Description</label>
                 <div class="col-sm-12">
-                  <input type="text" class="form-control" id="edescription" name="edescription" >
+                  <textarea class="form-control" id="edescription" rows="4" cols="50" name="edescription" ></textarea>
                 </div>
               </div>
               <div>

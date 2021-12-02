@@ -21,26 +21,29 @@ class product extends database{
      {
       parent::__construct();   
      }
-
+        
         public function ExportCsv($post)
         {  
             session_start();
+            if($post['select_csv']!=''){
             header('Content-Type: text/csv');  
             header('Content-Disposition: attachment; filename="data.csv"');  
 
             $output = fopen("php://output", "wb");  
 
-            fputcsv($output,array("Id","pname","category","SKU","image","price","description","video","qty","Status","create_at","update_at","Position"));  
+            fputcsv($output,array("pname","category","SKU","image","price","description","video","qty","Status","create_at","update_at","Position"));  
             $count=0;
-
+            
             foreach($post['select_csv'] as $id){
-
-            $query = "SELECT * from Product_info where Id=".$id;  
-            $result = mysqli_query($this->con, $query);  
-           
-
+                     
+         $query = "SELECT  pname,category,SKU,image,price,description,video,qty,Status,create_at,update_at,Position FROM Product_info where Id=".$id;
+            $result = mysqli_query($this->con, $query); 
             while($row = mysqli_fetch_assoc($result))  
             { 
+                $id=$row['category'];
+                $cate=new product();
+                $row['category']=$cate->categoryName($id);
+
                 $count++;
                  $store=array();
                  $img = unserialize($row['image']);
@@ -59,8 +62,11 @@ class product extends database{
             }  
         }
             fclose($output);
-
-        }
+    }else{
+        $_SESSION['success_message']="select proper record";
+       header("Location: ../View/product.php");
+    }
+}
 
 public function ImportCsv($files)
         {
@@ -69,17 +75,27 @@ public function ImportCsv($files)
             if(!empty($files['file']['name']) && in_array($files['file']['type'], $csvMimes)){
                 if(is_uploaded_file($files['file']['tmp_name'])){
            
-                    $csvFile = fopen($files['file']['tmp_name'], 'r');
-       
-                $variable=fgetcsv($csvFile);  
+                $csvFile = fopen($files['file']['tmp_name'], 'r');
                 $count=0;
                 $add=0;
+                $getValue = 0;
+                while ($variable = fgetcsv($csvFile)) 
+                {
+                    $getValue++;
+                    if($getValue>1){
+                    foreach ($variable as $getData){continue;}
+                    }else{
+                            $_SESSION['success_message']="CSV File is empty. Enter some valid info";
+                            header("Location: ../View/product.php");
+                        }
                  while (($getData = fgetcsv($csvFile, 10000, ",")) !== FALSE)
-                  { $getData=array_combine($variable,$getData);
-                    $prevQuery = "SELECT Id FROM Product_info WHERE Id=".$getData['Id'];
+                  {
+                    $getData=array_combine($variable,$getData);
+                    $prevQuery = "SELECT SKU FROM Product_info WHERE SKU=".$getData['SKU'];
                     $prevResult = $this->con->query($prevQuery);
-
+                  
                     if($prevResult->num_rows > 0){
+                            
                         $count++;
                     $rows=array();
                     $row=explode(",",$getData['image']);
@@ -93,42 +109,43 @@ public function ImportCsv($files)
                         }
                     }
                     $setData['image']=serialize($rows);
-
                     $getData['video']=str_replace("http://localhost/lifekart/Admin/uploads/","",$getData['video']);
-                        $sql = "UPDATE Product_info set pname='".$getData['pname']."',category='".$getData['category']."',SKU='".$getData['SKU']."',image='".$setData['image']."',price='".$getData['price']."',description='".$getData['description']."',video='".$getData['video']."',qty='".$getData['qty']."',Status='".$getData['Status']."',create_at='".$getData['create_at']."',update_at='".$getData['update_at']."',Position='".$getData['Position']."' where Id=".$getData['Id'];
-                        $result = mysqli_query($this->con, $sql);
+
+                    $sql = "UPDATE Product_info set pname='".$getData['pname']."',category='".$getData['category']."',image='".$setData['image']."',price='".$getData['price']."',description='".$getData['description']."',video='".$getData['video']."',qty='".$getData['qty']."',Status='".$getData['Status']."',create_at='".$getData['create_at']."',update_at='".$getData['update_at']."',Position='".$getData['Position']."' where SKU=".$getData['SKU'];
+                    $result = mysqli_query($this->con, $sql);
                     }else{
                         $add++;
-                    $rows=array();
-                    $row=explode(",",$getData['image']);
-                    foreach($row as $line){
-                    $imag2=str_replace("http://localhost/lifekart/Admin/uploads/","",$line);
-                    $check=explode(".",$imag2);
-                        if(in_array($check[1],array('jpg','jpeg','png'))){
-                            $rows[]=$imag2;
-                        }else{    
-                            $_SESSION['success_message']="invalid image type.updated:$count skipped:$add";
-                        }
-                        }
-                    $setData['image']=serialize($rows);
-
-                    $getData['video']=str_replace("http://localhost/lifekart/Admin/uploads/","",$getData['video']);
-
-          $sql = "INSERT INTO Product_info(pname,category ,SKU,image,price,description,video,qty,Status,create_at,update_at,Position) 
-                           values ('".$getData['pname']."','".$getData['category']."','".$getData['SKU']."','".$setData['image']."','".$getData['price']."','".$getData['description']."','".$getData['video']."','".$getData['qty']."','".$getData['Status']."','".$getData['create_at']."','".$getData['update_at']."','".$getData['Position']."')";
-                           $result = mysqli_query($this->con, $sql);
+                        $rows=array();
+                        $row=explode(",",$getData['image']);
+                        foreach($row as $line){
+                        $imag2=str_replace("http://localhost/lifekart/Admin/uploads/","",$line);
+                        $check=explode(".",$imag2);
+                            if(in_array($check[1],array('jpg','jpeg','png'))){
+                                $rows[]=$imag2;
+                            }else{    
+                                $_SESSION['success_message']="invalid image type.updated:$count skipped:$add";
+                            }
+                            }
+                        $setData['image']=serialize($rows);
+    
+                        $getData['video']=str_replace("http://localhost/lifekart/Admin/uploads/","",$getData['video']);
+    
+              $sql = "INSERT INTO Product_info(pname,category ,SKU,image,price,description,video,qty,Status,create_at,update_at,Position) 
+                               values ('".$getData['pname']."','".$getData['category']."','".$getData['SKU']."','".$setData['image']."','".$getData['price']."','".$getData['description']."','".$getData['video']."','".$getData['qty']."','".$getData['Status']."','".$getData['create_at']."','".$getData['update_at']."','".$getData['Position']."')";
+                               $result1 = mysqli_query($this->con, $sql);
                     }
-               if(!isset($result))
+               if(isset($result1))
                {
                 $_SESSION['success_message']="CSV File has been successfully Imported.updated:$count added:$add";
                 header("Location: ../View/product.php");
                }    
-               else {
-                $_SESSION['success_message']="CSV File has been successfully Imported.updated:$count added:$add";
+               else if($result) {
+                $_SESSION['success_message']="sku already exists.updated:$count";
                 header("Location: ../View/product.php");
-                   }
+                                    }
+                            }
+                            }               
                 }
-             }
                   fclose($csvFile);  
         }
     }
@@ -141,15 +158,31 @@ public function ImportCsv($files)
                 if(is_uploaded_file($files['file1']['tmp_name'])){
            
                     $csvFile = fopen($files['file1']['tmp_name'], 'r');
-       
-                    fgetcsv($csvFile);
                     $count=0;
+                    $getValue = 0;
+                    while ($variable = fgetcsv($csvFile)) 
+                    {
+                        $getValue++;
+                        if($getValue>1){
+                        foreach ($variable as $getData){continue;}
+                        }else{
+                                $_SESSION['success_message']="CSV File is empty. Enter some valid info";
+                                header("Location: ../View/product.php");
+                            }
                  while (($getData = fgetcsv($csvFile, 10000, ",")) !== FALSE)
                   {  
                       $count++;
+                      $query="SELECT SKU FROM Product_info WHERE SKU='".$getData[0]."'";
+                      $result1 = mysqli_query($this->con, $query);
+                      if($result1->num_rows >0){
+
                     $sql = "DELETE FROM Product_info WHERE SKU= '".$getData[0]."'";
                     $result = mysqli_query($this->con, $sql);
-                  }
+                }else{
+                    $_SESSION['success_message']="files no match found";
+                    header("Location: ../View/product.php"); 
+                }
+            }
                 if(isset($result))
                {  
                 $_SESSION['success_message']="$count files have been deleted";
@@ -158,7 +191,31 @@ public function ImportCsv($files)
             }
                   fclose($csvFile);  
         }
+    }
         }
+
+    public function SelectDeleteCsv($post)
+        {  
+            session_start();
+            if($post['select_csv']!=''){
+
+            $count=0;
+            foreach($post['select_csv'] as $id){
+                
+            $count++;
+           $query = "DELETE FROM Product_info WHERE Id=".$id;  
+            $result = mysqli_query($this->con, $query);  
+          
+            if(isset($result)){
+                $_SESSION['success_message']="Selected record has been successfully Deleted.$count";
+                header("Location: ../View/product.php");
+            }  
+        }
+    }else{
+       $_SESSION['success_message']="select proper record";
+                header("Location: ../View/product.php");
+    }
+}
 
     public function insert($files,$pname,$category,$SKU,$price,$description,$qty,$Status,$create_at,$update_at){
        
@@ -208,9 +265,9 @@ public function ImportCsv($files)
         if($row[0] >= 1) {
             echo 5;
              }else{
-            $query = "INSERT INTO Product_info(pname,category ,SKU,image,price,description,video,qty,  Status,create_at,update_at)
+         $query = "INSERT INTO Product_info(pname,category ,SKU,image,price,description,video,qty,  Status,create_at,update_at)
            VALUES ('$pname','$category','$SKU','$display','$price','$description','$Video ','$qty','$Status','$create_at','$update_at')";
-           $result = mysqli_query($this->con, $query); 
+          $result = mysqli_query($this->con, $query); 
           echo 1;
           }
         }
@@ -284,11 +341,33 @@ public function ImportCsv($files)
             $Cateid[]=$id;    
         }
         $imploded=implode(",",$Cateid);  
-    }
+    } 
+    if(empty($_POST['esku'])){
+            echo 5;
+            }else{
             $query = "UPDATE Product_info SET pname='" . $post['epname'] . "', category='$imploded', SKU='" .$post['esku']."', price='". $post['ePrice'] . "', description='". $post['eDescription'] . "',qty='". $post['eQTY'] . "',Status='". $post['eStatus'] . "',create_at='$create_at',update_at='$update_at' WHERE Id=".$post['eid'];
               $result = mysqli_query($this->con, $query);
-               echo 1; 
+               echo 1;
+            }
     }   
+
+//     if(empty($_POST['esku'])){
+//         echo 5;
+//         }else{
+//             if(!empty($_POST)){
+//                 $check="select SKU from Product_info where SKU='".$post['esku']."' ";
+//                 $exists=mysqli_query($this->con,$check);
+//                 $row=mysqli_fetch_row($exists);
+//                 if($row[0] >= 1){
+//                     echo 7;
+//                 }else{
+//         $query = "UPDATE Product_info SET pname='" . $post['epname'] . "', category='$imploded', SKU='" .$post['esku']."', price='". $post['ePrice'] . "', description='". $post['eDescription'] . "',qty='". $post['eQTY'] . "',Status='". $post['eStatus'] . "',create_at='$create_at',update_at='$update_at' WHERE Id=".$post['eid'];
+//           $result = mysqli_query($this->con, $query);
+//            echo 1;
+//         }
+//     }
+// }
+// } 
 
         public function delete($id)
         {
@@ -317,6 +396,29 @@ public function ImportCsv($files)
             echo $query = "UPDATE Product_info SET image='". $img2. "'WHERE Id=".$id;
             $result = mysqli_query($this->con, $query);
         }
+
+        public function removevideo($post)
+        {
+            $id = $post['id'];
+            $key = $post['videoname'];
+            $query="SELECT * from Product_info WHERE Id =".$id;
+            $result = mysqli_query($this->con,$query);
+            while($row = mysqli_fetch_array($result)){
+                    $video=$row[4];
+            }
+            $video1=unserialize($video);
+            
+
+            if (($key = array_search($key, $video1)) !== false) {
+                unset($video1[$key]);
+            }
+                $video2=array_values($video1);
+                $video2=serialize($video2);
+                
+            echo $query = "UPDATE Product_info SET video='". $video2. "'WHERE Id=".$id;
+            $result = mysqli_query($this->con, $query);
+        }
+
         public function productInfo()
         {
             $query="select * from Product_info"; 

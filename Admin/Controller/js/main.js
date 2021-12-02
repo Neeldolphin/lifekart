@@ -269,6 +269,7 @@ $(document).ready(function(){
            },
         messages: {
             pname: "Enter your product",
+            sku:"sku required"
         },
         submitHandler: function(form) { 
         $('#custForm').submit(function() { 
@@ -302,6 +303,7 @@ $(document).ready(function(){
 $(document).ready(function(){
 
      $('body').on('click', '.productchange', function () {
+
       var id = $(this).data('id');
       var action='product_change';
        $('#editModal').html("Edit Product");
@@ -325,17 +327,36 @@ $(document).ready(function(){
               $('#ePrice').val(result.data[0].price);
               $('#eDescription').val(result.data[0].description);
               $('#eQTY').val(result.data[0].qty);
-              $('#displayvideo').html("<video width='180' height='90' controls><source src='http://localhost/lifekart/Admin/uploads/" + result.data[0].video +"'type='video/mp4'></video>");
+              $('#displayvideo').html("<video  class='videoremove' width='180' height='90' controls><source src='http://localhost/lifekart/Admin/uploads/" + result.data[0].video +"'type='video/mp4'></video><span class='video_remove' data-id='"+result.data[0].video+"'>X</span>");
               $('#eStatus').val(result.data[0].Status);
-                var show = [];
-                for(i=0;i<result.img.length;i++){
-                  show.push("<img src='http://localhost/lifekart/Admin/uploads/" + result.img[i] +"'><span class='single_remove' data-id='"+ result.img[i] +"'>X</span>");              
-                }
-                $("#displayimg").html(show.join(''));
+                 var show = [];
+                 for(i=0;i<result.img.length;i++){
+                   show.push("<img class='imgdisplay' src='http://localhost/lifekart/Admin/uploads/" + result.img[i] +"'><span class='single_remove' data-id='"+ result.img[i] +"'>X</span>");              
+                 }
+                 $("#displayimg").html(show.join(''));
           }
         });
 
     $("#editForm").on('submit',function(){
+      $("#editForm").validate({
+        rules: {
+            epname: "required",
+            esku:"required",
+            ePrice:"required",
+            eDescription:"required",
+            eQTY:"required",
+            eStatus:"required"
+           },
+        messages: {
+            epname: "Enter product name",
+            esku: "Enter SKU",
+            ePrice:"price required",
+            eDescription:"description required",
+            eQTY:"quantity required",
+            eStatus:"status required"
+        },
+      submitHandler: function(form) { 
+        $('#editForm').submit(function() { 
         var id = $(this).data('id');
         var data=new FormData(this);
           var action='product_update';
@@ -351,14 +372,20 @@ $(document).ready(function(){
             success: function(result){
               if (result == 1) {
              window.location.reload(true);
-            }else{
-                alert('Sorry, unable update.');
+            }else if(result == 5){
+              alert('Sku required');
+          }else{
+              alert('Sorry, unable update.something improper');
             }
             }
           });
-            });
-          });
-       });
+        });
+          form.submit();
+        }
+      });
+     });
+   });
+ });
 
 
 $(document).ready(function($){
@@ -384,7 +411,45 @@ $(document).ready(function($){
 
 
 $(document).ready(function(){
-  $('#displayimg').on('click','span',function(){
+ $('.selectdelete').click(function(e) {
+  var data=$('#CSV').find(":selected").text();
+  if(data=='EXPORT'||data=='Select'||data=='SELECT TO DELETE'){
+  var atLeastOneIsChecked = $('input[name="select_csv[]"]:checked').length > 0;
+  if (atLeastOneIsChecked == false) {
+    e.preventDefault();
+    $('.message').text("select any one");
+    return false;
+    }else{
+      return true;
+      }
+    }
+    });
+  });
+
+
+  $(document).ready(function(){
+   
+    $('.selectdelete').on('click', function (e) {
+      $('#csvForm').validate();
+      const myArray = [];
+     var data=$('#CSV').find(":selected").text();
+     var atLeastOneIsChecked = $('input[name="select_csv[]"]:checked').each(function(){
+       myArray.push($(this).val());
+     });
+     if(data=='SELECT TO DELETE'){
+      if(!confirm('Are you sure?  '+myArray)){
+      e.preventDefault();
+            return false;
+      }
+      return true;
+    }
+   });
+  });
+
+  
+$(document).ready(function(){
+  $('#displayimg').on('click','span',function(e){
+   var ab=this;
     var action ='single_remove';
     var id = $('#eid').val();
     var imgname = $(this).data('id');
@@ -396,7 +461,29 @@ $(document).ready(function(){
                       action:action
                     },
                     success: function(){
-                    window.location.reload(true);
+                       $(ab).prev('.imgdisplay').remove();
+                       $(ab).remove();
+                    }
+        });
+}); 
+}); 
+
+$(document).ready(function(){
+  $('#displayvideo').on('click','span',function(e){
+   var ab=this;
+    var action ='video_remove';
+    var id = $('#eid').val();
+    var videoname = $(this).data('id');
+        $.ajax({
+                    type: "POST",
+                    url: "../Controller/control.php",
+                    data:{id:id,
+                      videoname:videoname,
+                      action:action
+                    },
+                    success: function(){
+                       $(ab).prev('.videoremove').remove();
+                       $(ab).remove();
                     }
         });
 }); 

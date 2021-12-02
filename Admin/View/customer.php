@@ -95,7 +95,8 @@ include '../Model/class.php';
               <div class="form-group">
                 <label class="col-sm-6 control-label">Address</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="Address" name="Address" placeholder="Address" value="" required="">
+                  <textarea class="form-control" id="Address" name="Address" rows="4" cols="50" placeholder="Address" value="" required="">
+                  </textarea>
                 </div>
               </div>
               <div class="form-group">
@@ -154,8 +155,8 @@ include '../Model/class.php';
               <div class="form-group">
                 <label class="col-sm-6 control-label">Address</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="eAddress" name="eAddress" placeholder="Address" value="" required="">
-                </div>
+                  <textarea type="text" class="form-control" id="eAddress" name="eAddress"  rows="4" cols="50" placeholder="Address" value="" required="">
+                  </textarea></div>
               </div>
               <div class="form-group">
                 <label class="col-sm-6 control-label">Country</label>

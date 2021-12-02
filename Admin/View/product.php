@@ -17,21 +17,24 @@ include '../Model/class.php';
             	</div>
                 <div class="col-md-10 mt-1 offset-md-2"><h2 class="text-white bg-dark"> Product Details</h2></div>
                 <div class="col-md-2  mt-1 offset-md-2">
-                <input type="hidden" id="Id" value="">  
-                   <label class="col-md-6 control-label">CSV</label>
+                <input type="hidden" id="Id" value="" required>  
+                   <label class="col-md-2 control-label">CSV</label>
+                   
                       <select class="div-toggle" data-target=".file-upload" name="action" id="CSV">
-                       <option value="">Select</option>
-                      <option value="import_csv" name="Import" data-show=".import">IMPORT</option>
-                      <option value="export_csv" name="Export" data-show=".export">EXPORT</option>
-                      <option value="delete_csv" name="Delete" data-show=".delete">DELETE</option>
+                       <option value="" id="select_csv" name="select_csv">Select</option>
+                      <option value="import_csv" id="Import" name="Import" data-show=".import">IMPORT</option>
+                      <option value="export_csv" id="Export" name="Export" data-show=".export">EXPORT</option>
+                      <option value="delete_csv" id="Delete" name="Delete" data-show=".delete">DELETE</option>
+                      <option value="select_delete_csv" id="Select_Delete" name="Select_Delete" data-show=".selectdelete" class="">SELECT TO DELETE</option>
                   </select>
+                  <p class="message"></p>
                     <div class="file-upload">
                     <div class="import hide">
-                    <input type="file" id="upload-1" name="file">
+                    <input type="file" id="upload-1" name="file" required=''>
                     <p class="file-name"></p>
                     </div>
                     <div class="delete hide">
-                    <input type="file" id="upload-2" name="file1">
+                    <input type="file" id="upload-2" name="file1" required=''>
                     <p class="file-name"></p>
                     </div>
                     </div>
@@ -41,10 +44,10 @@ include '../Model/class.php';
                         unset($_SESSION['success_message']);
                     }
                     ?>
-                    <button type="submit" class="btn btn-primary" id="btn-save" value="create">Submit
-                        </button>
                   </div>
-                  <div class="col-md-8 datatables "><button type="button" id="addProduct" data-toggle="modal" data-target="#ajax-modal" class="btn btn-success">Add Product </button></div>
+                  <div> <button type="submit" class="btn btn-primary selectdelete" id="btn-save" value="create" >Submit
+                        </button></div>
+                        <div class="col-md-12 datatables "><button type="button" id="addProduct" data-toggle="modal" data-target="#ajax-modal" class="btn btn-success">Add Product </button></div>
               </div>
                 <div class="col-md-10  offset-md-2 ">
 			<table class="table " id="datatab">
@@ -74,7 +77,7 @@ include '../Model/class.php';
           $var=unserialize($array[4]);
           ?>
                 <tr>
-                    <td><input type="checkbox" id="<?php echo $array[0];?>" name="select_csv[]" value="<?php echo $array[0];?>"></td>
+                    <td><input type="checkbox" id="<?php echo $array[0];?>" name="select_csv[]" value="<?php echo $array[0];?>" class="Select"></td>
                     <td scope="row"><?php echo $array[0];?></td>
                     <td><?php echo $array[1];?></td>
                     <?php 
@@ -159,7 +162,8 @@ include '../Model/class.php';
               <div class="form-group">
                 <label class="col-sm-6 control-label">Description</label>
                 <div class="col-sm-9">
-                  <input type="textarea" class="form-control" id="Description" name="Description" placeholder=" Description" value="" required="">
+                  <textarea class="form-control" id="Description" name="Description" rows="4" cols="50" placeholder=" Description" value="" required="">
+                  </textarea>
                 </div>
               </div>
               <div class="form-group">
@@ -230,7 +234,7 @@ include '../Model/class.php';
               <div class="form-group">
                 <label class="col-sm-6 control-label">SKU</label>
                 <div class="col-sm-9">
-                  <input type="number" class="form-control" id="esku" name="esku" placeholder="" value="" required="">
+                  <input type="number" class="form-control" id="esku" name="esku" placeholder="" value="">
                 </div>
               </div>
               <div class="img_width" id="displayimg"></div>
@@ -249,7 +253,8 @@ include '../Model/class.php';
               <div class="form-group">
                 <label class="col-sm-6 control-label">Description</label>
                 <div class="col-sm-9">
-                  <input type="textarea" class="form-control" id="eDescription" name="eDescription" placeholder=" Description" value="" required="">
+                  <textarea class="form-control" id="eDescription" name="eDescription" rows="4" cols="50" placeholder=" Description" value="" required="">
+                  </textarea>
                 </div>
               </div>
               <div class="form-group">

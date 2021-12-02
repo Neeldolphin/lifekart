@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,9 +17,9 @@ error_reporting(E_ALL);
 
 <div class="sidenav">
 <a href="http://localhost/lifekart/Admin/View/logout.php">logout</a>
- <button class="dropdown-btn">Catelog
+ <div class="dropdown-btn">Catelog
     <i class="fa fa-caret-down"></i>
-  </button>
+</div>
   <div class="dropdown-container">
     <a href="http://localhost/lifekart/Admin/View/product.php">product </a>
     <a href="http://localhost/lifekart/Admin/View/category.php">Category</a>

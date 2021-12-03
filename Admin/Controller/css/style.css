@@ -2,9 +2,9 @@
     border: solid gray 1px;  
     width:25%;  
     border-radius: 2px;  
-    margin: 120px auto;  
+    margin: 100px auto;  
     background: white;  
-    padding: 50px;  
+    padding: 40px;  
 }  
 #btn{  
     color: #fff;  
@@ -12,15 +12,15 @@
     padding: 7px;  
     margin-left: 70%;  
 }  
-
         body {
               background-color: lightgrey;
-              margin-top:70px;
+              margin-top:0px;
               font-size: 20px;
+              scroll-behavior: auto;
               }
         .btn{
           float:right;
-          padding: 15px 32px;
+          padding: 10px 15px;
           display: inline-block;
           font-size: 16px;
         }
@@ -28,7 +28,7 @@
 
 .sidenav {
   height: 100%;
-  width: 200px;
+  width: 150px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -60,7 +60,7 @@
 
 /* Main content */
 .main {
-  margin-left: 200px; /* Same as the width of the sidenav */
+  margin-left: 150px; /* Same as the width of the sidenav */
   font-size: 20px; /* Increased text to enable scrolling */
   padding: 0px 10px;
 }
@@ -86,6 +86,7 @@
 
 .datatables{
     margin-bottom: 10px;
+    margin-right: 50px;
 }
 
 .img_width{
@@ -124,4 +125,12 @@
 
     .hide {
       display: none;
+    }
+
+    .productchange{
+      padding: 5px 5px;
+      margin-right: 5px;
+    }
+    .productdelete{
+      padding: 5px 5px;
     }

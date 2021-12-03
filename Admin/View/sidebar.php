@@ -16,6 +16,7 @@
 <body>
 
 <div class="sidenav">
+  <?php include 'logo.php'?>
 <a href="http://localhost/lifekart/Admin/View/logout.php">logout</a>
  <div class="dropdown-btn">Catelog
     <i class="fa fa-caret-down"></i>

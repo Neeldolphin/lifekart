@@ -2,10 +2,37 @@
 
 $(document).ready( function () {
   $('#datatab').DataTable({
-    "scrollY":"600px",
     "scrollCollapse": true
     });
 } );
+
+$(document).ready(function() {
+  $('#datatab').DataTable();
+  $('#datatab').on('click', '.img_width2', function() {
+     var val = $(this).html();
+     $('#DescModal').modal("show");
+     $('.text-center').html(val);
+  });
+});
+
+
+$(document).ready(function(){
+  $('body').on('click', '.v_view', function () {
+            var action='video_pop';
+          var id = $(this).data('id');
+         $('#DescModal').modal('show');
+
+      $.ajax({
+              type:"POST",
+              url: "../Controller/control.php",
+              data: { id:id,action:action },
+              dataType: 'json', 
+              success: function(result){
+                $('.text-center').html("<video class='videoremove' width='650' height='220' controls><source src='http://localhost/lifekart/Admin/uploads/" + result.data[0].video +"'type='video/mp4'></video>");
+             }
+          });
+            });
+         });
 
 $(document).ready(function(){
       $('#create').click(function () {
@@ -327,17 +354,16 @@ $(document).ready(function(){
               $('#ePrice').val(result.data[0].price);
               $('#eDescription').val(result.data[0].description);
               $('#eQTY').val(result.data[0].qty);
-              $('#displayvideo').html("<video  class='videoremove' width='180' height='90' controls><source src='http://localhost/lifekart/Admin/uploads/" + result.data[0].video +"'type='video/mp4'></video><span class='video_remove' data-id='"+result.data[0].video+"'>X</span>");
+              $('#displayvideo').html("<video class='videoremove' width='180' height='90' controls><source src='http://localhost/lifekart/Admin/uploads/" + result.data[0].video +"'type='video/mp4'></video><span class='video_remove' data-id='"+result.data[0].video+"'>X</span>");
               $('#eStatus').val(result.data[0].Status);
                  var show = [];
                  for(i=0;i<result.img.length;i++){
-                   show.push("<img class='imgdisplay' src='http://localhost/lifekart/Admin/uploads/" + result.img[i] +"'><span class='single_remove' data-id='"+ result.img[i] +"'>X</span>");              
+                   show.push("<img class='imgdisplay' id='7' src='http://localhost/lifekart/Admin/uploads/" + result.img[i] +"'><span class='single_remove' data-id='"+ result.img[i] +"'>X</span>");              
                  }
                  $("#displayimg").html(show.join(''));
           }
         });
 
-    $("#editForm").on('submit',function(){
       $("#editForm").validate({
         rules: {
             epname: "required",
@@ -358,8 +384,11 @@ $(document).ready(function(){
       submitHandler: function(form) { 
         $('#editForm').submit(function() { 
         var id = $(this).data('id');
+        var vidrget=$('.videoremove').attr('width');
         var data=new FormData(this);
           var action='product_update';
+          data.append('id',id);
+          data.append('vidrget',vidrget);
           data.append('action',action);
 
         $.ajax({
@@ -385,7 +414,7 @@ $(document).ready(function(){
       });
      });
    });
- });
+
 
 
 $(document).ready(function($){

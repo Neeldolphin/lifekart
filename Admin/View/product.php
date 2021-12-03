@@ -6,20 +6,21 @@ include('header.php');
 include '../Model/class.php';
  ?>
 <body>
-<div class="w3-top">
 	 <div class="container-fluid">
    <form action="../Controller/control.php" id="csvForm" name="csvForm" method="POST" enctype="multipart/form-data"> 
+     <div class='content offset-md-2'>
             <div class="row">
             	<div class="col-md-2">
             		<?php
  					include 'sidebar.php';
 					?>
             	</div>
-                <div class="col-md-10 mt-1 offset-md-2"><h2 class="text-white bg-dark"> Product Details</h2></div>
-                <div class="col-md-2  mt-1 offset-md-2">
+                <div class="col-md-12 mt-1"><h2 class="text-white bg-dark"> Product Details</h2></div>
+                <div class="mt-1">
                 <input type="hidden" id="Id" value="" required>  
                    <label class="col-md-2 control-label">CSV</label>
-                   
+                </div>
+                   <div>
                       <select class="div-toggle" data-target=".file-upload" name="action" id="CSV">
                        <option value="" id="select_csv" name="select_csv">Select</option>
                       <option value="import_csv" id="Import" name="Import" data-show=".import">IMPORT</option>
@@ -47,9 +48,9 @@ include '../Model/class.php';
                   </div>
                   <div> <button type="submit" class="btn btn-primary selectdelete" id="btn-save" value="create" >Submit
                         </button></div>
-                        <div class="col-md-12 datatables "><button type="button" id="addProduct" data-toggle="modal" data-target="#ajax-modal" class="btn btn-success">Add Product </button></div>
+                        <div class="col-md-8 datatables "><button type="button" id="addProduct" data-toggle="modal" data-target="#ajax-modal" class="btn btn-success">Add Product </button></div>
               </div>
-                <div class="col-md-10  offset-md-2 ">
+                <div class="col-md-12">
 			<table class="table " id="datatab">
               <thead>
                 <tr>
@@ -86,26 +87,26 @@ include '../Model/class.php';
                     $rows22=$cate->categoryName($id);?>
                     <td><?php echo $rows22;?></td>
                     <td><?php echo $array[3];?></td>
-                    <td><?php for($i=0; $i<count($var); $i++){ ?><img class="img_width" src="http://localhost/lifekart/Admin/uploads/<?php echo $var[$i];?>"><?php } ?></td>
+                    <td class="img_width2"><?php $i=0;?><img class="img_width" src="http://localhost/lifekart/Admin/uploads/<?php echo $var[$i];?>"></td>
                     <td><?php echo $array[5];?></td>
                     <td><?php echo $array[6];?></td>
-                    <td><video width="180" height="90" controls>
-                    <source src="http://localhost/lifekart/Admin/uploads/<?php echo $array[7];?>" type="video/mp4"></video></td>
+                    <td class=""><button class="btn btn-primary v_view" data-id="<?php echo $array[0];?>"><i class="fa fa-youtube-play"></i></button></td>
+                    <!-- <video width="100" height="50" controls> -->
+                    <!-- <source src="http://localhost/lifekart/Admin/uploads" type="video/mp4"></video> -->
                     <td><?php echo $array[8];?></td>
                     <td><?php echo $array[9];?></td>
                     <td>
-                    <a  class="btn btn-primary productdelete" data-id="<?php echo $array[0];?>">Delete</a>
-                     <a class="btn btn-primary productchange" data-id="<?php echo $array[0];?>">Edit</a>
+                    <button class="btn btn-primary productdelete" data-id="<?php echo $array[0];?>"><i class="fa fa-trash"></i></button>
+                     <button  class="btn btn-primary productchange" data-id="<?php echo $array[0];?>"><i class="fa fa-edit"></i></button>
                   </td>
                 </tr> 
                 <?php } ?>
               </tbody>
           </table>
       			</div>
+            </div>
             </form>
             </div>
-        </div>
- 	</div>
 
 <!--MAINFORM--> 
   <div class="modal fade" id="ajax-modal" aria-hidden="true">
@@ -291,6 +292,23 @@ include '../Model/class.php';
         </div>
       </div>
     </div>
+
+
+<div class="modal fade" id="DescModal" role="dialog">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+         <h3 class="modal-title">Details</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+         </div>
+         <div class="modal-body">
+            <div class="text-center">
+         </div>
+         </div>
+      </div>
+   </div>
+</div>
+
 
 </body>
 </html>

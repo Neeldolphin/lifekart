@@ -26,8 +26,8 @@ class action{
                             case 'single_remove':
                                 return $this->removeImage();
                                 break;
-                                case 'video_remove':
-                                    return $this->removeVideo();
+                                case 'video_pop':
+                                    return $this->videoDisplay();
                                     break;
                                 case 'export_csv':
                                     return $this->exportCSV();
@@ -141,14 +141,6 @@ class action{
         $post = $_POST;
         $remove=new product();
         $remove->removeimage($post);
-        echo 1;
-
-    }
-
-    public function removeVideo(){
-        $post = $_POST;
-        $remove=new product();
-        $remove->removevideo($post);
         echo 1;
 
     }
@@ -326,6 +318,11 @@ class action{
         $delete->SelectDeleteCsv($post);
     }
 
+    public function videoDisplay(){
+        $id = $_POST['id'];
+        $change =new product();
+        $change->displayVideo($id);
+    }
 }
 
 

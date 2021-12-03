@@ -290,7 +290,41 @@ public function ImportCsv($files)
              echo json_encode(array('img'=>$img,'data'=>$data));
             } 
         }
+
+        public function displayVideo($id)
+        {
+            $query="SELECT video from Product_info WHERE Id =".$id;
+            $result = mysqli_query($this->con,$query);
+            $data = array();
+            while ($cust = mysqli_fetch_assoc($result)) {
+                $data[] = $cust;
+            } 
+            if($data) {
+             echo json_encode(array('data'=>$data));
+            } 
+        }
         
+               public function removeimage($post)
+        {
+            $id = $post['id'];
+            $key = $post['imgname'];
+            $query="SELECT * from Product_info WHERE Id =".$id;
+            $result = mysqli_query($this->con,$query);
+            while($row = mysqli_fetch_array($result)){
+                    $image=$row[4];
+            }
+            $img1=unserialize($image);
+            
+            if (($key = array_search($key, $img1)) !== false) {
+                unset($img1[$key]);
+            }
+                $img2=array_values($img1);
+                $img2=serialize($img2);
+                
+         $query = "UPDATE Product_info SET image='". $img2. "'WHERE Id=".$id;
+        $result = mysqli_query($this->con, $query);
+        }
+
         public function update($files,$post,$create_at,$update_at)
         {
             if(!empty($files['eimage']['name'][0])){
@@ -317,6 +351,12 @@ public function ImportCsv($files)
         $result = mysqli_query($this->con, $query);
      }
 
+     if($post['vidrget']=='undefined'){
+        $Video1='';
+     $query = "UPDATE Product_info SET video='". $Video1. "'WHERE Id=".$post['eid'];
+     $result = mysqli_query($this->con, $query);
+     }
+
     if(!empty($files['eVideo']['name'])){
 
                $targetDir = "../uploads/";
@@ -333,7 +373,8 @@ public function ImportCsv($files)
                $Video = $files['eVideo']['name'];
                $load[]=$fileName;
             }
-         $query = "UPDATE Product_info SET video='". $Video . "' WHERE Id=".$post['eid'];
+
+         $query = "UPDATE Product_info SET video='". $Video ."' WHERE Id=".$post['eid'];
                $result = mysqli_query($this->con, $query);  
     }   
            if($post['check_list']!=''){ 
@@ -368,55 +409,10 @@ public function ImportCsv($files)
 //     }
 // }
 // } 
-
         public function delete($id)
         {
             $query = "DELETE FROM Product_info WHERE Id=".$id;
             $result =mysqli_query($this->con,$query);
-        }
-
-        public function removeimage($post)
-        {
-            $id = $post['id'];
-            $key = $post['imgname'];
-            $query="SELECT * from Product_info WHERE Id =".$id;
-            $result = mysqli_query($this->con,$query);
-            while($row = mysqli_fetch_array($result)){
-                    $image=$row[4];
-            }
-            $img1=unserialize($image);
-            
-
-            if (($key = array_search($key, $img1)) !== false) {
-                unset($img1[$key]);
-            }
-                $img2=array_values($img1);
-                $img2=serialize($img2);
-                
-            echo $query = "UPDATE Product_info SET image='". $img2. "'WHERE Id=".$id;
-            $result = mysqli_query($this->con, $query);
-        }
-
-        public function removevideo($post)
-        {
-            $id = $post['id'];
-            $key = $post['videoname'];
-            $query="SELECT * from Product_info WHERE Id =".$id;
-            $result = mysqli_query($this->con,$query);
-            while($row = mysqli_fetch_array($result)){
-                    $video=$row[4];
-            }
-            $video1=unserialize($video);
-            
-
-            if (($key = array_search($key, $video1)) !== false) {
-                unset($video1[$key]);
-            }
-                $video2=array_values($video1);
-                $video2=serialize($video2);
-                
-            echo $query = "UPDATE Product_info SET video='". $video2. "'WHERE Id=".$id;
-            $result = mysqli_query($this->con, $query);
         }
 
         public function productInfo()

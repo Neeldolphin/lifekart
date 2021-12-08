@@ -29,6 +29,9 @@ class action{
                                 case 'video_pop':
                                     return $this->videoDisplay();
                                     break;
+                                    case 'customer_pop':
+                                        return $this->customerDisplay();
+                                        break;
                                 case 'export_csv':
                                     return $this->exportCSV();
                                     break;
@@ -53,6 +56,21 @@ class action{
                                             case 'image_delete':
                                                 return $this->deleteImageDetail();
                                                 break;
+                                                case 'customer_group_insert':
+                                                    return $this->insertCustomerGroup();
+                                                    break;
+                                                    case 'customer_group_edit':
+                                                        return $this->editCustomerGroup();
+                                                        break;
+                                                        case 'customer_group_update':
+                                                            return $this->updateCustomerGroup();
+                                                            break;
+                                                            case 'customer_group_delete':
+                                                                return $this->deleteCustomerGroup();
+                                                                break;
+                                                                case 'select_delete_group':
+                                                                    return $this->selectdeleteGroup();
+                                                                    break;
                                                 case 'customer_details':
                                                     return $this->insertCustomerDetails();
                                                     break;
@@ -108,17 +126,22 @@ class action{
         $Status = $_POST['Status'];
         $create_at=date("Y/m/d");
         $update_at=date("Y/m/d");
+        $customergroup=$_POST['CustomerGroup'];
+        $customergroupprice=$_POST['CustomerGroupPrice'];
         $files = $_FILES;
         $image = new product();
         $image->insert($files,$pname,$category,$SKU,$price,$description,$qty,$Status,$create_at,$update_at);
-
+        $image->insert2($customergroup,$customergroupprice,$SKU);
     }
 
     public function changeProductDetail(){
         $id = $_POST['id'];
+        //$SKU = $_POST['sku'];
         $change =new product();
         $change->edit($id);
+       // $change->edit2($SKU);
     }
+
     public function updateProductDetail(){
         if(!empty($_POST['eid'])){
             $create_at=date("Y/m/d");
@@ -174,6 +197,47 @@ class action{
     }
 
 
+    public function insertCustomerGroup()
+    {
+        if(count([$_POST])>0){
+            $CustomerGroup = $_POST['CustomerGroup'];
+            $customerGroup_insert = new customer();
+            $customerGroup_insert->customerGrpinsert($CustomerGroup);
+            }
+    }
+
+    public function editCustomerGroup()
+    {
+        $id = $_POST['id'];
+        $edit =new customer();
+       $edit->customerGrpedit($id);
+    }
+
+    public function updateCustomerGroup()
+    {
+        if(!empty($_POST['id'])){
+            $post=$_POST;
+            $update = new customer();
+            $update->customerGrpupdate($post);
+        echo 1;
+        }
+    }
+
+    public function deleteCustomerGroup()
+    {
+        $id = $_POST['id'];
+        $delete=new customer();
+        $delete->customerGrpdelete($id);
+        echo 1;
+    }
+
+    public function selectdeleteGroup()
+    {
+        $post=$_POST;
+        $delete=new customer();
+        $delete->SelectDeleteGroup($post);
+    }
+
     public function insertCustomerDetails()
     {
         if(count([$_POST])>0){
@@ -183,10 +247,11 @@ class action{
             $phone_number = $_POST['phone_number'];
             $Address = $_POST['Address'];
             $country = $_POST['country'];
+            $CustomerGroup = $_POST['customerGroup'];
             $create_at=date("Y/m/d");
             $update_at=date("Y/m/d");
             $customer_insert = new customer();
-            $customer_insert->insert($FirstName,$LastName,$Email,$phone_number,$Address,$country,$create_at,$update_at);
+            $customer_insert->insert($FirstName,$LastName,$Email,$phone_number,$Address,$country,$CustomerGroup,$create_at,$update_at);
             }
     }
     public function editCustomerDetail()
@@ -322,6 +387,11 @@ class action{
         $id = $_POST['id'];
         $change =new product();
         $change->displayVideo($id);
+    }
+    public function customerDisplay(){
+        $id = $_POST['id'];
+        $change =new customer();
+        $change->CustomerDisplay($id);
     }
 }
 

@@ -2,7 +2,10 @@
 
 $(document).ready( function () {
   $('#datatab').DataTable({
-    "scrollCollapse": true
+    "scrollCollapse": true,
+    "searching":false,
+    "paging":false,
+    "ordering":false,       
     });
 } );
 
@@ -17,7 +20,7 @@ $(document).ready(function() {
 
 
 $(document).ready(function(){
-  $('body').on('click', '.v_view', function () {
+  $('.v_view').on('click', function () {
             var action='video_pop';
           var id = $(this).data('id');
          $('#DescModal').modal('show');
@@ -40,7 +43,7 @@ $(document).ready(function(){
        $('#custCrudModal').html("Add New Category");
        $('#ajax-modal').modal('show');
     });
-$('body').on('click', '.categoeryadd', function () {
+$( '.categoeryadd').on('click', function () {
     $("#custForm").validate({
         rules: {
           cname: "required"
@@ -63,7 +66,7 @@ $('body').on('click', '.categoeryadd', function () {
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-             window.location.reload(true);
+                $("#datatab").load("category.php #datatab");
             }else if(result == 5){
               alert('Already exist!!!!!!!!!!')
           }else
@@ -79,7 +82,7 @@ $('body').on('click', '.categoeryadd', function () {
 
 
 $(document).ready(function(){
-$('body').on('click', '.categorychange', function () {
+$('.categorychange').on('click', function () {
           var action='category_edit';
         var id = $(this).data('id');
        $('#editModal').html("Edit Category");
@@ -116,7 +119,7 @@ $('body').on('click', '.categorychange', function () {
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-             window.location.reload(true);
+                $("#datatab").load("category.php #datatab");
             }else{
              alert('Sorry,unable update.');
              }
@@ -127,7 +130,7 @@ $('body').on('click', '.categorychange', function () {
        });
 
 $(document).ready(function($){
- $('body').on('click', '.categorydelete', function () {
+ $( '.categorydelete').on('click', function () {
        if (confirm("Delete Record?") == true) {
         var id = $(this).data('id');
         var action='category_delete';
@@ -139,7 +142,7 @@ $(document).ready(function($){
             dataType: 'json',
             success: function(result){
             if (result == 1) {
-             window.location.reload(true);
+              $("#datatab").load("category.php #datatab");
             }
            }
         }); 
@@ -159,7 +162,7 @@ $(document).ready(function(){
        $('#custCrudModal').html("Add New customer");
        $('#ajax-modal').modal('show');
     });
-$('body').on('click', '.customeradd', function(){
+$('.customeradd').on('click', function(){
         $('#custForm').submit(function(){ 
           var data=new FormData(this);
           var action='customer_details';
@@ -174,7 +177,7 @@ $('body').on('click', '.customeradd', function(){
             contentType: false, cache: false, processData:false,
             success: function(result){
               if (result == 1) {
-                window.location.reload(true);
+                $("#datatab").load("customer.php #datatab");
                }else if(result == 5){
                  alert('Already exist!!!!!!!!!!')
              }
@@ -187,7 +190,7 @@ $('body').on('click', '.customeradd', function(){
 
 $(document).ready(function(){
 
-     $('body').on('click', '.customeredit', function () {
+     $('.customeredit').on('click', function () {
              $('#editModal').html("Edit Customer");
               $('#edit-modal').modal('show');
               var id = $(this).data('id');
@@ -207,6 +210,7 @@ $(document).ready(function(){
               $('#ephone_number').val(result[0].phone_number);
               $('#eAddress').val(result[0].Address);
               $('#ecountry').val(result[0].country);
+              $('#ecustomerGroup').val(result[0].customerGroup);
            }
         });
 
@@ -220,7 +224,8 @@ $(document).ready(function(){
                 digits:true,
                 minlength:10,
                 maxlength:10
-            }
+            },
+            customerGroup:"required"
            },
         messages: {
             FirstName: "Enter your Name",
@@ -240,11 +245,12 @@ $(document).ready(function(){
                  phone_number: $('#ephone_number').val(),
                  Address: $('#eAddress').val(),
                  country: $('#ecountry').val(),
+                 customerGroup:$('#ecustomerGroup').val(),
                  action:action
             },
             dataType: 'json',
             success: function(result){
-             window.location.reload(true);
+              $("#datatab").load("customer.php #datatab");
              }
           });
                form.submit();
@@ -255,7 +261,7 @@ $(document).ready(function(){
 
 $(document).ready(function($){
 
- $('body').on('click', '.customerdelete', function () {
+ $('.customerdelete').on('click',function () {
        if (confirm("Delete Record?") == true) {
         var id = $(this).data('id');
         var action='customer_delete';
@@ -267,7 +273,7 @@ $(document).ready(function($){
             dataType: 'json',
             success: function(result){
             if (result == 1) {
-             window.location.reload(true);
+              $("#datatab").load("customer.php #datatab");
             }
            }
         }); 
@@ -275,12 +281,234 @@ $(document).ready(function($){
     });
 });
 
+
+$(document).ready(function(){
+    $('#CustomerGroupForm').submit (function (e) {  
+       e.preventDefault();  
+       var CustomerGroup = $('#CustomerGroup').val();  
+     $(".error").remove();  
+   if (CustomerGroup.length < 1) {  
+         $('#CustomerGroup').after('<span class="error" style="color:red">This field is required</span>');  
+         $('#star').show();
+       }else{  
+      var data=new FormData(this);
+      var action='customer_group_insert';
+      data.append('action',action);
+
+    $.ajax({
+        type:"POST",
+        url: "../Controller/control.php",
+        data: data,
+        dataType: 'json',
+         contentType: false, cache: false, processData:false,
+        success: function(result){
+          if (result == 1) {
+            $("#datatab").load("custom_grp.php #datatab");
+           }else if(result == 5){
+            $('.message2').text("already exists!!!");
+         }
+          }
+      });
+    }
+      });
+    });
+
+   $(document).ready(function(){
+
+    $('.groupedit').on('click', function () {
+            $('#editCustomerGroupModal').html("Edit Group");
+             $('#edit-modal').modal('show');
+             var id = $(this).data('id');
+             var action='customer_group_edit';
+  
+     $.ajax({
+           type:"POST",
+           url: "../Controller/control.php",
+           data: { id:id,action:action},
+           dataType: 'json',
+           ContentType: 'multipart/form-data', 
+           success: function(result){
+             $('#eid').val(result[0].id);
+             $('#eCustomerGroup').val(result[0].customer_group);
+          }
+       });
+
+   $("#editCustomerGroupForm").validate({
+       rules: {
+        eCustomerGroup: "required"
+          },
+       messages: {
+        eCustomerGroup: "Enter Name",
+       },
+       submitHandler: function(form) { 
+       var id = $(this).data('id');
+       var action='customer_group_update';
+
+       $.ajax({
+           type:"POST",
+           url: "../Controller/control.php",
+           data: {
+             id: $('#eid').val(),
+             customer_group: $('#eCustomerGroup').val(),
+                action:action
+           },
+           dataType: 'json',
+           success: function(result){
+            $("#datatab").load("custom_grp.php #datatab");
+            }
+         });
+              form.submit();
+             }
+           });
+         });
+      });
+
+
+$(document).ready(function($){
+
+  $('.groupdelete').on('click',function () {
+        if (confirm("Delete Record?") == true) {
+         var id = $(this).data('id');
+         var action='customer_group_delete';
+          
+         $.ajax({
+             type:"POST",
+             url: "../Controller/control.php",
+             data: { id: id,action:action },
+             dataType: 'json',
+             success: function(result){
+             if (result == 1) {
+              $("#datatab").load("custom_grp.php #datatab");
+             }
+            }
+         }); 
+        }
+     });
+ });
+
+ $(document).ready(function(){
+  $('#submitdelete').click(function(e) {
+   var data=$('#Action').find(":selected").text();
+   if(data=='Select'||data=='SELECT TO DELETE'){
+   var atLeastOneIsChecked = $('input[name="select_field[]"]:checked').length > 0;
+   if (atLeastOneIsChecked == false) {
+     e.preventDefault();
+     $('.message1').text("select any one");
+     return false;
+     }else{
+      $('.message1').text("successfully deleted");
+       return true;
+       }
+     }
+     });
+   });
+
+   $(document).ready(function(){
+   
+    $('#submitdelete').on('click', function (e) {
+      $('#groupForm').validate();
+      const myArray = [];
+     var data=$('#Action').find(":selected").text();
+     var atLeastOneIsChecked = $('input[name="select_field[]"]:checked').each(function(){
+       myArray.push($(this).val());
+     });
+     if(data=='SELECT TO DELETE'){
+       if(myArray==''){
+        alert("please select any one");
+       }
+      else{
+        if(confirm('Are you sure?'+myArray)){
+          var id = $(this).data('id');
+      var action='select_delete_group';
+      const myArray = [];
+      var data=$('#Action').find(":selected").text();
+      var atLeastOneIsChecked = $('input[name="select_field[]"]:checked').each(function(){
+        myArray.push($(this).val());
+      });
+      $.ajax({
+          type:"POST",
+          url: "../Controller/control.php",
+          data: { action:action,select_field:myArray},
+          dataType: 'json',
+          success: function(result){
+            $("#datatab").load("custom_grp.php #datatab");
+         }
+      });
+      e.preventDefault();
+            return false;
+      }
+    }
+          return true;
+    }
+  });
+  });  
+
+  $(document).ready(function(){
+    $('.customerview').on('click', function () {
+              var action='customer_pop';
+            var id = $(this).data('id');
+           $('#DescModal').modal('show');
+  
+        $.ajax({
+                type:"POST",
+                url: "../Controller/control.php",
+                data: { id:id,action:action },
+                dataType: 'json', 
+                success: function(result){
+                  $('#vFirstName1').text(result.data[0].FirstName);
+                  $('#vLastName1').text(result.data[0].LastName);
+                  $('#vFirstName').text(result.data[0].FirstName);
+                  $('#vLastName').text(result.data[0].LastName);
+                  $('#vEmail').text(result.data[0].Email);
+                  $('#vphone_number').text(result.data[0].phone_number);
+                  $('#vAddress').text(result.data[0].Address);
+                  $('#vcountry').text(result.data[0].country);
+                  $('#vcustomerGroup').text(result.data[0].customer_group);
+               }
+            });
+              });
+           });
+                
+          // $(document).ready(function(){
+          // var $loading = $('.loader').hide();
+          // $(document)
+          //   .ajaxStart(function () {
+          //     $loading.show();
+          //   })
+          //   .ajaxStop(function () {
+          //     $loading.hide();
+          //   });
+          // });
 ////////////////////////customer////////////////////////////////
 
 
 
 
 ////////////////////product////////////////////////////
+
+$(document).ready(function () {
+
+  var max_input = 3;
+  var x = 1;
+  var clone = $(".input-box").eq(0).clone();
+
+  $('body').on('click', '.add-btn', function (e){
+    e.preventDefault();
+    if (x < max_input) {
+      x++; 
+      $('.wrapper').append(clone);
+    }
+  });
+  
+$('.wrapper').on("click",'.remove-lnk', function (e) {
+  e.preventDefault();
+  $(this).parent('div').remove(); 
+  x--; 
+})
+
+});
+
+
 $(document).ready(function(){
       $('#create').click(function () {
        $('#custForm').trigger("reset");
@@ -288,7 +516,7 @@ $(document).ready(function(){
        $('#ajax-modal').modal('show');
     });
 
-     $('body').on('click', '.productadd', function () {
+     $('.productadd').on('click', function () {
     $("#custForm").validate({
         rules: {
             pname: "required",
@@ -312,7 +540,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-             window.location.reload(true);
+                $("#datatab").load("product.php #datatab");
             }else if(result == 5){ alert('already exist !!!!!!!!!!');
             }else{
                 alert('Sorry, only JPG, JPEG, PNG, GIF files are allowed to upload.');
@@ -329,7 +557,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 
-     $('body').on('click', '.productchange', function () {
+     $('.productchange').on('click', function () {
 
       var id = $(this).data('id');
       var action='product_change';
@@ -400,7 +628,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-             window.location.reload(true);
+                $("#datatab").load("product.php #datatab");
             }else if(result == 5){
               alert('Sku required');
           }else{
@@ -419,7 +647,7 @@ $(document).ready(function(){
 
 $(document).ready(function($){
 
- $('body').on('click', '.productdelete', function () {
+ $('.productdelete').on('click', function () {
        if (confirm("Delete Record?") == true) {
         var id = $(this).data('id');
         var action='product_delete';
@@ -430,7 +658,7 @@ $(document).ready(function($){
             dataType: 'json',
             success: function(result){
             if (result == 1) {
-             window.location.reload(true);
+              $("#datatab").load("product.php #datatab");
             }
            }
         }); 
@@ -543,7 +771,7 @@ $(document).ready(function(){
        $('#ajax-modal').modal('show');
     });
         
-     $('body').on('click', '.imagesadd', function () {
+     $('.imagesadd').on('click', function () {
     $("#custForm").validate({
         rules: {
             imageName: "required"
@@ -565,7 +793,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-             window.location.reload(true);
+                $("#datatab").load("imageslider.php #datatab");
             }else
              alert('Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.');
              }
@@ -579,7 +807,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 
-$('body').on('click', '.imageschange', function () {
+$('.imageschange').on('click', function () {
         var id = $(this).data('id');
         var action='image_edit';
        $('#editModal').html("Edit Image");
@@ -612,7 +840,7 @@ $('body').on('click', '.imageschange', function () {
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-             window.location.reload(true);
+                $("#datatab").load("imageslider.php #datatab");
             }else{
              alert('Sorry,unable update.');
              }
@@ -625,7 +853,7 @@ $('body').on('click', '.imageschange', function () {
 
 $(document).ready(function($){
 
- $('body').on('click', '.imagesdelete', function () {
+ $('.imagesdelete',).on('click', function () {
        if (confirm("Delete Record?") == true) {
         var id = $(this).data('id');
         var action='image_delete';
@@ -636,7 +864,7 @@ $(document).ready(function($){
             dataType: 'json',
             success: function(result){
             if (result == 1) {
-             window.location.reload(true);
+              $("#datatab").load("imageslider.php #datatab");
             }
            }
         }); 
@@ -657,7 +885,7 @@ $(document).ready(function(){
        $('#ajax-modal').modal('show');
     });
         
-     $('body').on('click', '.coupenadd', function(){
+     $('.coupenadd').on('click', function(){
         $('#custForm').submit(function(){ 
           var data=new FormData(this);
           var action='coupen_details';
@@ -672,7 +900,7 @@ $(document).ready(function(){
             contentType: false, cache: false, processData:false,
             success: function(result){
               if (result == 1) {
-                window.location.reload(true);
+                $("#datatab").load("coupen.php #datatab");
                }else if(result == 5){
                  alert('Already exist!!!!!!!!!!')
              }
@@ -685,7 +913,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 
-     $('body').on('click', '.coupenedit', function () {
+     $('.coupenedit').on('click',function () {
              $('#editModal').html("Edit Coupen");
               $('#edit-modal').modal('show');
               var id = $(this).data('id');
@@ -720,7 +948,7 @@ $(document).ready(function(){
             },
             dataType: 'json',
             success: function(result){
-             window.location.reload(true);
+              $("#datatab").load("coupen.php #datatab");
              }
           });
             });
@@ -730,7 +958,7 @@ $(document).ready(function(){
 
 $(document).ready(function($){
 
- $('body').on('click', '.coupendelete', function () {
+ $('.coupendelete').on('click', function () {
        if (confirm("Delete Record?") == true) {
         var id = $(this).data('id');
         var action='coupen_delete';
@@ -742,7 +970,7 @@ $(document).ready(function($){
             dataType: 'json',
             success: function(result){
             if (result == 1) {
-             window.location.reload(true);
+              $("#datatab").load("coupen.php #datatab");
             }
            }
         }); 

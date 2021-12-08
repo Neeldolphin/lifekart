@@ -31,7 +31,7 @@
    <?php }else
           {?> 
 <ul class="nav navbar-nav ml-auto">
-<p style="color: white;">Welcome to Home page!
+<p style="color: white;">Welcome to Home page!!
    <a class="nav-link" href="http://localhost/lifekart/User/View/logout.php">Logout</a></p>
    <a href="view_cart.php?id=<?php echo $_SESSION['id']?>" >Cart <?php if(isset($_SESSION['cart'])){ echo count($_SESSION['cart']);} ?><i class="fas fa-shopping-cart"></i></a>
 </ul>

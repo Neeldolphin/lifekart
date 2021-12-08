@@ -128,9 +128,33 @@
     }
 
     .productchange{
-      padding: 5px 5px;
+      padding: 10px 10px;
       margin-right: 5px;
     }
     .productdelete{
-      padding: 5px 5px;
+      padding: 10px 10px;
     }
+
+    .groupdelete{
+      margin-right: 50px;
+    }
+    .groupedit{
+      margin-right: 5px;
+    }
+    .customerdelete{
+      margin-right: 5px;
+    }
+    .customeredit{
+      margin-right: 5px;
+    }
+
+/* .loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('uploads/ajax-loader.gif') 50% 50% no-repeat rgb(249,249,249);
+    opacity: .8;
+} */

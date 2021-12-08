@@ -277,6 +277,17 @@ public function ImportCsv($files)
      }
         }
 
+        public function insert2($customergroup,$customergroupprice,$SKU)
+        {
+            $i=0;
+            foreach($customergroup as $customerGroup){
+                $query = "INSERT INTO Product_Customer_Group_Price(Customer_Group,Group_Price,sku)VALUES ('$customerGroup','$customergroupprice[$i]','$SKU')";
+                $result = mysqli_query($this->con, $query);
+                $i++;
+            }
+           
+        }
+
         public function edit($id)
         {
             $query="SELECT * from Product_info WHERE Id =".$id;
@@ -288,6 +299,19 @@ public function ImportCsv($files)
             } 
             if($data) {
              echo json_encode(array('img'=>$img,'data'=>$data));
+            } 
+        }
+
+        public function edit2($SKU)
+        {
+            $query="SELECT * from Product_Customer_Group_Price WHERE sku =".$SKU;
+            $result = mysqli_query($this->con,$query);
+            $data = array();
+            while ($cust = mysqli_fetch_assoc($result)) {
+                $data[] = $cust;
+                } 
+            if($data) {
+             echo json_encode($data);
             } 
         }
 
@@ -391,24 +415,7 @@ public function ImportCsv($files)
                echo 1;
             }
     }   
-
-//     if(empty($_POST['esku'])){
-//         echo 5;
-//         }else{
-//             if(!empty($_POST)){
-//                 $check="select SKU from Product_info where SKU='".$post['esku']."' ";
-//                 $exists=mysqli_query($this->con,$check);
-//                 $row=mysqli_fetch_row($exists);
-//                 if($row[0] >= 1){
-//                     echo 7;
-//                 }else{
-//         $query = "UPDATE Product_info SET pname='" . $post['epname'] . "', category='$imploded', SKU='" .$post['esku']."', price='". $post['ePrice'] . "', description='". $post['eDescription'] . "',qty='". $post['eQTY'] . "',Status='". $post['eStatus'] . "',create_at='$create_at',update_at='$update_at' WHERE Id=".$post['eid'];
-//           $result = mysqli_query($this->con, $query);
-//            echo 1;
-//         }
-//     }
-// }
-// } 
+ 
         public function delete($id)
         {
             $query = "DELETE FROM Product_info WHERE Id=".$id;
@@ -588,7 +595,7 @@ class customer extends database{
     {
      parent::__construct();   
     }
-        public function insert($FirstName,$LastName,$Email,$phone_number,$Address,$country,$create_at,$update_at)
+        public function insert($FirstName,$LastName,$Email,$phone_number,$Address,$country,$CustomerGroup,$create_at,$update_at)
         {
             if(!empty($_POST)){
                 $check="select count(1) from customer_info where Email='$Email' ";
@@ -597,8 +604,8 @@ class customer extends database{
                 if($row[0] >= 1) {
                     echo 5;
                      }else{
-                $query = "INSERT INTO customer_info(FirstName,LastName,Email,phone_number,Address,country,create_at,update_at)
-                VALUES ('$FirstName','$LastName','$Email','$phone_number','$Address','$country','$create_at','$update_at')";
+                $query = "INSERT INTO customer_info(FirstName,LastName,Email,phone_number,Address,country,customerGroup	,create_at,update_at)
+                VALUES ('$FirstName','$LastName','$Email','$phone_number','$Address','$country','$CustomerGroup','$create_at','$update_at')";
                 $result = mysqli_query($this->con, $query); 
                 echo 1;
                }
@@ -620,7 +627,7 @@ class customer extends database{
 
         public function update($post,$create_at,$update_at)
         {
-            $query = "UPDATE customer_info SET FirstName='" . $post['FirstName'] . "', LastName='" . $post['LastName'] . "', Email='" . $post['Email'] . "', phone_number='" . $post['phone_number'] . "', Address='" . $post['Address'] . "', country='" . $post['country'] . "',create_at='$create_at',update_at='$update_at' WHERE Id=".$post['Id'];
+            $query = "UPDATE customer_info SET FirstName='" . $post['FirstName'] . "', LastName='" . $post['LastName'] . "', Email='" . $post['Email'] . "', phone_number='" . $post['phone_number'] . "', Address='" . $post['Address'] . "', country='" . $post['country'] . "', customerGroup='" . $post['customerGroup'] . "',create_at='$create_at',update_at='$update_at' WHERE Id=".$post['Id'];
             $result = mysqli_query($this->con, $query);
         }
 
@@ -640,6 +647,107 @@ class customer extends database{
                 }
                 return $data;
         }
+
+public function CustomerDisplay($id)
+{
+ $query="SELECT * from customer_info LEFT JOIN customer_group on customer_info.customerGroup=customer_group.id WHERE customer_info.Id=".$id;
+   $result = mysqli_query($this->con,$query);
+    $data = array();
+    while ($cust = mysqli_fetch_assoc($result)) {
+        $data[] = $cust;
+    } 
+    if($data) {
+     echo json_encode(array('data'=>$data));
+    } 
+}
+
+        public function customerGrpinsert($CustomerGroup)
+        {
+            
+			if(!empty($_POST)){
+                    $check="select count(1) from customer_group where customer_group='$CustomerGroup' ";
+                    $exists=mysqli_query($this->con,$check);
+                    $row=mysqli_fetch_row($exists);
+                    if($row[0] >= 1) {
+                        echo 5;
+                        }else{
+                $query = "INSERT INTO customer_group(customer_group) VALUES ('$CustomerGroup')";
+                $result = mysqli_query($this->con, $query); 
+                echo 1;
+               }
+            }
+        }
+
+        public function customerGrpedit ($id)
+        {
+            $query="SELECT * from customer_group WHERE id =".$id;
+            $result = mysqli_query($this->con,$query);
+            $data = array();
+            while ($cust = mysqli_fetch_assoc($result)) {
+                $data[] = $cust;
+            } 
+            if($data) {
+             echo json_encode($data);
+            } 
+        }
+
+        public function customerGrpupdate($post)
+        {
+            $query = "UPDATE customer_group SET customer_group='" . $post['customer_group'] . "' WHERE id=".$post['id'];
+            $result = mysqli_query($this->con, $query);
+        }
+
+        public function customerGrpdelete($id)
+        {       
+            $query = "DELETE FROM customer_group WHERE id=".$id;
+            $result =mysqli_query($this->con,$query);
+        }
+
+        public function customerGrp()
+        {
+				$query="select * from customer_group"; 
+				$result=mysqli_query($this->con,$query);
+                while($customer=mysqli_fetch_row($result)){
+                    $data[]=$customer;
+                }
+                return $data;
+        }
+        public function groupName($id)
+        { 
+        $data=array();
+         $value=explode(",",$id);
+         foreach($value as $id){
+          $query="SELECT customer_group FROM customer_group WHERE id=".$id;
+            $result = mysqli_query($this->con,$query);
+            while($category=mysqli_fetch_array($result)){
+                $data[]=$category['customer_group'];
+            }
+        }
+            $imploded=implode(",",$data);  
+            return $imploded; 
+}
+
+public function SelectDeleteGroup($post)
+{  
+    session_start();
+    if($post['select_field']!=''){
+
+    $count=0;
+    foreach($post['select_field'] as $id){
+        
+    $count++;
+   $query = "DELETE FROM customer_group WHERE id=".$id;  
+    $result = mysqli_query($this->con, $query);  
+  
+    if(isset($result)){
+        echo 1;
+         }  
+    }
+    }else{
+        echo 5;
+}
+}
+
 }
 
 class coupen extends database{

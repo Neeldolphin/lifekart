@@ -10,17 +10,16 @@ include '../Model/class.php';
    <form action="../Controller/control.php" id="csvForm" name="csvForm" method="POST" enctype="multipart/form-data"> 
      <div class='content offset-md-2'>
             <div class="row">
-            	<div class="col-md-2">
+            	<div class="col-md-3">
             		<?php
  					include 'sidebar.php';
 					?>
             	</div>
                 <div class="col-md-12 mt-1"><h2 class="text-white bg-dark"> Product Details</h2></div>
-                <div class="mt-1">
+                <div class="col-md-3">
+                <div>
                 <input type="hidden" id="Id" value="" required>  
-                   <label class="col-md-2 control-label">CSV</label>
-                </div>
-                   <div>
+                   <label class="control-label">CSV</label>
                       <select class="div-toggle" data-target=".file-upload" name="action" id="CSV">
                        <option value="" id="select_csv" name="select_csv">Select</option>
                       <option value="import_csv" id="Import" name="Import" data-show=".import">IMPORT</option>
@@ -34,21 +33,22 @@ include '../Model/class.php';
                     <input type="file" id="upload-1" name="file" required=''>
                     <p class="file-name"></p>
                     </div>
+                    </div>
                     <div class="delete hide">
                     <input type="file" id="upload-2" name="file1" required=''>
                     <p class="file-name"></p>
                     </div>
                     </div>
+                  </div>
                     <?php if (isset($_SESSION['success_message']) && !empty($_SESSION['success_message'])) { ?>
                         <div class="success-message" style="margin-bottom: 20px;font-size: 20px;color: green;"><?php echo $_SESSION['success_message']; ?></div>
                         <?php
                         unset($_SESSION['success_message']);
                     }
-                    ?>
-                  </div>
+                    ?>  
                   <div> <button type="submit" class="btn btn-primary selectdelete" id="btn-save" value="create" >Submit
                         </button></div>
-                        <div class="col-md-8 datatables "><button type="button" id="addProduct" data-toggle="modal" data-target="#ajax-modal" class="btn btn-success">Add Product </button></div>
+                        <div class="col-md-12 datatables "><button type="button" id="addProduct" data-toggle="modal" data-target="#ajax-modal" class="btn btn-success">Add Product </button></div>
               </div>
                 <div class="col-md-12">
 			<table class="table " id="datatab">
@@ -91,8 +91,6 @@ include '../Model/class.php';
                     <td><?php echo $array[5];?></td>
                     <td><?php echo $array[6];?></td>
                     <td class=""><button class="btn btn-primary v_view" data-id="<?php echo $array[0];?>"><i class="fa fa-youtube-play"></i></button></td>
-                    <!-- <video width="100" height="50" controls> -->
-                    <!-- <source src="http://localhost/lifekart/Admin/uploads" type="video/mp4"></video> -->
                     <td><?php echo $array[8];?></td>
                     <td><?php echo $array[9];?></td>
                     <td>
@@ -114,6 +112,7 @@ include '../Model/class.php';
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="custCrudModal"></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
           </div>
           <div class="modal-body">
             <form action="javascript:void(0)" id="custForm" name="custForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
@@ -157,9 +156,37 @@ include '../Model/class.php';
               <div class="form-group">
                 <label class="col-sm-6 control-label">Price</label>
                 <div class="col-sm-9">
-                  <input type="number" class="form-control" id="Price" name="Price" placeholder="Price" value="" required="">
+                  <input type="number" class="form-control" id="Price" name="Price" placeholder="Price" value="" min="0" required="">
                 </div>
               </div>
+              <div class="form-group">
+                <label class="col-sm-8 control-label">Customer Group Price</label>  
+                <div class="wrapper">
+                <div class="input-box">
+                <div class="row">
+                <div class="col-sm-4">              
+                <select class="form-control" name="CustomerGroup[]" id="CustomerGroup">
+                      <?php
+                              $cate=new customer();
+                              $rows=$cate->customerGrp();
+                              foreach($rows as $array){
+                              ?>
+                                 <option value="<?php echo $array[0]; ?>"><?php echo $array[1]; ?> 
+                                    </option>
+                          <?php
+                                }
+                           ?>
+                      </select>
+                    </div>
+                      <div class="col-md-4">
+                  <input type="number" class="form-control" id="CustomerGroupPrice" name="CustomerGroupPrice[]" placeholder="Customer Group Price" min="0" value="">
+                </div>
+                <button type="button" class="add-btn btn addCustomerGroupPrice" data-id="<?php echo $array[0];?>"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                <button type="button" class="btn remove-lnk" data-id="<?php echo $array[0];?>"><i class="fa fa-trash"></i></button> 
+                </div>
+               </div>
+               </div>
+               </div>
               <div class="form-group">
                 <label class="col-sm-6 control-label">Description</label>
                 <div class="col-sm-9">
@@ -207,6 +234,7 @@ include '../Model/class.php';
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="editModal"></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
           </div>
           <div class="modal-body">
             <form action="javascript:void(0)" id="editForm" name="editForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
@@ -251,6 +279,34 @@ include '../Model/class.php';
                   <input type="number" class="form-control" id="ePrice" name="ePrice" placeholder="Price" value="" required="">
                 </div>
               </div>
+              <div class="form-group">
+                <label class="col-sm-8 control-label">Customer Group Price</label>  
+                <div class="wrapper">
+                <div class="input-box">
+                <div class="row">
+                <div class="col-sm-4">              
+                <select class="form-control" name="eCustomerGroup[]" id="eCustomerGroup">
+                      <?php
+                              $cate=new customer();
+                              $rows=$cate->customerGrp();
+                              foreach($rows as $array){
+                              ?>
+                                 <option value="<?php echo $array[0]; ?>"><?php echo $array[1]; ?> 
+                                    </option>
+                          <?php
+                                }
+                           ?>
+                      </select>
+                    </div>
+                      <div class="col-md-4">
+                  <input type="number" class="form-control" id="eCustomerGroupPrice" name="eCustomerGroupPrice[]" placeholder="Customer Group Price" min="0" value="">
+                </div>
+                <button type="button" class="add-btn btn addCustomerGroupPrice" data-id="<?php echo $array[0];?>"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                <button type="button" class="btn remove-lnk" data-id="<?php echo $array[0];?>"><i class="fa fa-trash"></i></button> 
+                </div>
+               </div>
+               </div>
+               </div>
               <div class="form-group">
                 <label class="col-sm-6 control-label">Description</label>
                 <div class="col-sm-9">

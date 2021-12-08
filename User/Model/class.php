@@ -89,6 +89,16 @@ class product_details extends database{
     {
      parent::__construct();   
     }
+//////// resume
+    public function group_customer()
+    {
+        $query="select sku from Product_Customer_Group_Price where Customer_Group=".$_SESSION['customerGroup']; 
+	    $result=mysqli_query($this->con,$query);
+        while($array=mysqli_fetch_row($result)){
+            $data=$array;
+        }
+         return $data;
+    }
 
     public function product_Details($id)
     {
@@ -235,7 +245,7 @@ class log_in extends database {
             $username = mysqli_real_escape_string($this->con, $username);
             $password = stripslashes($request['password']);
             $password = mysqli_real_escape_string($this->con, $password);
-        $query = "SELECT * FROM `customer_signup` WHERE username='$username'
+        $query = "SELECT * FROM `customer_info` WHERE username='$username'
                      AND password='" . md5($password) . "'";
         $result = mysqli_query($this->con, $query) ;
         $rows = mysqli_num_rows($result);
@@ -243,6 +253,7 @@ class log_in extends database {
         if ($rows == 1) {
             $_SESSION['username'] = $username;
             $_SESSION['id'] = $array[0];
+            $_SESSION['customerGroup'] = $array[8];
             // Redirect to user home page
             header("Location: index.php");
         } else {
@@ -267,12 +278,18 @@ class log_in extends database {
                 $username = stripslashes($request['username']);
                 //escapes special characters in a string
                 $username = mysqli_real_escape_string($this->con, $username);
-                $email    = stripslashes($request['email']);
+                $email    = stripslashes($request['Email']);
                 $email    = mysqli_real_escape_string($this->con, $email);
+                $phone = stripslashes($request['phone_number']);
+                $phone = mysqli_real_escape_string($this->con, $phone);
+                $Address = stripslashes($request['Address']);
+                $Address = mysqli_real_escape_string($this->con, $Address);
+                $country = stripslashes($request['country']);
+                $country = mysqli_real_escape_string($this->con, $country);
                 $password = stripslashes($request['password']);
                 $password = mysqli_real_escape_string($this->con, $password);
 
-                $check="select count(1) from customer_signup where email='$email' ";
+                $check="select count(1) from customer_info where Email='$email' ";
                 $exists=mysqli_query($this->con,$check);
                 $row=mysqli_fetch_row($exists);
                 if($row[0] >= 1) {
@@ -280,8 +297,8 @@ class log_in extends database {
                     <h3>Email already exists!!!!!!!</h3><br/>
                     </div>";;
                      }else{
-       $query    = "INSERT into customer_signup (FirstName,LastName,username, password, email)
-                     VALUES ('$FirstName','$LastName','$username', '" . md5($password) . "', '$email')";           
+       $query    = "INSERT into customer_info (FirstName,LastName,Email,username,phone_number,Address,country,password)
+                     VALUES ('$FirstName','$LastName','$username','$email','$phone ','$Address','$country', '" . md5($password) . "')";           
         $result   = mysqli_query($this->con, $query); 
         if ($result) {
             echo "<div class='form'>

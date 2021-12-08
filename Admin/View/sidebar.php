@@ -25,7 +25,13 @@
     <a href="http://localhost/lifekart/Admin/View/product.php">product </a>
     <a href="http://localhost/lifekart/Admin/View/category.php">Category</a>
   </div>
-    <a href="http://localhost/lifekart/Admin/View/customer.php">Customer</a>
+    <div class="dropdown-btn">Customer
+    <i class="fa fa-caret-down"></i>
+      </div>
+      <div class="dropdown-container">
+      <a href="http://localhost/lifekart/Admin/View/customer.php">Customer</a>
+      <a href="http://localhost/lifekart/Admin/View/custom_grp.php">Customer Group</a>
+  </div>
     <a href="http://localhost/lifekart/Admin/View/imageslider.php">Image Slider</a>
     <a href="http://localhost/lifekart/Admin/View/coupen.php">Coupen</a>
 </div>

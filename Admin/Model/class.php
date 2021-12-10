@@ -297,22 +297,20 @@ public function ImportCsv($files)
                 $data[] = $cust;
                 $img = unserialize($cust['image']);
             } 
-            if($data) {
-             echo json_encode(array('img'=>$img,'data'=>$data));
-            } 
-        }
-
-        public function edit2($SKU)
-        {
-            $query="SELECT * from Product_Customer_Group_Price WHERE sku =".$SKU;
-            $result = mysqli_query($this->con,$query);
-            $data = array();
-            while ($cust = mysqli_fetch_assoc($result)) {
-                $data[] = $cust;
+            $query1="SELECT SKU from Product_info WHERE Id=".$id;
+            $result1 = mysqli_query($this->con,$query1);
+            while ($cust1 = mysqli_fetch_assoc($result1)) {
+                $data1= $cust1['SKU'];
+            }
+           $sql="SELECT * FROM Product_Customer_Group_Price WHERE sku=".$data1;
+            $result2= mysqli_query($this->con,$sql);
+            $data2=array();
+            while ($cust2= mysqli_fetch_assoc($result2)) {
+                $data2[]=$cust2;
                 } 
-            if($data) {
-             echo json_encode($data);
-            } 
+                if($data) {
+                    echo json_encode(array('img'=>$img,'data'=>$data,'data2'=>$data2));
+                   }
         }
 
         public function displayVideo($id)
@@ -416,9 +414,63 @@ public function ImportCsv($files)
             }
     }   
  
+    public function update2($customergroup,$customergroupprice,$SKU)
+    {
+         $query = "DELETE FROM Product_Customer_Group_Price WHERE sku=".$SKU;
+         $result =mysqli_query($this->con,$query);
+         $i=0;
+
+        $check_array=array();
+            foreach($customergroup as $customerGroup){
+                if(!in_array($customerGroup,$check_array)){
+                    array_push($check_array,$customerGroup);         
+                $query = "INSERT INTO Product_Customer_Group_Price(Customer_Group,Group_Price,sku)VALUES ('$customerGroup','$customergroupprice[$i]','$SKU')";
+                $result = mysqli_query($this->con, $query);
+                }
+                $i++;
+        }
+       
+        // $i=0;
+        // $a="select Customer_Group from Product_Customer_Group_Price where sku=".$SKU;
+        // $result1 = mysqli_query($this->con, $a);
+        // $data=array();
+        // while($product=mysqli_fetch_array($result1)){
+        //     $data[]=$product[0];
+        // }
+        // $b="select Group_Price from Product_Customer_Group_Price where sku=".$SKU;
+        // $result4 = mysqli_query($this->con, $b);
+        // $data1=array();
+        // while($product1=mysqli_fetch_array($result4)){
+        //     $data1[]=$product1[0];
+        // }
+        // $res =array_combine($data,$data1);
+        // $result3 =array_combine($customergroup,$customergroupprice);
+        // $x=array_diff_assoc($result3,$res);
+        // if ($x>0) {
+        //     foreach($x as $customerGroup => $groupprice[$i]){
+        // echo  $que = "INSERT INTO Product_Customer_Group_Price(Customer_Group,Group_Price,sku)VALUES ('$customerGroup','$groupprice[$i]','$SKU')";
+        //     $result2 = mysqli_query($this->con, $que);
+        //     $i++;
+        //     }
+        // }else{
+        //     foreach($customergroup as $customerGroup){
+        //     echo    $query = "UPDATE Product_Customer_Group_Price SET Customer_Group='$customerGroup',Group_Price='$customergroupprice[$i]' WHERE sku=".$SKU." AND Customer_Group=".$customergroup[$i];
+        //         $result = mysqli_query($this->con, $query);
+        //         $i++;
+        //     }
+        // }
+    } 
+
+
         public function delete($id)
         {
             $query = "DELETE FROM Product_info WHERE Id=".$id;
+            $result =mysqli_query($this->con,$query);
+        }
+
+        public function deleteprice($id)
+        {
+            $query = "DELETE FROM Product_Customer_Group_Price WHERE id=".$id;
             $result =mysqli_query($this->con,$query);
         }
 

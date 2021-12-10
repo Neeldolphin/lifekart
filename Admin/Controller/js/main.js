@@ -504,10 +504,58 @@ $('.wrapper').on("click",'.remove-lnk', function (e) {
   e.preventDefault();
   $(this).parent('div').remove(); 
   x--; 
+  var id = $(this).data('id');
+  var action='deletecustomer_group_price';
+  $.ajax({
+      type:"POST",
+      url: "../Controller/control.php",
+      data: { id: id,action:action },
+      dataType: 'json',
+      success: function(result){
+      if (result == 1) {
+        $("#datatab").load("product.php #datatab");
+      }
+     }
+  });
 })
 
 });
 
+$(document).ready(function () {
+
+  var max_input = 3;
+  var x = 1;
+  var i=0;
+  var clone = $(".input-box1").eq(i).clone();
+
+  $(this).on('click', '.add-btn1', function (e){
+    e.preventDefault();
+    if (x < max_input) {
+      x++; 
+      $('.wrapper1').append(clone);
+    }
+  });
+  
+$(this).on("click",'.remove-lnk1', function (e) {
+  e.preventDefault();
+  $(this).parent('div').remove(); 
+  x--; 
+  // var id = $(this).data('label');
+  // var action='deletecustomer_group_price';
+  // $.ajax({
+  //     type:"POST",
+  //     url: "../Controller/control.php",
+  //     data: { id: id,action:action },
+  //     dataType: 'json',
+  //     success: function(result){
+  //     if (result == 1) {
+  //       $("#datatab").load("product.php #datatab");
+  //     }
+  //    }
+  // });
+})
+
+});
 
 $(document).ready(function(){
       $('#create').click(function () {
@@ -580,6 +628,20 @@ $(document).ready(function(){
               }
               $('#esku').val(result.data[0].SKU);
               $('#ePrice').val(result.data[0].price);
+              
+            for(var i=0;i<result.data2.length;i++){  
+                $('.input-box1').eq(i).clone().insertAfter('.wrapper1').attr('id', 'choices_'+ i);
+                $('#eCustomerGroup').attr('id', 'choices_'+ i).attr('data-label',result.data2[i].id).val(result.data2[i].Customer_Group);
+                $('#eCustomerGroupPrice').attr('id', 'choices_'+ i).attr('data-label',result.data2[i].id).val(result.data2[i].Group_Price);
+                $('#aed').attr('id', 'aed_'+ i).attr('data-label',result.data2[i].id);
+                $('#tras').attr('id', 'tras_'+ i).attr('data-label',result.data2[i].id);
+              } 
+              if(result.data2.length>0){
+              $('#eCustomerGroupPrice').remove();
+              $('#aed').remove();
+              $('#eCustomerGroup').remove();
+              $('#tras').remove();
+              }
               $('#eDescription').val(result.data[0].description);
               $('#eQTY').val(result.data[0].qty);
               $('#displayvideo').html("<video class='videoremove' width='180' height='90' controls><source src='http://localhost/lifekart/Admin/uploads/" + result.data[0].video +"'type='video/mp4'></video><span class='video_remove' data-id='"+result.data[0].video+"'>X</span>");

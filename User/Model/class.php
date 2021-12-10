@@ -89,10 +89,21 @@ class product_details extends database{
     {
      parent::__construct();   
     }
-//////// resume
+
     public function group_customer()
     {
-        $query="select sku from Product_Customer_Group_Price where Customer_Group=".$_SESSION['customerGroup']; 
+        $query="select sku from Product_Customer_Group_Price where Customer_Group=".$_SESSION['customerGroup'];
+	    $result=mysqli_query($this->con,$query);
+        while($array=mysqli_fetch_row($result)){
+            $data[]=$array[0];
+        }
+         return $data;
+    }
+
+    public function group_price($SKU)
+    {
+      
+        $query="select Group_Price from Product_Customer_Group_Price where Customer_Group=".$_SESSION['customerGroup']." AND sku=".$SKU; 
 	    $result=mysqli_query($this->con,$query);
         while($array=mysqli_fetch_row($result)){
             $data=$array;

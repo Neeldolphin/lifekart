@@ -56,13 +56,17 @@ include 'navbar.php';
             <div class="col-lg-6 offset-md-1 ">  
                    
                 <p><b>Name :<?php echo $array[1];?></b></p> 
-                <!-- resume -->
-                <?php
-                    $cate=new product_details();
+                <?php $cate=new product_details();
                     $rows=$cate->group_customer();
-                        print_r($rows);?>
-                <p><b>Price :<?php echo $array[5];?></b></p>    
-                <p><b>Description :<?php echo $array[6];?></b></p> 
+                     if(in_array($array[3],$rows)){
+                     $SKU=$array[3];
+                     $row=$cate->group_price($SKU);?>
+
+            <p><b>Price :<?php echo $row[0];?></b></p>    
+                    <?php }else{?>
+            <p><b>Price :<?php echo $array[5];?></b></p>  
+                    <?php }?>
+            <p><b>Description :<?php echo $array[6];?></b></p> 
             <div class="col-lg-10 mt-4">
                 <div class="row">
                     <div class="col-lg-4 pb-4">

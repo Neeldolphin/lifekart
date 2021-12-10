@@ -23,6 +23,10 @@ class action{
                         case 'product_delete':
                             return $this->deleteProductDetail();
                             break;
+                            case 'deletecustomer_group_price':
+                                return $this->deleteCustomerGroupPrice();
+                                break;
+                            
                             case 'single_remove':
                                 return $this->removeImage();
                                 break;
@@ -136,20 +140,22 @@ class action{
 
     public function changeProductDetail(){
         $id = $_POST['id'];
-        //$SKU = $_POST['sku'];
         $change =new product();
         $change->edit($id);
-       // $change->edit2($SKU);
     }
 
     public function updateProductDetail(){
         if(!empty($_POST['eid'])){
             $create_at=date("Y/m/d");
             $update_at=date("Y/m/d");
+            $SKU = $_POST['esku'];
+            $customergroup=$_POST['eCustomerGroup'];
+            $customergroupprice=$_POST['eCustomerGroupPrice'];
             $files=$_FILES;
             $post=$_POST;
             $update = new product();
             $update->update($files,$post,$create_at,$update_at);   
+            $update->update2($customergroup,$customergroupprice,$SKU); 
         }
     }
 
@@ -157,6 +163,13 @@ class action{
         $id = $_POST['id'];
         $delete=new product();
         $delete->delete($id);
+        echo 1;
+
+    }
+    public function deleteCustomerGroupPrice(){
+        $id = $_POST['id'];
+        $delete=new product();
+        $delete->deleteprice($id);
         echo 1;
 
     }

@@ -281,8 +281,8 @@ include '../Model/class.php';
               </div>
               <div class="form-group">
                 <label class="col-sm-8 control-label">Customer Group Price</label>  
-                <div class="wrapper">
-                <div class="input-box">
+                <div class="wrapper1">
+                <div class="input-box1">
                 <div class="row">
                 <div class="col-sm-4">              
                 <select class="form-control" name="eCustomerGroup[]" id="eCustomerGroup">
@@ -301,8 +301,8 @@ include '../Model/class.php';
                       <div class="col-md-4">
                   <input type="number" class="form-control" id="eCustomerGroupPrice" name="eCustomerGroupPrice[]" placeholder="Customer Group Price" min="0" value="">
                 </div>
-                <button type="button" class="add-btn btn addCustomerGroupPrice" data-id="<?php echo $array[0];?>"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                <button type="button" class="btn remove-lnk" data-id="<?php echo $array[0];?>"><i class="fa fa-trash"></i></button> 
+                <button type="button" id="aed" class="add-btn1 btn addCustomerGroupPrice" data-id="<?php echo $array[0];?>"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                <button type="button" id="tras" class="btn remove-lnk1" data-id="<?php echo $array[0];?>"><i class="fa fa-trash"></i></button> 
                 </div>
                </div>
                </div>

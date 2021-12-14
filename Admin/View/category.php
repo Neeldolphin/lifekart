@@ -24,7 +24,7 @@ include '../Model/class.php';
                   <th scope="col">Name</th>
                   <th scope="col">Image</th>
                   <th scope="col">Description</th>
-                  <th scope="col">Action</th>
+                  <th scope="col" style="width:160px;">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -40,8 +40,8 @@ include '../Model/class.php';
                     <td><img class="img_width" src="http://localhost/lifekart/Admin/uploads/<?php echo $array[2];?>"></td>
                     <td><?php echo $array[3];?></td>
                     <td>
-                    <a href="javascript:void(0)" class="btn btn-primary categorydelete" data-id="<?php echo $array[0];?>">Delete</a>
-                  <a href="javascript:void(0)" class="btn btn-primary categorychange" data-id="<?php echo $array[0];?>">Edit</a>
+                    <a href="javascript:void(0)" class="btn btn-primary categorydelete" data-id="<?php echo $array[0];?>"><i class="fa fa-trash"></i></a>
+                  <a href="javascript:void(0)" class="btn btn-primary categorychange" data-id="<?php echo $array[0];?>"><i class="fa fa-edit"></i></a>
                   </td>
                 </tr>
                 <?php }?>

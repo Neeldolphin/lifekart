@@ -281,8 +281,13 @@ public function ImportCsv($files)
         {
             $i=0;
             foreach($customergroup as $customerGroup){
-                $query = "INSERT INTO Product_Customer_Group_Price(Customer_Group,Group_Price,sku)VALUES ('$customerGroup','$customergroupprice[$i]','$SKU')";
-                $result = mysqli_query($this->con, $query);
+                $sql="select customer_group	 from customer_group where id=".$customerGroup;  
+                $result1=mysqli_query($this->con,$sql);
+                while($row=mysqli_fetch_row($result1)){ 
+                    $data=$row[0];
+            }
+            $query = "INSERT INTO Product_Customer_Group_Price(Customer_Group,Customer_Group_Name,Group_Price,sku)VALUES ('$customerGroup','$data','$customergroupprice[$i]','$SKU')";
+          $result = mysqli_query($this->con, $query);
                 $i++;
             }
            
@@ -302,27 +307,67 @@ public function ImportCsv($files)
             while ($cust1 = mysqli_fetch_assoc($result1)) {
                 $data1= $cust1['SKU'];
             }
+            $data3 ='';
+             
            $sql="SELECT * FROM Product_Customer_Group_Price WHERE sku=".$data1;
             $result2= mysqli_query($this->con,$sql);
             $data2=array();
+            $i=0;
             while ($cust2= mysqli_fetch_assoc($result2)) {
                 $data2[]=$cust2;
-                } 
-                if($data) {
-                    echo json_encode(array('img'=>$img,'data'=>$data,'data2'=>$data2));
-                   }
+                $data3 .= "<div class='input-box1' id='choices_".$i."'>
+                            <div class='row'>
+                            <div class='col-sm-4'>              
+                            <select class='form-control' name='eCustomerGroup[]' id='choices_".$i."'>
+                            <option value='".$data2[$i]['Customer_Group']." '>".$data2[$i]['Customer_Group_Name']."</option>
+                                </select>
+                                </div>
+                                <div class='col-md-4'>
+                            <input type='number' class='form-control' id='choices_".$i."' name='eCustomerGroupPrice[]' placeholder='Customer Group Price' min='0' value='".$data2[$i]['Group_Price']."'>
+                            </div>
+                            <button type='button' id='aed_$i' class='add-btn1 btn addCustomerGroupPrice' ><i class='fa fa-plus' aria-hidden='true'></i></button>
+                            <button type='button' id='tras_$i' class='btn remove-lnk1' ><i class='fa fa-trash'></i></button> 
+                            </div>
+                        </div>";
+                        $i++;
+                    }
+                    if ($data3 =='') {
+                        $data3 .= "<div class='input-box1'>
+                    <div class='row'>
+                    <div class='col-sm-4'>              
+                        </div>
+                        <div class='col-md-4'>
+                    </div>
+                    <button type='button' class='add-btn1 btn addCustomerGroupPrice' data-id='' data-label=''><i class='fa fa-plus' aria-hidden='true'></i></button>
+                    </div>
+                </div>";
+                    }       
+            if($data) {
+                echo json_encode(array('img'=>$img,'data'=>$data,'data2'=>$data2,'data3'=>$data3));
+            }
         }
 
         public function displayVideo($id)
         {
             $query="SELECT video from Product_info WHERE Id =".$id;
             $result = mysqli_query($this->con,$query);
+            while ($cust = mysqli_fetch_array($result)) {
+                $data = $cust[0];
+            } 
+             echo json_encode($data);
+        }
+
+        public function disImg($id)
+        {
+             $query="SELECT image from Product_info WHERE Id =".$id;
+            $result = mysqli_query($this->con,$query);
             $data = array();
             while ($cust = mysqli_fetch_assoc($result)) {
                 $data[] = $cust;
+                $img = unserialize($cust['image']);
             } 
             if($data) {
-             echo json_encode(array('data'=>$data));
+             echo json_encode(array('img'=>$img,'data'=>$data));
             } 
         }
         
@@ -416,17 +461,23 @@ public function ImportCsv($files)
  
     public function update2($customergroup,$customergroupprice,$SKU)
     {
-         $query = "DELETE FROM Product_Customer_Group_Price WHERE sku=".$SKU;
+
+        echo  $query = "DELETE FROM Product_Customer_Group_Price WHERE sku=".$SKU;
          $result =mysqli_query($this->con,$query);
          $i=0;
 
         $check_array=array();
             foreach($customergroup as $customerGroup){
                 if(!in_array($customerGroup,$check_array)){
-                    array_push($check_array,$customerGroup);         
-                $query = "INSERT INTO Product_Customer_Group_Price(Customer_Group,Group_Price,sku)VALUES ('$customerGroup','$customergroupprice[$i]','$SKU')";
-                $result = mysqli_query($this->con, $query);
+                    array_push($check_array,$customerGroup);    
+                    $sql="select customer_group	 from customer_group where id=".$customerGroup;  
+                    $result1=mysqli_query($this->con,$sql);
+                    while($row=mysqli_fetch_row($result1)){ 
+                        $data=$row[0];
                 }
+                echo $query = "INSERT INTO Product_Customer_Group_Price(Customer_Group,Customer_Group_Name,Group_Price,sku)VALUES ('$customerGroup','$data','$customergroupprice[$i]','$SKU')";
+                 $result = mysqli_query($this->con, $query);
+              }
                 $i++;
         }
        

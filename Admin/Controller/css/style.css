@@ -147,7 +147,24 @@
     .customeredit{
       margin-right: 5px;
     }
-
+    .imagesdelete{
+      margin-right: 45px;
+    }
+    .imageschange{
+      margin-right: 5px;
+    }
+    .coupendelete{
+      margin-right: 45px;
+    }
+    .coupenedit{
+      margin-right: 5px;
+    }
+    .categorydelete{
+      margin-right: 45px;
+    }
+    .categorychange{
+      margin-right: 5px;
+    }
 /* .loader {
     position: fixed;
     left: 0px;
@@ -158,3 +175,47 @@
     background: url('uploads/ajax-loader.gif') 50% 50% no-repeat rgb(249,249,249);
     opacity: .8;
 } */
+
+.text-center video {
+  width: 500px;
+  height: 300px;
+}
+
+.text-center img {
+  width: 500px;
+  height: 300px;
+}
+.wrapper {
+  position: relative;
+  width: 30px;
+  min-height:30px;
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper .arrow {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  background: #a1a1a1;
+}
+.wrapper .arrow .line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 4px;
+  border-radius: 2px;
+  background: #ffffff;
+  transform-origin: center;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.wrapper .arrow .line:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+.wrapper .arrow:hover {
+  transform: rotate(45deg);
+}
+	
+.modal { overflow: auto !important; }

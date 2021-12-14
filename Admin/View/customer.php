@@ -32,10 +32,10 @@ include '../Model/class.php';
                 <tr>
                     <td><?php echo $array[1];?></td>
                     <td><?php echo $array[2];?></td>
-                    <td><?php echo $array[5];?></td>
-                    <td><?php echo $array[6];?></td>
+                    <td><?php echo $array[3];?></td>
+                    <td><?php echo $array[7];?></td>
                     <?php 
-                    $id=$array[7];
+                    $id=$array[8];
                     $cate=new customer();
                     $rows=$cate->groupName($id);?>
                     <td><?php echo $rows;?></td>
@@ -57,15 +57,18 @@ include '../Model/class.php';
 
 <!--MAINFORM--> 
   <div class="modal fade" id="ajax-modal" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="custCrudModal"></h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
           </div>
           <div class="modal-body">
-            <form action="javascript:void(0)" id="custForm" name="custForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
+            <form action="javascript:void(0)" id="custForm" name="custForm" class="form" method="POST" enctype="multipart/form-data">
             <input type="hidden" id="Id" value="">  
+            <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
             <div class="form-group">
                 <label for="name" class="col-sm-6 control-label">First Name</label>
                 <div class="col-sm-9">
@@ -90,9 +93,11 @@ include '../Model/class.php';
                   <input type="number" class="form-control" id="phone_number" name="phone_number" placeholder="" value="" min="7111111110" max="9999999999" required="" >
                 </div>
               </div>
+            </div>
+            <div class="col-md-6">
               <div class="form-group">
                 <label class="col-sm-6 control-label">Address</label>
-                <div class="col-sm-9">
+                <div class="col-sm-11">
                   <textarea class="form-control" id="Address" name="Address" rows="4" cols="50" placeholder="Address" value="" required="">
                   </textarea>
                 </div>
@@ -104,7 +109,7 @@ include '../Model/class.php';
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-6 control-label">Customer Group</label>
+                <label class="col-sm-8 control-label">Customer Group</label>
                 <div class="col-sm-9">
                 <select class="form-control" name="customerGroup" id="customerGroup" required="">
                       <option value=""></option>
@@ -121,7 +126,8 @@ include '../Model/class.php';
                               </select>
                 </div>
               </div>
-              <div class="col-sm-offset-2 col-sm-9">
+            </div>
+              <div class="col-sm-12">
                 <button type="submit" class="btn btn-primary customeradd" id="btn-save" value="create">Add Customer
                 </button>
               </div>
@@ -132,19 +138,23 @@ include '../Model/class.php';
         </div>
       </div>
     </div>
-
+                              </div>
+                              </div>
 
 <!--EDITFORM--> 
   <div class="modal fade" id="edit-modal" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="editModal"></h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
           </div>
           <div class="modal-body">
-            <form action="javascript:void(0)" id="editForm" name="editForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
+            <form action="javascript:void(0)" id="editForm" name="editForm" class="form" method="POST" enctype="multipart/form-data">
             <input type="hidden" id="eid" value="">  
+            <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
             <div class="form-group">
                 <label for="name" class="col-sm-6 control-label">First Name</label>
                 <div class="col-sm-9">
@@ -169,9 +179,11 @@ include '../Model/class.php';
                   <input type="number" class="form-control" id="ephone_number" name="ephone_number" placeholder="" value=""  min="7111111110" max="9999999999"  required="">
                 </div>
               </div>
+            </div>
+            <div class="col-md-6">
               <div class="form-group">
                 <label class="col-sm-6 control-label">Address</label>
-                <div class="col-sm-9">
+                <div class="col-sm-11">
                   <textarea type="text" class="form-control" id="eAddress" name="eAddress"  rows="4" cols="50" placeholder="Address" value="" required="">
                   </textarea></div>
               </div>
@@ -182,7 +194,7 @@ include '../Model/class.php';
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-6 control-label">Customer Group</label>
+                <label class="col-sm-8 control-label">Customer Group</label>
                 <div class="col-sm-9">
                 <select class="form-control" name="ecustomerGroup" id="ecustomerGroup" required="">
                       <option value=""></option>
@@ -199,7 +211,8 @@ include '../Model/class.php';
                               </select>
                 </div>
               </div>
-              <div class="col-sm-offset-2 col-sm-9">
+            </div>
+              <div class="col-sm-12">
                 <button type="submit" class="btn btn-primary edit" id="ebtn-save" value="create">Edit Customer
                 </button>
               </div>
@@ -210,6 +223,8 @@ include '../Model/class.php';
         </div>
       </div>
     </div>
+                              </div>
+                              </div>
 
     <div class="modal fade" id="DescModal" role="dialog">
    <div class="modal-dialog modal-lg">

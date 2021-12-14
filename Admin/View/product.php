@@ -108,24 +108,27 @@ include '../Model/class.php';
 
 <!--MAINFORM--> 
   <div class="modal fade" id="ajax-modal" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="custCrudModal"></h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
           </div>
           <div class="modal-body">
-            <form action="javascript:void(0)" id="custForm" name="custForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
+            <form action="javascript:void(0)" id="custForm" name="custForm" class="form" method="POST" enctype="multipart/form-data">
             <input type="hidden" id="Id" value="">  
+            <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
             <div class="form-group">
-                <label for="name" class="col-sm-6 control-label">Name</label>
-                <div class="col-sm-9">
+                <label for="name" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
                   <input type="text" class="form-control" id="pname" name="pname" placeholder="Enter Name" value="" maxlength="50" required="">
                 </div>
               </div>  
               <div class="form-group">
-                <label class="col-sm-6 control-label">Category</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">Category</label>
+                <div class="col-sm-10">
                   <select class="form-control" name="category" id="category">
                       <option value=""></option>
                           <?php
@@ -142,29 +145,41 @@ include '../Model/class.php';
                 </div>
               </div> 
               <div class="form-group">
-                <label class="col-sm-6 control-label">SKU</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">SKU</label>
+                <div class="col-sm-10">
                   <input type="number" class="form-control" id="sku" name="sku" placeholder="" value="" required="">
                 </div>
               </div>
               <div class="form-group">
-                <label for="file" class="col-sm-6 control-label">Image</label>
-                <div class="col-sm-9">
+                <label for="file" class="col-sm-2 control-label">Image</label>
+                <div class="col-sm-10">
                   <input type="file" class="form-control" id="image" name="image[]" multiple required="">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-6 control-label">Price</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">Price</label>
+                <div class="col-sm-10">
                   <input type="number" class="form-control" id="Price" name="Price" placeholder="Price" value="" min="0" required="">
                 </div>
               </div>
               <div class="form-group">
+                <label class="col-sm-2 control-label">Status</label>
+                <div class="col-sm-10">
+                  <select class="form-control" name="Status" id="Status">
+                      <option value=""></option>
+                      <option value="Enable">Enable</option>
+                      <option value="Disable">Disable</option>
+                              </select>
+                </div>
+              </div>
+              </div>
+            <div class="col-md-6">
+              <div class="form-group">
                 <label class="col-sm-8 control-label">Customer Group Price</label>  
-                <div class="wrapper">
+                <div class="wrapper2">
                 <div class="input-box">
                 <div class="row">
-                <div class="col-sm-4">              
+                <div class="col-md-5">              
                 <select class="form-control" name="CustomerGroup[]" id="CustomerGroup">
                       <?php
                               $cate=new customer();
@@ -188,35 +203,26 @@ include '../Model/class.php';
                </div>
                </div>
               <div class="form-group">
-                <label class="col-sm-6 control-label">Description</label>
-                <div class="col-sm-9">
+                <label class="col-sm-3 control-label">Description</label>
+                <div class="col-sm-11">
                   <textarea class="form-control" id="Description" name="Description" rows="4" cols="50" placeholder=" Description" value="" required="">
                   </textarea>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-6 control-label">QTY</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">QTY</label>
+                <div class="col-sm-10">
                   <input type="number" class="form-control" id="QTY" name="QTY" placeholder="Enter Quantity" value="" required="">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-6 control-label">Video</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">Video</label>
+                <div class="col-sm-10">
                   <input type="file" class="form-control" id="Video" name="Video" placeholder="" value="" required="">
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-6 control-label">Status</label>
-                <div class="col-sm-9">
-                  <select class="form-control" name="Status" id="Status">
-                      <option value=""></option>
-                      <option value="Enable">Enable</option>
-                      <option value="Disable">Disable</option>
-                              </select>
-                </div>
-              </div>
-              <div class="col-sm-offset-2 col-sm-9">
+              </div>            
+              <div class="col-sm-12">
                 <button type="submit" class="btn btn-primary productadd" id="btn-save" value="create">Add Product
                 </button>
               </div>
@@ -227,18 +233,23 @@ include '../Model/class.php';
         </div>
       </div>
     </div>
+    </div>
+          </div>
 
 <!-- EditForm -->
 <div class="modal fade" id="edit-modal" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="editModal"></h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
           </div>
           <div class="modal-body">
-            <form action="javascript:void(0)" id="editForm" name="editForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
+            <form action="javascript:void(0)" id="editForm" name="editForm" class="form" method="POST" enctype="multipart/form-data">
             <input type="hidden" id="eid" name="eid" value="">  
+            <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
             <div class="form-group">
                 <label for="name" class="col-sm-6 control-label">Name</label>
                 <div class="col-sm-9">
@@ -266,13 +277,15 @@ include '../Model/class.php';
                   <input type="number" class="form-control" id="esku" name="esku" placeholder="" value="">
                 </div>
               </div>
-              <div class="img_width" id="displayimg"></div>
               <div class="form-group">
                 <label for="file" class="col-sm-6 control-label">Image</label>
+                <div class="img_width" id="displayimg"></div>
                 <div class="col-sm-9">
                   <input type="file" class="form-control" id="eimage" name="eimage[]" multiple >
                 </div>
               </div>
+              </div>
+              <div class="col-md-6">
               <div class="form-group">
                 <label class="col-sm-6 control-label">Price</label>
                 <div class="col-sm-9">
@@ -320,10 +333,12 @@ include '../Model/class.php';
                   <input type="number" class="form-control" id="eQTY" name="eQTY" placeholder="Enter Quantity" value="" required="">
                 </div>
               </div>
-              <div id="displayvideo"></div>
               <div class="form-group">
-                <label class="col-sm-6 control-label">Video</label>
-                <div class="col-sm-9">
+             
+                <button class="btn btn-primary" id="disvideo" ><i class="fa fa-eye"></i></button>
+                <label class="col-sm-2 control-label">Video</label>
+                <div class="col-sm-10">
+                     <div id="displayvideo"></div>
                   <input type="file" class="form-control" id="eVideo" name="eVideo"  >
                 </div>
               </div>
@@ -337,7 +352,8 @@ include '../Model/class.php';
                               </select>
                 </div>
               </div>
-              <div class="col-sm-offset-2 col-sm-9">
+              </div> 
+              <div class="col-sm-12">
                 <button type="submit" class="btn btn-primary change" id="ebtn-save" value="create">Edit Product
                 </button>
               </div>
@@ -348,6 +364,8 @@ include '../Model/class.php';
         </div>
       </div>
     </div>
+    </div>
+          </div>
 
 
 <div class="modal fade" id="DescModal" role="dialog">
@@ -359,6 +377,8 @@ include '../Model/class.php';
          </div>
          <div class="modal-body">
             <div class="text-center">
+         </div>
+         <div class="text-center-video">
          </div>
          </div>
       </div>

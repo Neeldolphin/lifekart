@@ -26,7 +26,9 @@ class action{
                             case 'deletecustomer_group_price':
                                 return $this->deleteCustomerGroupPrice();
                                 break;
-                            
+                                case 'single_view':
+                                    return $this->singleView();
+                                    break;
                             case 'single_remove':
                                 return $this->removeImage();
                                 break;
@@ -178,8 +180,15 @@ class action{
         $remove=new product();
         $remove->removeimage($post);
         echo 1;
-
     }
+
+    public function singleView(){
+        $id = $_POST['id'];
+        $View=new product();
+        $View->disImg($id);
+        echo 1;
+    }
+
 
     public function insertImageDetails()
     {

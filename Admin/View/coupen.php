@@ -20,7 +20,7 @@ include '../Model/class.php';
                   <th scope="col">Id</th>
                   <th scope="col">Coupen Code</th>
                   <th scope="col">Coupen Discount</th>
-                  <th scope="col">Action</th>
+                  <th scope="col" style="width:160px;">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -35,8 +35,8 @@ include '../Model/class.php';
                     <td><?php echo $array[1];?></td>
                     <td><?php echo $array[2];?></td>
                     <td>
-                    <a href="javascript:void(0)" class="btn btn-primary coupendelete" data-id="<?php echo $array[0];?>">Delete</a>
-                    <a href="javascript:void(0)" class="btn btn-primary coupenedit" data-id="<?php echo $array[0];?>">Edit</a>
+                    <a href="javascript:void(0)" class="btn btn-primary coupendelete" data-id="<?php echo $array[0];?>"><i class="fa fa-trash"></i></a>
+                    <a href="javascript:void(0)" class="btn btn-primary coupenedit" data-id="<?php echo $array[0];?>"><i class="fa fa-edit"></i></a>
                   </td>
                 </tr>
               

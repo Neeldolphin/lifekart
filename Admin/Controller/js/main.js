@@ -31,7 +31,7 @@ $(document).ready(function(){
               data: { id:id,action:action },
               dataType: 'json', 
               success: function(result){
-                $('.text-center').html("<video class='videoremove' width='650' height='220' controls><source src='http://localhost/lifekart/Admin/uploads/" + result.data[0].video +"'type='video/mp4'></video>");
+                $('.text-center').html("<video class='videoremove' width='650' height='220' controls><source src='http://localhost/lifekart/Admin/uploads/" + result +"'type='video/mp4'></video>");
              }
           });
             });
@@ -488,7 +488,7 @@ $(document).ready(function($){
 
 $(document).ready(function () {
 
-  var max_input = 3;
+  var max_input = 5;
   var x = 1;
   var clone = $(".input-box").eq(0).clone();
 
@@ -496,11 +496,11 @@ $(document).ready(function () {
     e.preventDefault();
     if (x < max_input) {
       x++; 
-      $('.wrapper').append(clone);
+      $('.wrapper2').append(clone);
     }
   });
   
-$('.wrapper').on("click",'.remove-lnk', function (e) {
+$('.wrapper2').on("click",'.remove-lnk', function (e) {
   e.preventDefault();
   $(this).parent('div').remove(); 
   x--; 
@@ -523,7 +523,7 @@ $('.wrapper').on("click",'.remove-lnk', function (e) {
 
 $(document).ready(function () {
 
-  var max_input = 3;
+  var max_input = 5;
   var x = 1;
   var i=0;
   var clone = $(".input-box1").eq(i).clone();
@@ -540,19 +540,6 @@ $(this).on("click",'.remove-lnk1', function (e) {
   e.preventDefault();
   $(this).parent('div').remove(); 
   x--; 
-  // var id = $(this).data('label');
-  // var action='deletecustomer_group_price';
-  // $.ajax({
-  //     type:"POST",
-  //     url: "../Controller/control.php",
-  //     data: { id: id,action:action },
-  //     dataType: 'json',
-  //     success: function(result){
-  //     if (result == 1) {
-  //       $("#datatab").load("product.php #datatab");
-  //     }
-  //    }
-  // });
 })
 
 });
@@ -618,6 +605,7 @@ $(document).ready(function(){
             data: { id:id,action:action },
             dataType: 'json', 
             success: function(result){
+              $('#editForm')[0].reset();
               $('#eid').val(result.data[0].Id);
               $('#epname').val(result.data[0].pname);
               $('#ecategory').val(result.data[0].category);
@@ -628,32 +616,19 @@ $(document).ready(function(){
               }
               $('#esku').val(result.data[0].SKU);
               $('#ePrice').val(result.data[0].price);
-              
-            for(var i=0;i<result.data2.length;i++){  
-                $('.input-box1').eq(i).clone().insertAfter('.wrapper1').attr('id', 'choices_'+ i);
-                $('#eCustomerGroup').attr('id', 'choices_'+ i).attr('data-label',result.data2[i].id).val(result.data2[i].Customer_Group);
-                $('#eCustomerGroupPrice').attr('id', 'choices_'+ i).attr('data-label',result.data2[i].id).val(result.data2[i].Group_Price);
-                $('#aed').attr('id', 'aed_'+ i).attr('data-label',result.data2[i].id);
-                $('#tras').attr('id', 'tras_'+ i).attr('data-label',result.data2[i].id);
-              } 
-              if(result.data2.length>0){
-              $('#eCustomerGroupPrice').remove();
-              $('#aed').remove();
-              $('#eCustomerGroup').remove();
-              $('#tras').remove();
-              }
+              $('.wrapper1').html(result.data3);
               $('#eDescription').val(result.data[0].description);
               $('#eQTY').val(result.data[0].qty);
-              $('#displayvideo').html("<video class='videoremove' width='180' height='90' controls><source src='http://localhost/lifekart/Admin/uploads/" + result.data[0].video +"'type='video/mp4'></video><span class='video_remove' data-id='"+result.data[0].video+"'>X</span>");
+              $('#displayvideo').html("<div class='row'><video class='videoremove' width='120' height='65' controls><source src='http://localhost/lifekart/Admin/uploads/" + result.data[0].video +"'type='video/mp4'></video><span class='video_remove' data-id='"+result.data[0].video+"'><div class='wrapper'><div class='arrow'><div class='line'></div><div class='line'></div></div></div></span></div>");
               $('#eStatus').val(result.data[0].Status);
                  var show = [];
                  for(i=0;i<result.img.length;i++){
-                   show.push("<img class='imgdisplay' id='7' src='http://localhost/lifekart/Admin/uploads/" + result.img[i] +"'><span class='single_remove' data-id='"+ result.img[i] +"'>X</span>");              
+                   show.push("<div class='row'><img class='imgdisplay' id='7' width='120' height='65' src='http://localhost/lifekart/Admin/uploads/" + result.img[i] +"'><span class='single_remove' data-id='"+ result.img[i] +"'><div class='wrapper'><div class='arrow'><div class='line'></div><div class='line'></div></div></div></span></div>");              
                  }
                  $("#displayimg").html(show.join(''));
           }
         });
-
+        
       $("#editForm").validate({
         rules: {
             epname: "required",
@@ -672,7 +647,7 @@ $(document).ready(function(){
             eStatus:"status required"
         },
       submitHandler: function(form) { 
-        $('#editForm').submit(function() { 
+        $('#editForm').submit(function(e) { 
         var id = $(this).data('id');
         var vidrget=$('.videoremove').attr('width');
         var data=new FormData(this);
@@ -689,9 +664,10 @@ $(document).ready(function(){
             contentType: false, cache: false, processData:false,
             dataType: 'json',
             success: function(result){
-              if (result == 1) {
+              if (result.status  == 1) {
+                  alert("done");
                 $("#datatab").load("product.php #datatab");
-            }else if(result == 5){
+            }else if(result.status == 5){
               alert('Sku required');
           }else{
               alert('Sorry, unable update.something improper');
@@ -786,6 +762,24 @@ $(document).ready(function(){
         });
 }); 
 }); 
+
+$(document).ready(function(){
+$('.img_width').on('click','img', function() {
+  $('#DescModal').modal("show");
+  var abc=$(this).html('#displayimg').clone();
+   $('.text-center').html(abc);
+});
+});
+
+$(document).ready(function(){
+  $('#disvideo').on('click', function() {
+    var jk=$('#displayvideo').html();
+     $('#DescModal').modal("show");
+     $('.text-center').html(jk);
+     $('.text-center').find("span").remove();
+  });
+  });
+
 
 $(document).ready(function(){
   $('#displayvideo').on('click','span',function(e){

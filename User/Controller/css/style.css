@@ -7,6 +7,9 @@
         padding: 30px 25px;
         background: white;
     }
+    .logo{
+        width: 150px;
+    }
     h1.login-title {
         color: #666;
         margin: 0px auto 25px;
@@ -52,6 +55,9 @@
     }
     /* Make the image fully responsive */
     .carousel-inner img {
+        height: 160px;
+      }
+      .banner img{
         height: 350px;
       }
       .fakeimg {
@@ -71,14 +77,57 @@
 
       .footer{
           margin: auto;
-          width:350px;
+          width:auto;
           padding: auto;
-        
-      }
+          text-align:center;     
+              }
       .copy{
           padding: 15px;
       }
       html {
         scroll-behavior: smooth;
       }
+
+      .thumbimg img{
+        margin: 10px;
+        width:50px;
+        height: 85px;
+        padding: 10px;
+      }
+      .title{
+        text-align: center;
+      }
+      .static-img{
+        margin: 10px;
+        width:1440px;
+        height:325px;
+      }
+.adv img{
+    width:230px;
+    height:295px;
+}
+.no1{
+    background: rgb(208, 213, 255);
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 90px;
+    padding-bottom: 80px;
+}
       
+.no1 button a{
+    text-decoration: none;
+    color: #fff;
+}
+.topoffer{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.topoffer-back{
+    background: rgb(208, 213, 255);
+}
+.no-padding{
+padding-right: 0;    
+}

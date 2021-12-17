@@ -1,7 +1,6 @@
 <?php include 'header.php';
  include_once 'navbar.php';
  if(isset($_SESSION["username"])){
-    include '../Model/class.php';
     ?>
     <div class="container">                
     <div class="contentbar">  

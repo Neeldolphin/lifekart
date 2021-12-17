@@ -8,9 +8,11 @@ include '../Model/class.php';
 					?>
 	 <div class="container-fluid">  
      <div class="col-md-12 offset-md-1"><h2 class="text-white bg-dark"> Customer</h2></div>
-            <div class="row">
-                 <div class="col-md-12 datatables "><button type="button" id="addProduct" data-toggle="modal" data-target="#ajax-modal" class="btn btn-success">Add Customer </button></div> 
-                <div class="col-md-10 offset-md-2 ">
+            <div class="offset-md-2 row">
+            <p class="message2 "></p>
+            <div class="col-md-12 datatables "><button type="button" id="addProduct" data-toggle="modal" data-target="#ajax-modal" class="btn btn-success">Add Customer </button></div> 
+                <div class="col-md-12 ">
+                  <div id="ref">
 			<table class="table" id="datatab">
               <thead>
                 <tr>  
@@ -49,6 +51,7 @@ include '../Model/class.php';
                 <?php } ?>
               </tbody>
           </table>
+          </div>
       			</div>
             </div>
         </div>
@@ -70,25 +73,25 @@ include '../Model/class.php';
           <div class="row">
             <div class="col-md-6">
             <div class="form-group">
-                <label for="name" class="col-sm-6 control-label">First Name</label>
+                <label for="name" class="col-sm-6 control-label">First Name<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Enter Name" value="" maxlength="50" required="">
                 </div>
               </div>  
               <div class="form-group">
-                <label class="col-sm-6 control-label">Last Name</label>
+                <label class="col-sm-6 control-label">Last Name<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Enter Last Name" value="" maxlength="50" required="">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-6 control-label">Email</label>
+                <label class="col-sm-6 control-label">Email<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-9">
                   <input type="email" class="form-control" id="Email" name="Email" placeholder="" value="" required="">
                 </div>
               </div>
               <div class="form-group">
-                <label for="phone_number" class="col-sm-6 control-label">Phone Number</label>
+                <label for="phone_number" class="col-sm-6 control-label">Phone Number<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-9">
                   <input type="number" class="form-control" id="phone_number" name="phone_number" placeholder="" value="" min="7111111110" max="9999999999" required="" >
                 </div>
@@ -103,7 +106,7 @@ include '../Model/class.php';
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-6 control-label">Country</label>
+                <label class="col-sm-6 control-label">Country<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="country" name="country" placeholder="country " value="" required="">
                 </div>
@@ -156,25 +159,25 @@ include '../Model/class.php';
           <div class="row">
             <div class="col-md-6">
             <div class="form-group">
-                <label for="name" class="col-sm-6 control-label">First Name</label>
+                <label for="name" class="col-sm-6 control-label">First Name<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="eFirstName" name="eFirstName" placeholder="Enter Name" value="" maxlength="50" required="">
                 </div>
               </div>  
               <div class="form-group">
-                <label class="col-sm-6 control-label">Last Name</label>
+                <label class="col-sm-6 control-label">Last Name<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="eLastName" name="eLastName" placeholder="Enter Last Name" value="" maxlength="50" required="">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-6 control-label">Email</label>
+                <label class="col-sm-6 control-label">Email<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-9">
                   <input type="email" class="form-control" id="eEmail" name="eEmail" placeholder="" value="" required="">
                 </div>
               </div>
               <div class="form-group">
-                <label for="phone_number" class="col-sm-6 control-label">Phone Number</label>
+                <label for="phone_number" class="col-sm-6 control-label">Phone Number<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-9">
                   <input type="number" class="form-control" id="ephone_number" name="ephone_number" placeholder="" value=""  min="7111111110" max="9999999999"  required="">
                 </div>
@@ -188,7 +191,7 @@ include '../Model/class.php';
                   </textarea></div>
               </div>
               <div class="form-group">
-                <label class="col-sm-6 control-label">Country</label>
+                <label class="col-sm-6 control-label">Country<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="ecountry" name="ecountry" placeholder="country " value="" required="">
                 </div>
@@ -223,8 +226,8 @@ include '../Model/class.php';
         </div>
       </div>
     </div>
-                              </div>
-                              </div>
+     </div>
+   </div>
 
     <div class="modal fade" id="DescModal" role="dialog">
    <div class="modal-dialog modal-lg">

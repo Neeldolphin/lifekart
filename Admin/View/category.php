@@ -6,17 +6,20 @@ include('header.php');
 include '../Model/class.php';
  ?>
 <body>
-<div class="w3-top">
 	 <div class="container-fluid"> 
+   <div class="col-md-12 offset-md-1"><h2 class="text-white bg-dark"> Category Details</h2></div>
             <div class="row">
               <div class="col-md-2">
                 <?php
           include 'sidebar.php';
           ?>
               </div>
-                <div class="col-md-10 offset-md-2"><h2 class="text-white bg-dark"> Category Details</h2></div>
-                <div class="col-md-12 datatables"><button type="button" id="addCategory" data-toggle="modal" data-target="#ajax-modal" class="btn btn-success">Add Category </button></div>
+                <div class="offset-md-2 col-md-12 row">
+                <div class="col-md-9"><p class="message"></p></div> 
+               <div class="datatables"> <button type="button" id="addCategory" data-toggle="modal" data-target="#ajax-modal" class="btn btn-success">Add Category </button></div>
+                </div>
                 <div class="col-md-10 offset-md-2 ">
+                  <div id="ref">
 			<table class="table" id="datatab">
               <thead>
                 <tr>
@@ -47,10 +50,11 @@ include '../Model/class.php';
                 <?php }?>
               </tbody>
           </table>
+                </div>
       			</div>
             </div>
         </div>
- 	</div>
+
 
 
 
@@ -60,18 +64,19 @@ include '../Model/class.php';
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="custCrudModal"></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
           </div>
           <div class="modal-body">
             <form action="javascript:void(0)" id="custForm" name="custForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
               <input type="hidden" id="id" value=""> 
             <div class="form-group">
-                <label for="name" class="col-sm-6 control-label">Name</label>
+                <label for="name" class="col-sm-6 control-label">Name<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-12">
                   <input type="text" class="form-control" id="cname" name="cname" placeholder="Enter Name" value="" maxlength="50" required="">
                 </div>
               </div>  
               <div class="form-group">
-                <label for="file" class="col-sm-6 control-label">Image</label>
+                <label for="file" class="col-sm-6 control-label">Image<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-12">
                   <input type="file" class="form-control" id="image" name="image" placeholder="" value="" required="">
                 </div>
@@ -104,19 +109,20 @@ include '../Model/class.php';
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="editModal"></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
           </div>
           <div class="modal-body">
             <form action="javascript:void(0)" id="editForm" name="editForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
               <input type="hidden" id="eid" name="eid" value=""> 
             <div class="form-group">
-                <label for="name" class="col-sm-6 control-label">Name</label>
+                <label for="name" class="col-sm-6 control-label">Name<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-12">
                   <input type="text" class="form-control" id="ecname" name="ecname" placeholder="Enter Name" value="" maxlength="50" required="">
                 </div>
               </div>  
               <div class="form-group">
               <div class="img_width" id="showimg"></div>
-                <label for="file" class="col-sm-6 control-label">Image</label>
+                <label for="file" class="col-sm-6 control-label">Image<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-12">
                   <input type="file" class="form-control" id="eimage" name="eimage" placeholder="" value="" >
                 </div>
@@ -128,7 +134,7 @@ include '../Model/class.php';
                 </div>
               </div>
               <div>
-              <table class="table" id="datatab">
+              <table class="table" id="datatab1">
               <thead>
                 <tr>
                   <th scope="col">ProductId</th>

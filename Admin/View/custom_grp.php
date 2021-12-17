@@ -29,6 +29,7 @@ include '../Model/class.php';
                         <p class="message1"></p>   
                   </div>
                   <div class="col-md-12">
+                    <div id="ref">
             <table class="table" id="datatab" >
               <thead>
                 <tr>
@@ -54,6 +55,7 @@ include '../Model/class.php';
                 <?php } ?>
               </tbody>
                 </table>
+          </div>
              </div>
             </div>
      </div>
@@ -66,12 +68,13 @@ include '../Model/class.php';
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="editCustomerGroupModal"></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
           </div>
           <div class="modal-body">
             <form action="javascript:void(0)" id="editCustomerGroupForm" name="editCustomerGroupForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
             <input type="hidden" id="eid" value="">  
             <div class="form-group">
-                <label for="name" class="col-sm-6 control-label">Customer Group</label>
+                <label for="name" class="col-sm-6 control-label">Customer Group<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" id="eCustomerGroup" name="eCustomerGroup" placeholder="Enter Name" value="" maxlength="50" required="">
                 </div>

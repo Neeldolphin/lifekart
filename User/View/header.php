@@ -18,6 +18,7 @@
   <style>
   <?php 
  include '../Controller/css/style.css';
+ include '../Model/class.php';
  ?>
   </style>
 </head>

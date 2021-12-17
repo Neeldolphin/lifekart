@@ -1,11 +1,59 @@
 //////////////categoery////////////////
+// let example = $('#datatab').DataTable({
+//   columnDefs: [{
+//     orderable: false,
+//     className: 'selectall',
+//     targets: 0
+//   }],
+//   select: {
+//     style: 'os',
+//     selector: 'td:first-child'
+//   },
+//   order: [
+//     [1, 'asc']
+//   ]
+// });
+// example.on("click", "th.select", function() {
+//   if ($("th.select").hasClass("selected")) {
+//     example.rows().deselect();
+//     $("th.select").removeClass("selected");
+//   } else {
+//     example.rows().select();
+//     $("th.select").addClass("selected");
+//   }
+// }).on("select deselect", function() {
+//   ("Some selection or deselection going on")
+//   if (example.rows({
+//       selected: true
+//     }).count() !== example.rows().count()) {
+//     $("th.select").removeClass("selected");
+//   } else {
+//     $("th.select").addClass("selected");
+//   }
+// });
 
+
+///////////////////////////////////////////////////////////////////////////
 $(document).ready( function () {
+   CKEDITOR.replace( 'Description' );
+  
   $('#datatab').DataTable({
-    "scrollCollapse": true,
-    "searching":false,
-    "paging":false,
-    "ordering":false,       
+    columnDefs: [{
+      orderable: false,
+      className: 'selectall',
+      targets: 0
+    }],
+    select: {
+      style: 'os',
+      selector: 'td:first-child'
+    },
+    order: [
+      [5, 'asc']
+    ]
+    //"scrollCollapse": true,
+    //"searching":false,
+    //"paging":false,
+    //"ordering":false,       
     });
 } );
 
@@ -46,7 +94,8 @@ $(document).ready(function(){
 $( '.categoeryadd').on('click', function () {
     $("#custForm").validate({
         rules: {
-          cname: "required"
+          cname: "required",
+          image: "required"
            },
         messages: {
           cname: "Enter your Category",
@@ -60,13 +109,15 @@ $( '.categoeryadd').on('click', function () {
         $.ajax({
             type:"POST",
             url: "../Controller/control.php",
-            data: data, // get all form field value in 
+            data: data, 
             mimeType:"multipart/form-data",
             contentType: false, cache: false, processData:false,
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-                $("#datatab").load("category.php #datatab");
+                $("#datatab").load("category.php #ref");
+                $(".close").click();
+                $('.message').text("successfully added");
             }else if(result == 5){
               alert('Already exist!!!!!!!!!!')
           }else
@@ -104,7 +155,16 @@ $('.categorychange').on('click', function () {
            }
         });
 
-    $("#editForm").on('submit',function(){
+        $("#editForm").validate({
+          rules: {
+            cname: "required",
+            image: "required"
+             },
+          messages: {
+            cname: "Enter your Category",
+          },
+          submitHandler: function(form) { 
+    $("#editForm").submit(function() { 
         var id = $(this).data('id');
         var data=new FormData(this);
           var action='category_update';
@@ -119,13 +179,18 @@ $('.categorychange').on('click', function () {
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-                $("#datatab").load("category.php #datatab");
+                $("#datatab").load("category.php #ref");
+                $(".close").click();
+                $('.message').text("successfully update");
             }else{
              alert('Sorry,unable update.');
              }
            }
           });
             });
+            form.submit();
+          }
+        });
           });
        });
 
@@ -143,6 +208,7 @@ $(document).ready(function($){
             success: function(result){
             if (result == 1) {
               $("#datatab").load("category.php #datatab");
+              $('.message').text("successfully delete");
             }
            }
         }); 
@@ -162,28 +228,51 @@ $(document).ready(function(){
        $('#custCrudModal').html("Add New customer");
        $('#ajax-modal').modal('show');
     });
-$('.customeradd').on('click', function(){
-        $('#custForm').submit(function(){ 
-          var data=new FormData(this);
-          var action='customer_details';
-          data.append('action',action);
 
-        $.ajax({
-            type:"POST",
-            url: "../Controller/control.php",
-            data: data,
-            dataType: 'json',
-            mimeType:"multipart/form-data",
-            contentType: false, cache: false, processData:false,
-            success: function(result){
-              if (result == 1) {
-                $("#datatab").load("customer.php #datatab");
-               }else if(result == 5){
-                 alert('Already exist!!!!!!!!!!')
-             }
-              }
+    $('.customeradd').on('click', function(){
+      $("#custForm").validate({
+        rules: {
+            FirstName: "required",
+            LastName: "required",
+            Address:"required",
+            phone_number: {
+              required: true,
+                digits:true,
+                minlength:10,
+                maxlength:10
+            },
+            customerGroup:"required"
+           },
+        messages: {
+            FirstName: "Enter your Name",
+        },
+          submitHandler: function(form) { 
+            $('#custForm').submit(function() { 
+            var data=new FormData(this);
+            var action='customer_details';
+            data.append('action',action);
+  
+          $.ajax({
+              type:"POST",
+              url: "../Controller/control.php",
+              data: data,
+              dataType: 'json',
+              mimeType:"multipart/form-data",
+              contentType: false, cache: false, processData:false,
+              success: function(result){
+                if (result == 1) {
+                  $("#datatab").load("customer.php #ref");
+                  $(".close").click();
+                  $('.message2').text("successfully added");
+                 }else if(result == 5){
+                   alert('Already exist!!!!!!!!!!')
+               }
+                }
+            });
           });
-          });
+                 form.submit();
+                }
+            });
           });
        });
 
@@ -250,7 +339,9 @@ $(document).ready(function(){
             },
             dataType: 'json',
             success: function(result){
-              $("#datatab").load("customer.php #datatab");
+              $("#datatab").load("customer.php #ref");
+              $(".close").click();
+              $('.message2').text("successfully update");
              }
           });
                form.submit();
@@ -274,6 +365,7 @@ $(document).ready(function($){
             success: function(result){
             if (result == 1) {
               $("#datatab").load("customer.php #datatab");
+              $('.message2').text("successfully delete");
             }
            }
         }); 
@@ -303,7 +395,8 @@ $(document).ready(function(){
          contentType: false, cache: false, processData:false,
         success: function(result){
           if (result == 1) {
-            $("#datatab").load("custom_grp.php #datatab");
+            $("#datatab").load("custom_grp.php #ref");
+            $('.message2').text("successfully added");
            }else if(result == 5){
             $('.message2').text("already exists!!!");
          }
@@ -354,7 +447,9 @@ $(document).ready(function(){
            },
            dataType: 'json',
            success: function(result){
-            $("#datatab").load("custom_grp.php #datatab");
+            $("#datatab").load("custom_grp.php #ref");
+            $(".close").click();
+            $('.message2').text("successfully update");
             }
          });
               form.submit();
@@ -379,6 +474,7 @@ $(document).ready(function($){
              success: function(result){
              if (result == 1) {
               $("#datatab").load("custom_grp.php #datatab");
+              $('.message2').text("successfully deleted");
              }
             }
          }); 
@@ -432,6 +528,7 @@ $(document).ready(function($){
           dataType: 'json',
           success: function(result){
             $("#datatab").load("custom_grp.php #datatab");
+            $('.message').text("successfully deleted");
          }
       });
       e.preventDefault();
@@ -486,6 +583,27 @@ $(document).ready(function($){
 
 ////////////////////product////////////////////////////
 
+$(document).ready(function(){
+  $('#select_all').on('click',function(){
+      if(this.checked){
+          $('.Select').each(function(){
+              this.checked = true;
+          });
+      }else{
+           $('.Select').each(function(){
+              this.checked = false;
+          });
+      }
+  });
+  $('.Select').on('click',function(){
+    if($('.Select:checked').length == $('.Select').length){
+        $('#select_all').prop('checked',true);
+    }else{
+        $('#select_all').prop('checked',false);
+    }
+});
+});
+
 $(document).ready(function () {
 
   var max_input = 5;
@@ -514,6 +632,7 @@ $('.wrapper2').on("click",'.remove-lnk', function (e) {
       success: function(result){
       if (result == 1) {
         $("#datatab").load("product.php #datatab");
+
       }
      }
   });
@@ -555,12 +674,17 @@ $(document).ready(function(){
     $("#custForm").validate({
         rules: {
             pname: "required",
-            sku:"required"
+            sku:"required",
+            image:"required",
+            Price:"required",
+            QTY:"required",
+            Video:"required"
            },
         messages: {
             pname: "Enter your product",
             sku:"sku required"
         },
+        
         submitHandler: function(form) { 
         $('#custForm').submit(function() { 
           var data=new FormData(this);
@@ -575,7 +699,9 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-                $("#datatab").load("product.php #datatab");
+                $("#datatab").load("product.php #ref");
+                $(".close").click();
+                $('.message').text("successfully added");
             }else if(result == 5){ alert('already exist !!!!!!!!!!');
             }else{
                 alert('Sorry, only JPG, JPEG, PNG, GIF files are allowed to upload.');
@@ -592,8 +718,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 
-     $('.productchange').on('click', function () {
-
+     $('#datatab').on('click','.productchange',function () {
       var id = $(this).data('id');
       var action='product_change';
        $('#editModal').html("Edit Product");
@@ -618,16 +743,32 @@ $(document).ready(function(){
               $('#ePrice').val(result.data[0].price);
               $('.wrapper1').html(result.data3);
               $('#eDescription').val(result.data[0].description);
+              CKEDITOR.replace( 'eDescription' );
               $('#eQTY').val(result.data[0].qty);
-              $('#displayvideo').html("<div class='row'><video class='videoremove' width='120' height='65' controls><source src='http://localhost/lifekart/Admin/uploads/" + result.data[0].video +"'type='video/mp4'></video><span class='video_remove' data-id='"+result.data[0].video+"'><div class='wrapper'><div class='arrow'><div class='line'></div><div class='line'></div></div></div></span></div>");
+              $('#displayvideo').html("<div class='row'><video class='videoremove' width='120' height='65' controls><source src='http://localhost/lifekart/Admin/uploads/" + result.data[0].video +"'type='video/mp4'></video><span class='video_remove' data-id='"+result.data[0].video+"'><div class='wrapper'><div class='arrow'><div class='line'></div><div class='line'></div></div></div></span></div>");  
               $('#eStatus').val(result.data[0].Status);
                  var show = [];
                  for(i=0;i<result.img.length;i++){
                    show.push("<div class='row'><img class='imgdisplay' id='7' width='120' height='65' src='http://localhost/lifekart/Admin/uploads/" + result.img[i] +"'><span class='single_remove' data-id='"+ result.img[i] +"'><div class='wrapper'><div class='arrow'><div class='line'></div><div class='line'></div></div></div></span></div>");              
                  }
                  $("#displayimg").html(show.join(''));
-          }
+                 if(result.data[0].video ==''){
+                  $('#disvideo').addClass('hide'); 
+                  $('#displayvideo').addClass('hide');
+               }else{
+                 $('#disvideo').removeClass('hide'); 
+                  $('#displayvideo').removeClass('hide'); 
+                }
+                //CKEDITOR.instances.eDescription.destroy();
+                //CKEDITOR.replace( 'eDescription' );
+                // CKEDITOR.remove(); 
+                // for(eDescription in CKEDITOR.instances)
+                // {
+                //   CKEDITOR.instances['eDescription'].destroy(true);
+                // }    
+        }
         });
+        
         
       $("#editForm").validate({
         rules: {
@@ -647,7 +788,7 @@ $(document).ready(function(){
             eStatus:"status required"
         },
       submitHandler: function(form) { 
-        $('#editForm').submit(function(e) { 
+        $('#editForm').submit(function() { 
         var id = $(this).data('id');
         var vidrget=$('.videoremove').attr('width');
         var data=new FormData(this);
@@ -664,10 +805,11 @@ $(document).ready(function(){
             contentType: false, cache: false, processData:false,
             dataType: 'json',
             success: function(result){
-              if (result.status  == 1) {
-                  alert("done");
-                $("#datatab").load("product.php #datatab");
-            }else if(result.status == 5){
+              if (result == 1) {
+                $("#datatab").load("product.php #ref");
+               $(".close").click();
+               $('.message').text("successfully update");
+            }else if(result == 5){
               alert('Sku required');
           }else{
               alert('Sorry, unable update.something improper');
@@ -696,7 +838,8 @@ $(document).ready(function($){
             dataType: 'json',
             success: function(result){
             if (result == 1) {
-              $("#datatab").load("product.php #datatab");
+              $('.message').text("successfully deleted");
+              $("#ref").load("product.php");
             }
            }
         }); 
@@ -771,7 +914,7 @@ $('.img_width').on('click','img', function() {
 });
 });
 
-$(document).ready(function(){
+$(document).ready(function(){ 
   $('#disvideo').on('click', function() {
     var jk=$('#displayvideo').html();
      $('#DescModal').modal("show");
@@ -797,6 +940,7 @@ $(document).ready(function(){
                     success: function(){
                        $(ab).prev('.videoremove').remove();
                        $(ab).remove();
+                       $('#disvideo').remove(); 
                     }
         });
 }); 
@@ -830,7 +974,8 @@ $(document).ready(function(){
      $('.imagesadd').on('click', function () {
     $("#custForm").validate({
         rules: {
-            imageName: "required"
+            imageName: "required",
+            link: "required"
            },
         messages: {
             imageName: "Enter your Image",
@@ -849,7 +994,9 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-                $("#datatab").load("imageslider.php #datatab");
+                $("#datatab").load("imageslider.php #ref");
+                $(".close").click();
+                $('.message').text("successfully added");
             }else
              alert('Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.');
              }
@@ -881,7 +1028,17 @@ $('.imageschange').on('click', function () {
            }
         });
 
-    $("#editForm").on('submit',function(){
+    $("#editForm").validate({
+      rules: {
+        link: "required",
+        imageName: "required"
+       },
+    messages: {
+      imageName: "Enter Name",
+      link: "Enter link"
+    },
+      submitHandler: function(form) { 
+        $('#editForm').submit(function() { 
         var id = $(this).data('id');
         var action='image_update';
         var data=new FormData(this);
@@ -896,12 +1053,17 @@ $('.imageschange').on('click', function () {
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-                $("#datatab").load("imageslider.php #datatab");
+                $("#datatab").load("imageslider.php #ref");
+                $(".close").click();
+                $('.message').text("successfully update");
             }else{
              alert('Sorry,unable update.');
              }
            }
           });
+        });
+          form.submit();
+        }
             });
           });
        });
@@ -921,6 +1083,7 @@ $(document).ready(function($){
             success: function(result){
             if (result == 1) {
               $("#datatab").load("imageslider.php #datatab");
+              $('.message').text("successfully delete");
             }
            }
         }); 
@@ -942,7 +1105,16 @@ $(document).ready(function(){
     });
         
      $('.coupenadd').on('click', function(){
-        $('#custForm').submit(function(){ 
+        $('#custForm').validate({
+          rules: {
+            coupen_name: "required",
+            coupen_discount: "required"
+          },
+          messages: {
+            coupen_name: "Enter your Name",
+        }, 
+          submitHandler: function(form) { 
+            $('#custForm').submit(function() { 
           var data=new FormData(this);
           var action='coupen_details';
           data.append('action',action);
@@ -956,12 +1128,17 @@ $(document).ready(function(){
             contentType: false, cache: false, processData:false,
             success: function(result){
               if (result == 1) {
-                $("#datatab").load("coupen.php #datatab");
+                $("#datatab").load("coupen.php #ref");
+                $(".close").click();
+                $('.message').text("successfully added");
                }else if(result == 5){
                  alert('Already exist!!!!!!!!!!')
              }
              }
           });
+        });
+          form.submit();
+        }
           });
           });
        });
@@ -988,8 +1165,15 @@ $(document).ready(function(){
            }
         });
 
-    $("#editForm").submit(function(){
-
+    $("#editForm").validate({
+      rules: {
+        coupen_name: "required",
+        coupen_discount: "required"
+      },
+      messages: {
+        coupen_name: "Enter your Name",
+    },   
+    submitHandler: function(form) { 
         var id = $(this).data('id');
         var action='coupen_update';
 
@@ -1004,9 +1188,13 @@ $(document).ready(function(){
             },
             dataType: 'json',
             success: function(result){
-              $("#datatab").load("coupen.php #datatab");
+              $("#datatab").load("coupen.php #ref");
+              $(".close").click();
+              $('.message').text("successfully update");
              }
           });
+          form.submit();
+        }
             });
           });
        });
@@ -1027,6 +1215,7 @@ $(document).ready(function($){
             success: function(result){
             if (result == 1) {
               $("#datatab").load("coupen.php #datatab");
+              $('.message').text("successfully deleted");
             }
            }
         }); 

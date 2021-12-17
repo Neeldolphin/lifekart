@@ -219,3 +219,24 @@
 }
 	
 .modal { overflow: auto !important; }
+
+.emptyspace{
+   margin-left: 20%;
+}
+
+.empty{
+  margin-left: 60%;
+}
+
+.error {
+  color: red;
+}
+.message{
+  color: red;
+}
+.message1{
+  color: red;
+}
+.message2{
+  color: red;
+}

@@ -3,9 +3,7 @@
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
 include 'header.php';
-include 'logo.php';
 ?>
-<body>
 <?php
 include 'navbar.php';
 ?> 
@@ -14,8 +12,6 @@ include 'navbar.php';
  include 'slidebar.php';
  ?>
 </div>
-<body>
-	  
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
@@ -101,6 +97,3 @@ include 'navbar.php';
 include 'footer.php';
  ?>
 </div>
-</body>
-</html>
-

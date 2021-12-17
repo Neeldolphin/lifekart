@@ -1,39 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Open+Sans">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="../Controller/css/myCarousel.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<script>
-$(document).ready(function(){
-	$(".wish-icon i").click(function(){
-		$(this).toggleClass("fa-heart fa-heart-o");
-	});
-});	
-</script>
-</head>
-<body>
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<h2>Featured <b>Category</b></h2>
+			<h2><b>Featured Category</b></h2>
         <?php
-
 		$cate=new category_main();
         $rows=$cate->categoryMain();
         foreach($rows as $category){
             ?>
 				<div>             
 				<div id="carousel<?php echo $category[0]?>" class="carousel slide" data-ride="carousel">
-
-  <div class="carousel-inner">
-  <?php 
+				<div class="carousel-inner">
+				<?php 
                 $i=0;
 				$id=$category[0];
 				$productS=new product_details();
@@ -47,9 +24,8 @@ $(document).ready(function(){
 	    if($i<8){?>
 		 <?php if($i==0){?><div class="carousel-item active"><div class="row"><?php }?>
 		 <?php if($i==4){?><div class="carousel-item"><div class="row"><?php }?>
-	<div class="col-sm-3">
+		<div class="col-sm-3">
 							<div class="thumb-wrapper">
-								<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 								<div class="img-box">
                                 <img src="http://localhost/lifekart/User/images/<?php echo $var[0];?>" alt="" class="img-fluid" style= "width:100%" >						
 								</div>
@@ -67,14 +43,14 @@ $(document).ready(function(){
              } ?>
            </div>
 		   </div>
-  <a class="carousel-control-prev" href="#carousel<?php echo $category[0]?>" role="button" data-slide="prev">
+  <!-- <a class="carousel-control-prev" href="#carousel<?php echo $category[0]?>" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
   </a>
   <a class="carousel-control-next" href="#carousel<?php echo $category[0]?>" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
-  </a>
+  </a> -->
 </div>
 			<?php } ?>
             </div>	  
@@ -82,6 +58,3 @@ $(document).ready(function(){
                 }?>
         </div>
 	</div>
-</div>
-</body>
-</html>

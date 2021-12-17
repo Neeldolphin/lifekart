@@ -111,6 +111,16 @@ class product_details extends database{
          return $data;
     }
 
+    public function category_related($id)
+    {
+       $query="select category from Product_info where id=".$id; 
+        $result=mysqli_query($this->con,$query);
+        while($category=mysqli_fetch_array($result)){
+            $data[]=$category;
+        }
+        return $data;
+    }
+
     public function product_Details($id)
     {
         $query="select * from Product_info where id=".$id; 
@@ -122,7 +132,7 @@ class product_details extends database{
     }
     public function product_page($id)
     {
-       $query="select * from Product_info where concat(',',category,',') like '%,$id,%'"; 
+       $query="select * from Product_info where concat(',',category,',') like '%,$id,%' ORDER BY RAND()"; 
        $result2=mysqli_query($this->con,$query);
         while($array=mysqli_fetch_row($result2)){
             $data[]=$array;
@@ -223,9 +233,19 @@ class category_main extends database {
      parent::__construct();   
     }
 
+    public function category1()
+    {
+       $query="select * from category_info where id=1";
+        $result=mysqli_query($this->con,$query);
+        while($category=mysqli_fetch_row($result)){
+            $data[]=$category;
+        }
+        return $data;
+    } 
+
     public function categoryMain()
     {
-        $query="select * from category_info"; 
+       $query="select * from category_info"; 
         $result=mysqli_query($this->con,$query);
         while($category=mysqli_fetch_row($result)){
             $data[]=$category;
@@ -235,13 +255,14 @@ class category_main extends database {
 
     public function category_info($id)
     {
-       $query="select * from category_info where id=".$id; 
+        $query="select * from category_info where id=".$id; 
         $result=mysqli_query($this->con,$query);
         while($category=mysqli_fetch_row($result)){
             $data=$category;
         }
         return $data;
     }
+    
 }
 
 class log_in extends database {

@@ -1,19 +1,10 @@
 <?php
-include 'header.php';
-include '../Model/class.php';
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
-?>
-<body>
-<?php
       $i=0;
       $x=0;
       $slide= new slider();
       $rows=$slide->slidebar();
 ?>
 <div id="demo" class="carousel slide" data-ride="carousel">
-
 <?php 
 $indicat=count($rows);
 ?>
@@ -26,8 +17,7 @@ $indicat=count($rows);
     <?php };
      $x++; };?>
   </ul>
-
-  <div class="carousel-inner">
+  <div class="carousel-inner banner">
  <?php
         foreach($rows as $array){
         if($i==0){?>
@@ -51,5 +41,3 @@ $indicat=count($rows);
     <span class="carousel-control-next-icon"></span>
   </a>
 </div>
-</body>
-</html> 

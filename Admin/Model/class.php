@@ -462,7 +462,7 @@ public function ImportCsv($files)
     public function update2($customergroup,$customergroupprice,$SKU)
     {
 
-        echo  $query = "DELETE FROM Product_Customer_Group_Price WHERE sku=".$SKU;
+         $query = "DELETE FROM Product_Customer_Group_Price WHERE sku=".$SKU;
          $result =mysqli_query($this->con,$query);
          $i=0;
 
@@ -475,41 +475,11 @@ public function ImportCsv($files)
                     while($row=mysqli_fetch_row($result1)){ 
                         $data=$row[0];
                 }
-                echo $query = "INSERT INTO Product_Customer_Group_Price(Customer_Group,Customer_Group_Name,Group_Price,sku)VALUES ('$customerGroup','$data','$customergroupprice[$i]','$SKU')";
+                 $query = "INSERT INTO Product_Customer_Group_Price(Customer_Group,Customer_Group_Name,Group_Price,sku)VALUES ('$customerGroup','$data','$customergroupprice[$i]','$SKU')";
                  $result = mysqli_query($this->con, $query);
               }
                 $i++;
         }
-       
-        // $i=0;
-        // $a="select Customer_Group from Product_Customer_Group_Price where sku=".$SKU;
-        // $result1 = mysqli_query($this->con, $a);
-        // $data=array();
-        // while($product=mysqli_fetch_array($result1)){
-        //     $data[]=$product[0];
-        // }
-        // $b="select Group_Price from Product_Customer_Group_Price where sku=".$SKU;
-        // $result4 = mysqli_query($this->con, $b);
-        // $data1=array();
-        // while($product1=mysqli_fetch_array($result4)){
-        //     $data1[]=$product1[0];
-        // }
-        // $res =array_combine($data,$data1);
-        // $result3 =array_combine($customergroup,$customergroupprice);
-        // $x=array_diff_assoc($result3,$res);
-        // if ($x>0) {
-        //     foreach($x as $customerGroup => $groupprice[$i]){
-        // echo  $que = "INSERT INTO Product_Customer_Group_Price(Customer_Group,Group_Price,sku)VALUES ('$customerGroup','$groupprice[$i]','$SKU')";
-        //     $result2 = mysqli_query($this->con, $que);
-        //     $i++;
-        //     }
-        // }else{
-        //     foreach($customergroup as $customerGroup){
-        //     echo    $query = "UPDATE Product_Customer_Group_Price SET Customer_Group='$customerGroup',Group_Price='$customergroupprice[$i]' WHERE sku=".$SKU." AND Customer_Group=".$customergroup[$i];
-        //         $result = mysqli_query($this->con, $query);
-        //         $i++;
-        //     }
-        // }
     } 
 
 

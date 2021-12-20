@@ -10,7 +10,7 @@
         $rows=$cate->categoryMain();
         foreach($rows as $category){
             ?>
-    <div class="node offset-md-1">
+    <div class="node">
         <a href="http://localhost/lifekart/User/View/category.php?page=category&id=<?php echo $category[0]?>">
             <div class="thumb-wrapper">
                 <div class="img-box thumbimg">

@@ -243,6 +243,16 @@ class category_main extends database {
         return $data;
     } 
 
+    public function category2()
+    {
+       $query="select * from category_info where id=6";
+        $result=mysqli_query($this->con,$query);
+        while($category=mysqli_fetch_row($result)){
+            $data[]=$category;
+        }
+        return $data;
+    } 
+
     public function categoryMain()
     {
        $query="select * from category_info"; 

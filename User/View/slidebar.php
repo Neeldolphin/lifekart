@@ -1,3 +1,4 @@
+<div class="topbanner">
 <?php
       $i=0;
       $x=0;
@@ -34,10 +35,11 @@ $indicat=count($rows);
   </div>
   
   <!-- Left and right controls -->
-  <a class="carousel-control-prev" href="#demo" data-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
+  <a class="carousel-control-prev" href="#demo" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
   </a>
-  <a class="carousel-control-next" href="#demo" data-slide="next">
-    <span class="carousel-control-next-icon"></span>
+  <a class="carousel-control-next" href="#demo" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
   </a>
+</div>
 </div>

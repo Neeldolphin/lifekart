@@ -558,8 +558,8 @@ class category extends database{
                 if($row[0] >= 1) {
                     echo 5;
                      }else{
-              $query = "INSERT INTO category_info(CName,image,description,create_at,update_at)
-              VALUES ('$CName','$image','$description','$create_at','$update_at')";
+              $query = "INSERT INTO category_info(CName,image,description,img_thumb,create_at,update_at)
+              VALUES ('$CName','$image','$description','$image','$create_at','$update_at')";
               $result = mysqli_query($this->con, $query);
               echo 1;
                      }

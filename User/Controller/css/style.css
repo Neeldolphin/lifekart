@@ -1,5 +1,6 @@
     body {
         background: white;
+        color: #777777;
     }
     .form {
         margin: 50px auto;
@@ -76,11 +77,27 @@
       }
 
       .footer{
+        border-top: 1px solid #e7e7e7;
           margin: auto;
           width:auto;
           padding: auto;
-          text-align:center;     
+          text-align:center; 
               }
+
+              .footer-middle{
+                border-bottom: 1px solid #e7e7e7; 
+                margin-bottom: 15px;  
+                
+            }
+
+              .listremove{
+                  list-style-type:none;
+                  text-align: left;
+            }
+            .listremove li a{
+                text-decoration: none;
+                color: black;
+          }
       .copy{
           padding: 15px;
       }
@@ -163,6 +180,13 @@ padding-right: 0;
      height: 70px;
      width:25px;
 }
+
+.pro2{
+    margin-top: 140px;
+     height: 70px;
+     width:25px;
+}
+
 .container{
     max-width: 1540px;;
 }
@@ -201,31 +225,272 @@ height: 100%;
     margin-left: 10px;
 }
 .allimg img, .allimg video{
-    width: 120px;
     height: 100px;
-    padding: 1%;
+    margin: 5%;
+    padding: 3%;
 }
-#img-zoom-container {
+  .xzoom-thumbs{
+      width: 85px;
+      height: 85px;
+  }
+.policy{
+padding-left: 25px;
+}
+input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.number-input {
+  border: 2px solid #ddd;
+  display: inline-flex;
+}
+
+.number-input,
+.number-input * {
+  box-sizing: border-box;
+}
+
+.number-input button {
+  outline:none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+}
+
+.number-input button:before,
+.number-input button:after {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  width: 1rem;
+  height: 2px;
+  background-color: #212121;
+  transform: translate(-50%, -50%);
+}
+.number-input button.plus:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.number-input input[type=number] {
+  font-family: sans-serif;
+  max-width: 5rem;
+  padding: .5rem;
+  border: solid #ddd;
+  border-width: 0 2px;
+  font-size: 2rem;
+  height: 3rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.minus {
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding: 5px;
+    border: 1px solid black;
+}
+.plus {
+    margin-right: 10px;
+    background:rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding:5px;
+    border: 1px solid black;
+}
+
+.imgthumb img{
+    margin: 2%;
+    padding: 2%;
+    width: 120px;
+    height: 65px;
+}
+
+.releted_prod img{
+    width: 150px;
+    height: 120px;
+}
+.infoblock{
+padding: 2%;
+margin: 2%;
+}
+
+
+.block-html-top {
+    background-color: #3256f4;
+    height: 50px;
+}
+
+.block-top1,.block-top2,.block-top3{
+    color: #fff ;
+    font-weight: 600;
+   padding-top: 6px;
+}
+.navbar-dark .navbar-nav .nav-link{
+    color: black;
+}
+
+.main{
+    background-color: #ffffff;
+}
+
+.img_width{
+    width: 100%;
+}
+
+.container {
+    max-width: 1500px;
+}
+.page-title{
+    font-size: 1.875rem;
+    line-height: 1.2;
+    color: #222529;
+    letter-spacing: -.01em;
+    font-weight: 700;
+    margin-bottom: 0.2em;
+}
+
+.far{
+    font-weight: 100;
+}
+.product-info-main .product-reviews-summary:after {
+    content: '';
+    display: block;
+    width: 40px;
+    border-top: 2px solid #e7e7e7;
+    margin: 1rem 0 1.25rem;
+}
+.product-info-price {
+    font-size: 1.5rem;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    color: #222529;
+    margin-bottom: 1.25rem;
+}
+.product-info-main .product.overview {
+    font-size: 1.1428em;
+    line-height: 1.6875;
+    letter-spacing: -.015em;
+}
+.product-info-main .product.sku .value {
+    display: inline-block;
+    color: #222529;
+    font-weight: 700;
+}
+.product-info-main .product.sku .type {
+    font-weight: inherit;
+}
+.product-add-form .box-tocart {
+    padding: 1.25rem 0 1rem;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    font-size: 1em;
+    margin: 0;
+}
+.box-tocart .field.qty {
+    margin-right: 0.5rem;
+    margin-bottom: 5px;
     position: relative;
-    display: flex;
+}
+.box-tocart .action.tocart {
+    height: 3rem;
+    padding: 0 2em;
+    margin-bottom: 0;
+    overflow: hidden;
+    text-transform: uppercase;
+    font-size: 1em;
+    letter-spacing: -.015em;
+    font-weight: 700;
+    line-height: 3rem;
+    border: none;
+    background: #222529;
+}
+.action.primary:hover {
+    background: #0088cc;
+    border: 1px solid #0088cc;
+    color: #ffffff;
+}
+html .action.primary, html .btn-primary {
+    color: #fff;
+    background-color: #3256f4;
+    border-color: #3256f4 #3256f4 #0d35e7;
+}
+.product-social-links {
+    margin: 20px 0 0;
+    text-align: left;
+    width: 100%;
+}
+.share-links a i{
+font-size: 25px;
+color:black;
+}
+
+.share-links a{
+border: 1px solid black;
+border-radius: 50%;
+padding: 10px;
+
+    }
+
+.tab {
+    overflow: hidden;
+    border-bottom: 1px solid #e7e7e7;
   }
   
-  .img-zoom-lens {
-    position: absolute;
-    border: 1px solid #d4d4d4;
-    width: 220px;
-    height: 100px;
+  /* Style the buttons inside the tab */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
   }
-  
-  .img-zoom-result {
-    border: 1px solid #d4d4d4;
-    position: absolute;
-    left: 475px; 
-    width: 400px;
-    height: 300px;
-    background-repeat: no-repeat;
+  /* Create an active/current tablink class */
+  .tab button.active {
+    font-weight: 900;
   }
-  #img-zoom-container img:hover {
-    cursor: zoom-in;
-    border: 0;
+  #Details{
+    display:block;
+  }
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+  }
+
+  .RecentProductblock{
+    border-bottom: 1px solid #e7e7e7;
+  }
+  .CUSTOMHTMLBLOCK{
+    border-bottom: 1px solid #e7e7e7;
+  }
+.CUSTOMIMGBLOCK{
+   padding-top: 150px;
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  background-image: url('http://localhost/lifekart/User/images/photo-1519575706483-221027bfbb31.jpeg');
+}
+.widget-title{
+    text-align:initial;
+    margin-left: 40px;
 }

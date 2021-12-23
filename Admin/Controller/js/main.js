@@ -68,7 +68,7 @@ $(document).ready(function() {
 
 
 $(document).ready(function(){
-  $('.v_view').on('click', function () {
+  $(document).on('click','.v_view',function () {
             var action='video_pop';
           var id = $(this).data('id');
          $('#DescModal').modal('show');
@@ -91,7 +91,7 @@ $(document).ready(function(){
        $('#custCrudModal').html("Add New Category");
        $('#ajax-modal').modal('show');
     });
-$( '.categoeryadd').on('click', function () {
+$(document ).on('click','.categoeryadd', function () {
     $("#custForm").validate({
         rules: {
           cname: "required",
@@ -133,7 +133,7 @@ $( '.categoeryadd').on('click', function () {
 
 
 $(document).ready(function(){
-$('.categorychange').on('click', function () {
+$(document).on('click','.categorychange', function () {
           var action='category_edit';
         var id = $(this).data('id');
        $('#editModal').html("Edit Category");
@@ -195,7 +195,7 @@ $('.categorychange').on('click', function () {
        });
 
 $(document).ready(function($){
- $( '.categorydelete').on('click', function () {
+ $(document ).on('click','.categorydelete', function () {
        if (confirm("Delete Record?") == true) {
         var id = $(this).data('id');
         var action='category_delete';
@@ -207,7 +207,7 @@ $(document).ready(function($){
             dataType: 'json',
             success: function(result){
             if (result == 1) {
-              $("#datatab").load("category.php #datatab");
+              $("#datatab").load("category.php #ref");
               $('.message').text("successfully delete");
             }
            }
@@ -229,7 +229,7 @@ $(document).ready(function(){
        $('#ajax-modal').modal('show');
     });
 
-    $('.customeradd').on('click', function(){
+    $(document).on('click','.customeradd', function(){
       $("#custForm").validate({
         rules: {
             FirstName: "required",
@@ -279,7 +279,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 
-     $('.customeredit').on('click', function () {
+     $(document).on('click','.customeredit', function () {
              $('#editModal').html("Edit Customer");
               $('#edit-modal').modal('show');
               var id = $(this).data('id');
@@ -352,7 +352,7 @@ $(document).ready(function(){
 
 $(document).ready(function($){
 
- $('.customerdelete').on('click',function () {
+ $(document).on('click','.customerdelete',function () {
        if (confirm("Delete Record?") == true) {
         var id = $(this).data('id');
         var action='customer_delete';
@@ -408,7 +408,7 @@ $(document).ready(function(){
 
    $(document).ready(function(){
 
-    $('.groupedit').on('click', function () {
+    $(document).on('click','.groupedit', function () {
             $('#editCustomerGroupModal').html("Edit Group");
              $('#edit-modal').modal('show');
              var id = $(this).data('id');
@@ -461,7 +461,7 @@ $(document).ready(function(){
 
 $(document).ready(function($){
 
-  $('.groupdelete').on('click',function () {
+  $(document).on('click','.groupdelete',function () {
         if (confirm("Delete Record?") == true) {
          var id = $(this).data('id');
          var action='customer_group_delete';
@@ -501,7 +501,7 @@ $(document).ready(function($){
 
    $(document).ready(function(){
    
-    $('#submitdelete').on('click', function (e) {
+    $(document).on('click','#submitdelete', function (e) {
       $('#groupForm').validate();
       const myArray = [];
      var data=$('#Action').find(":selected").text();
@@ -670,7 +670,7 @@ $(document).ready(function(){
        $('#ajax-modal').modal('show');
     });
 
-     $('.productadd').on('click', function () {
+     $(document).on('click','.productadd', function () {
     $("#custForm").validate({
         rules: {
             pname: "required",
@@ -827,7 +827,7 @@ $(document).ready(function(){
 
 $(document).ready(function($){
 
- $('.productdelete').on('click', function () {
+ $(document).on('click','.productdelete', function () {
        if (confirm("Delete Record?") == true) {
         var id = $(this).data('id');
         var action='product_delete';
@@ -839,7 +839,7 @@ $(document).ready(function($){
             success: function(result){
             if (result == 1) {
               $('.message').text("successfully deleted");
-              $("#ref").load("product.php");
+              $("#datatab").load("product.php #ref");
             }
            }
         }); 
@@ -971,7 +971,7 @@ $(document).ready(function(){
        $('#ajax-modal').modal('show');
     });
         
-     $('.imagesadd').on('click', function () {
+     $(document).on('click','.imagesadd', function () {
     $("#custForm").validate({
         rules: {
             imageName: "required",
@@ -1010,7 +1010,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 
-$('.imageschange').on('click', function () {
+$(document).on('click','.imageschange', function () {
         var id = $(this).data('id');
         var action='image_edit';
        $('#editModal').html("Edit Image");
@@ -1071,7 +1071,7 @@ $('.imageschange').on('click', function () {
 
 $(document).ready(function($){
 
- $('.imagesdelete',).on('click', function () {
+ $(document).on('click','.imagesdelete', function () {
        if (confirm("Delete Record?") == true) {
         var id = $(this).data('id');
         var action='image_delete';
@@ -1104,7 +1104,7 @@ $(document).ready(function(){
        $('#ajax-modal').modal('show');
     });
         
-     $('.coupenadd').on('click', function(){
+     $(document).on('click','.coupenadd', function(){
         $('#custForm').validate({
           rules: {
             coupen_name: "required",
@@ -1146,7 +1146,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 
-     $('.coupenedit').on('click',function () {
+     $(document).on('click','.coupenedit',function () {
              $('#editModal').html("Edit Coupen");
               $('#edit-modal').modal('show');
               var id = $(this).data('id');
@@ -1202,7 +1202,7 @@ $(document).ready(function(){
 
 $(document).ready(function($){
 
- $('.coupendelete').on('click', function () {
+ $(document).on('click','.coupendelete', function () {
        if (confirm("Delete Record?") == true) {
         var id = $(this).data('id');
         var action='coupen_delete';

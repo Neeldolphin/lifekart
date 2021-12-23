@@ -1,8 +1,8 @@
 
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-  <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span> -->
-  <!-- </button> -->
+<nav class="navbar navbar-expand-lg bg-light navbar-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
   <div class="collapse navbar-collapse" id="navbarNav">
   <a class="navbar-brand" href="http://localhost/lifekart/User/View/index.php"><img src="../images/logo1.png" class="logo" alt="logo"/></a>
   <ul class="nav navbar-nav ml-auto">
@@ -17,7 +17,6 @@
 		</form>	
 </ul>
   <?php
-  session_start();
   if(!isset($_SESSION['username'])){
     ?>
       <ul class="nav navbar-nav ">

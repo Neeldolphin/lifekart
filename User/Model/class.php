@@ -287,12 +287,12 @@ class log_in extends database {
             $username = mysqli_real_escape_string($this->con, $username);
             $password = stripslashes($request['password']);
             $password = mysqli_real_escape_string($this->con, $password);
-        $query = "SELECT * FROM `customer_info` WHERE username='$username'
+        $query = "SELECT * FROM customer_info WHERE username='$username'
                      AND password='" . md5($password) . "'";
         $result = mysqli_query($this->con, $query) ;
-        $rows = mysqli_num_rows($result);
+        // $rows = mysqli_num_rows($result);
         $array = mysqli_fetch_array($result);
-        if ($rows == 1) {
+        if (mysqli_num_rows($result)>0) {
             $_SESSION['username'] = $username;
             $_SESSION['id'] = $array[0];
             $_SESSION['customerGroup'] = $array[8];

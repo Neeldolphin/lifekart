@@ -27,7 +27,7 @@ include '../Model/class.php';
                   <th scope="col">Name</th>
                   <th scope="col">Image</th>
                   <th scope="col">Description</th>
-                  <th scope="col">Thumbnails</th>
+                  <!-- <th scope="col">Thumbnails</th> -->
                   <th scope="col" style="width:160px;">Action</th>
                 </tr>
               </thead>
@@ -43,7 +43,7 @@ include '../Model/class.php';
                     <td><?php echo $array[1];?></td>
                     <td><img class="img_width" src="http://localhost/lifekart/Admin/uploads/<?php echo $array[2];?>"></td>
                     <td><?php echo $array[3];?></td>
-                    <td><img class="img_width" src="http://localhost/lifekart/Admin/uploads/<?php echo $array[4];?>"></td>
+                    <!-- <td><img class="img_width" src="http://localhost/lifekart/Admin/uploads/<?php echo $array[4];?>"></td> -->
                     <td>
                     <a href="javascript:void(0)" class="btn btn-primary categorydelete" data-id="<?php echo $array[0];?>"><i class="fa fa-trash"></i></a>
                   <a href="javascript:void(0)" class="btn btn-primary categorychange" data-id="<?php echo $array[0];?>"><i class="fa fa-edit"></i></a>
@@ -83,12 +83,12 @@ include '../Model/class.php';
                   <input type="file" class="form-control" id="image" name="image" placeholder="" value="" required="">
                 </div>
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label for="file" class="col-sm-6 control-label">Thumbnail<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-12">
                   <input type="file" class="form-control" id="thumbnail" name="thumbnail" placeholder="" value="" required="">
                 </div>
-              </div>
+              </div> -->
               <div class="form-group">
                 <label class="col-sm-6 control-label">Description</label>
                 <div class="col-sm-12">
@@ -135,12 +135,12 @@ include '../Model/class.php';
                   <input type="file" class="form-control" id="eimage" name="eimage" placeholder="" value="" >
                 </div>
               </div>
-              <div class="img_width" id="showimg"></div>
+              <!-- <div class="img_width" id="showimg"></div>
                 <label for="file" class="col-sm-6 control-label">Thumbnail<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-12">
                   <input type="file" class="form-control" id="ethumbnail" name="ethumbnail" placeholder="" value="" >
                 </div>
-              </div>
+              </div> -->
               <div class="form-group">
                 <label class="col-sm-6 control-label">Description</label>
                 <div class="col-sm-12">

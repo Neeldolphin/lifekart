@@ -90,7 +90,12 @@
 }
 
 .img_width{
-  width:50%;
+  width:100px;
+  height: 100px;
+}
+
+.img_width img{
+  width:150px;
 }
 
 .table{

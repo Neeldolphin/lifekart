@@ -604,7 +604,7 @@ class category extends database{
                 $image = $files['eimage']['name'];
 
 
-            $query = "UPDATE category_info SET image='". $image . "' WHERE id=".$post['eid'];
+            $query = "UPDATE category_info SET image='". $image . "',img_thumb='". $image . "' WHERE id=".$post['eid'];
                 $result = mysqli_query($this->con, $query);
             }
         }

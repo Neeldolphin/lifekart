@@ -148,7 +148,7 @@ include '../Model/class.php';
               <div class="form-group">
                 <label class="col-sm-2 control-label">SKU<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="sku" name="sku" placeholder="" min="0" value="" required="">
+                  <input type="text" class="form-control" id="sku" name="sku" placeholder="" value="" >
                 </div>
               </div>
               <div class="form-group">
@@ -275,7 +275,7 @@ include '../Model/class.php';
               <div class="form-group">
                 <label class="col-sm-6 control-label">SKU<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="esku" name="esku" min="0" placeholder="" value="">
+                  <input type="text" class="form-control" id="esku" name="esku" placeholder="" value="">
                 </div>
               </div>
               <div class="form-group">

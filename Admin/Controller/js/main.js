@@ -136,6 +136,7 @@ $(document).ready(function(){
 $(document).on('click','.categorychange', function () {
           var action='category_edit';
         var id = $(this).data('id');
+        $('#editForm').trigger("reset");
        $('#editModal').html("Edit Category");
        $('#edit-modal').modal('show');
 
@@ -720,6 +721,7 @@ $(document).ready(function(){
 
      $('#datatab').on('click','.productchange',function () {
       var id = $(this).data('id');
+      $('#eDescription').empty();
       var action='product_change';
        $('#editModal').html("Edit Product");
        $('#edit-modal').modal('show');

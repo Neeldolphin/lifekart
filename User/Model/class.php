@@ -156,7 +156,7 @@ class product_details extends database{
 }
     public function product_info($id,$order,$page_id)
     {
-        $perPage = 5;
+        $perPage = 8;
         if(isset($page_id)){$page=$page_id;}else{$page=1;};
         $start_from=($page-1)* $perPage;
         if ($order == 1) {
@@ -217,7 +217,7 @@ class product_details extends database{
         }
         public function Pagination($id)
         {
-            $perPage = 5;
+            $perPage = 8;
             $query = "select * from Product_info where concat(',',category,',') like '%,$id,%'"; 
             $result = mysqli_query($this->con, $query);
             $totalRecords = mysqli_num_rows($result);

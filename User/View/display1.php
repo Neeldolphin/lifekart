@@ -37,18 +37,11 @@
                                             <div class="col-sm-3">
                                                 <div class="thumb-wrapper">
                                                         <div class="img-box">
-                                                             <img src="http://localhost/lifekart/User/images/<?php echo $var[0];?>" alt="" class="img" style= "width:100%" >						
+                                                        <a href="http://localhost/lifekart/User/View/productDetails.php?page=array&id=<?php echo $array[0]?>"><img src="http://localhost/lifekart/User/images/<?php echo $var[0];?>" alt="" class="img" style= "width:100%" ></a>						
                                                         </div>
-                                                        <div class="thumb-content">
-                                                            <div class="row col-md-12">
-                                                                <div class="col-md-8">
+                                                        <div class="thumb-content text-center">
                                                                     <h4><a href="http://localhost/lifekart/User/View/productDetails.php?page=array&id=<?php echo $array[0]?>"><?php echo $array[1];?></a></h4>									
                                                                         <p class="item-price">Price:<?php echo $array[5];?></p>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <a href="http://localhost/lifekart/User/View/productDetails.php?page=array&id=<?php echo $array[0]?>" class="btn buy btn-primary">buy </a>
-                                                                </div>
-                                                            </div>
                                                     </div>						
                                                 </div>
                                              </div>

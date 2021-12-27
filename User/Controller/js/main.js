@@ -206,6 +206,20 @@ $('.minus').on('click', function() {
                     });
                    
                 }); 
+
+                // $(".invoice").on('click',function(){
+                //     var action='insert_cart';
+                //     $.ajax({
+                //         type: "POST",
+                //         url: "../Controller/control.php",
+                //         data:{
+                //             action:action
+                //         },
+                //         success: function(){
+                //         window.location.reload(true);
+                //         }
+                //         });
+                // });
                   
 });
 

@@ -113,7 +113,7 @@ include '../Model/class.php';
 
 <!--EDITFORM--> 
 <div class="modal fade" id="edit-modal" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="editModal"></h4>
@@ -122,6 +122,9 @@ include '../Model/class.php';
           <div class="modal-body">
             <form action="javascript:void(0)" id="editForm" name="editForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
               <input type="hidden" id="eid" name="eid" value=""> 
+              <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
             <div class="form-group">
                 <label for="name" class="col-sm-6 control-label">Name<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-12">
@@ -130,7 +133,7 @@ include '../Model/class.php';
               </div>  
               <div class="form-group">
               <div class="img_width" id="showimg"></div>
-                <label for="file" class="col-sm-6 control-label">Image<span style=" color:red;" id="star">*</span></label>
+                <label for="file" class="col-sm-6 control-label mt-5">Image<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-12">
                   <input type="file" class="form-control" id="eimage" name="eimage" placeholder="" value="" >
                 </div>
@@ -147,6 +150,8 @@ include '../Model/class.php';
                   <textarea class="form-control" id="edescription" rows="4" cols="50" name="edescription" ></textarea>
                 </div>
               </div>
+              </div>
+            <div class="col-md-8">
               <div>
               <table class="table" id="datatab1">
               <thead>
@@ -175,6 +180,8 @@ include '../Model/class.php';
                 <?php }?>
               </tbody>
               </table>
+              </div>
+            </div>
               </div>
               <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary edit" id="ebtn-save" value="create">Edit Category

@@ -251,7 +251,7 @@ include 'navbar.php';
                                                                                 <div class="img-box">
                                                                                 <a href="http://localhost/lifekart/User/View/productDetails.php?page=array&id=<?php echo $array[0]?>"> <img src="http://localhost/lifekart/User/images/<?php echo $var[0];?>" alt="" class="img-fluid" style= "width:100%" ></a>						
                                                                                 </div>
-                                                                                <div class="thumb-content">
+                                                                                <div class="thumb-content text-center">
                                                                                     <h4><a href="http://localhost/lifekart/User/View/productDetails.php?page=array&id=<?php echo $array[0]?>"><?php echo $array[1];?></a></h4>									
                                                                                     <p class="item-price">Price:<?php echo $array[5];?></p>
                                                                                 </div>						
@@ -384,7 +384,7 @@ include 'navbar.php';
               <div class="col-md-3-5">
                 <div class="wpb_wrapper vc_column-inner">
                   <h6 style="font-weight: 600; margin-bottom: 1px;" class="vc_custom_heading text-color-dark align-left text-uppercase">payment methods</h6>
-                  <div class="wpb_single_image wpb_content_element vc_align_left mb-0">
+                  <div class="wpb_single_image wpb_content_element vc_align_left mb-0 ml-3 mt-2">
                     <div class="wpb_wrapper">
                       <div class="vc_single_image-wrapper vc_box_border_grey">
                         <img src="https://www.portotheme.com/magento2/porto/pub/media/wysiwyg/smartwave/porto/homepage/24/shop24_payment_logo.jpg">
@@ -450,7 +450,7 @@ include 'navbar.php';
        </div>
         </div>
     </div>
-    <div class="footer-bottom">
+    <div class="footer-bottom bg-light">
         <div class="container">
            <address>© All Rights Reserved</address>
                     </div>

@@ -511,7 +511,7 @@ padding: 15px 8px 8px;
                   background-position: center;
                   background-repeat: no-repeat;
                   background-size: cover;
-                  background-image: url('http://localhost/lifekart/User/images/photo-1519575706483-221027bfbb31.jpeg');
+                  background-image: url('http://localhost/lifekart/User/images/photo-1606228281437-dc226988dc3a.jpeg');
 }
 .widget-title{
     text-align:initial;
@@ -519,6 +519,11 @@ padding: 15px 8px 8px;
 }
 
 .cateimg{
-    height: 225px;
-    width: 225px;
+    /* height: 225px; */
+    width: 100%;
+}
+
+.cateimg a img{
+    /* height: 225px; */
+    width: 180px;
 }

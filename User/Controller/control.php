@@ -32,6 +32,9 @@ class action{
                                     case 'delete_Item':
                                         return $this->DeleteItem();
                                         break;
+                                        // case 'insert_cart':
+                                        //     return $this->InsertItem();
+                                        //     break;
 
                 default:
             
@@ -140,6 +143,16 @@ public function DeleteItem()
 	$_SESSION['qty'] = array_values($_SESSION['qty']);
     header('location: ../View/view_cart.php?id='.$_SESSION['id']);
 }
+
+// public function InsertItem()
+// {
+//     $customer_id=$_SESSION['id'];
+//     $p_id=$_SESSION['cart'];
+//     $product_id=implode(",",$p_id);
+//     $dataentry= new cart();
+//     $entry=$dataentry->order_placed($customer_id,$product_id);
+// }
+
 }
 $action = new action();
 $action->getAction($action_id);

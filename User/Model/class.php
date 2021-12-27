@@ -41,8 +41,8 @@ class cart extends database{
         }
          }
         return $data;
+        }
     }
-}
 
     public function coupen_view($coupen)
     {
@@ -61,6 +61,23 @@ class cart extends database{
         $array= mysqli_fetch_array($result);
         return $array;
     }
+
+    public function order_placed($customer_id,$product_id)
+    {
+        $sql="select customer_id from cart where customer_id=".$customer_id;
+        $result0=mysqli_query($this->con,$sql);
+        $are=mysqli_fetch_row($result0);
+        if ($customer_id == $are[0]) {
+             $sql1 = "UPDATE cart SET product_id='".$product_id."',customer_id='".$customer_id."'";
+            $result1=mysqli_query($this->con,$sql1);
+        }else{
+        $query="insert into cart (product_id,customer_id ) VALUES ('$product_id','$customer_id')"; 
+        $result=mysqli_query($this->con,$query);
+        $array= mysqli_fetch_array($result);
+        return $array;
+        }
+    }
+
 }
 
 
@@ -296,6 +313,11 @@ class log_in extends database {
             $_SESSION['username'] = $username;
             $_SESSION['id'] = $array[0];
             $_SESSION['customerGroup'] = $array[8];
+            $_SESSION['firstname']=$array[1];
+            $_SESSION['lastname']=$array[2];
+            $_SESSION['phone']=$array[5];
+            $_SESSION['address']=$array[6];
+            $_SESSION['country']=$array[7];
             // Redirect to user home page
             header("Location: index.php");
         } else {

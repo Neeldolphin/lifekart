@@ -527,3 +527,10 @@ padding: 15px 8px 8px;
     /* height: 225px; */
     width: 180px;
 }
+.signupform{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: rgb(255, 255, 255);
+}
+.signuppage{
+background-color: rgb(182, 182, 182) ;
+}

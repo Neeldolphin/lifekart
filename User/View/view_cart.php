@@ -15,6 +15,7 @@
 <?php 
 include 'header.php';
  include_once 'navbar.php';
+//  print_r($_SESSION);
  if(isset($_SESSION["username"])){
     ?>
     <div class="container">                
@@ -26,24 +27,33 @@ include 'header.php';
                 <form method="POST" action="save_cart.php">
                 <table class="table table-bordered table-striped">
                     <thead>
-                        <th>No.</th>
+                        <th width=1%;>No.</th>
                         <th>Name</th>
                         <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Subtotal</th>
-                        <th>Remove</th>
+                        <th width=5%;>Quantity</th>
+                        <th width=5%;>Subtotal</th>
+                        <th width=1%;>Remove</th>
                     </thead>
                     <tbody>
                     <p id="msg1" class="msg1"></p></td>
-                        <?php    $sr=1;
+                        <?php                          
+                                  $sr=1;
                                  $index=0;
                                  $shipping=0;
                                 $total=0;
                                 $session=$_SESSION;
-                                $view= new cart();
+                                $view= new cart();  
                                 $rows=$view->view_cart($session);
                                 if(!empty($_SESSION['cart'])){
                                  foreach($rows as $row){
+                                  $cate=new product_details();
+                                  $ows=$cate->group_customer();
+                                  if(in_array($row['SKU'],$ows)){
+                                   $SKU=$row['SKU'];
+                                   $gprice=$cate->group_price($SKU);
+                                   $row['price']=$gprice[0];
+                                  }
+                                   $row['price']=$view->product_discount($row['Id'],$session,$row['price']);
                                     ?>
                                     <tr>
                                     <td><?php echo $sr; ?></td>
@@ -62,8 +72,8 @@ include 'header.php';
                                         <td>
                                         <input type="hidden" class="DeleteId" value="<?php echo $row['Id'];?>">
                                         <input type="hidden" class="indexId" value="<?php echo $index;?>">
-										<a class="btn btn-danger btn-sm deleteItem"><span class="glyphicon glyphicon-trash">X</span></a>
-									</td>
+								                    	<a class="btn btn-danger btn-sm deleteItem"><span class="glyphicon glyphicon-trash">X</span></a>
+									                  </td>
                                     </tr>
                                     <?php
                                     $index ++;

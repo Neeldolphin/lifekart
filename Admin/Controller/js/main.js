@@ -809,6 +809,7 @@ $(document).ready(function(){
             success: function(result){
               if (result == 1) {
                 $("#datatab").load("product.php #ref");
+                // $("#datatab").DataTable().clear().destroy();
                $(".close").click();
                $('.message').text("successfully update");
             }else if(result == 5){

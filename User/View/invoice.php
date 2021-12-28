@@ -2,11 +2,6 @@
  include '../Model/class.php';
  require_once "../vendor/autoload.php";  
 session_start();
-$customer_id=$_SESSION['id'];
-$p_id=$_SESSION['cart'];
-$product_id=implode(",",$p_id);
-$dataentry= new cart();
-$entry=$dataentry->order_placed($customer_id,$product_id);
     class MYPDF extends TCPDF {
 
         //Page header
@@ -119,6 +114,14 @@ $entry=$dataentry->order_placed($customer_id,$product_id);
                    $rows=$view->view_cart($session);
                    if(!empty($_SESSION['cart'])){
                     foreach($rows as $row){
+                        $cate=new product_details();
+                                  $ows=$cate->group_customer();
+                                  if(in_array($row['SKU'],$ows)){
+                                   $SKU=$row['SKU'];
+                                   $gprice=$cate->group_price($SKU);
+                                   $row['price']=$gprice[0];
+                                  }
+                                   $row['price']=$view->product_discount($row['Id'],$session,$row['price']);
                         $content .= '
                        <tr>
                        <td>'.$row['pname'].'</td>
@@ -141,6 +144,12 @@ $entry=$dataentry->order_placed($customer_id,$product_id);
             $content .= '
         <tr>
         ';
+        $content .= '
+        <td colspan="3" align="right"><b>Total  </b></td>
+        <td><b>'. number_format($total, 2).'</b></td>
+         </tr>
+         <tr>
+         ';  
         if(isset($discount)){ 
             $content .= '
            <td colspan="3" align="right"><b>Discount</b></td>
@@ -158,10 +167,6 @@ $entry=$dataentry->order_placed($customer_id,$product_id);
            ';
          }
            $content .= '
-           </tr>
-           <tr>
-           <td colspan="3" align="right"><b>Total  </b></td>
-           <td><b>'. number_format($total, 2).'</b></td>
        </tr>
        </tbody>
        ';   
@@ -170,8 +175,14 @@ $entry=$dataentry->order_placed($customer_id,$product_id);
       $pdf->SetFillColor(218, 247, 166) ;
       $pdf->SetTextColor(0, 63, 127);
       
-      $pdf->writeHTMLCell(180,25,'',80, $content, 1, 2, 1, true, 'J', true);
+      $pdf->writeHTMLCell(180,'','',80, $content, 0, 0, 1, true, 'J', true);
 
     $pdf->Output('example.pdf', 'I');
+
+    $customer_id=$_SESSION['id'];
+$p_id=$_SESSION['cart'];
+$product_id=implode(",",$p_id);
+$dataentry= new cart();
+$entry=$dataentry->order_placed($customer_id,$product_id);
     
   ?>

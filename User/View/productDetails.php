@@ -78,23 +78,11 @@ include 'navbar.php';
                      $row=$cate->group_price($SKU);
                      ?>
                      <div class="product-info-price">
-                         <div class="price-box price-final_price" data-role="priceBox" data-product-id="2580" data-price-box="product-id-2580">
-                            <span class="price-container price-final_price tax weee">
-                             <span id="product-price-2580" data-price-amount="55" data-price-type="finalPrice" class="price-wrapper ">
                                  <span class="price">₹<?php echo $row[0];?></span>
-                            </span>
-                          </span>
-                         </div>
                       </div> 
                         <?php }else{?>
                             <div class="product-info-price">
-                                 <div class="price-box price-final_price" data-role="priceBox" data-product-id="2580" data-price-box="product-id-2580">
-                                     <span class="price-container price-final_price tax weee">
-                                     <span id="product-price-2580" data-price-amount="55" data-price-type="finalPrice" class="price-wrapper ">
                                          <span class="price">₹<?php echo $array[5];?></span>
-                                        </span>
-                                    </span>
-                                    </div>
                                 </div> 
                                  <?php }?>
                                  <div class="product attribute overview">

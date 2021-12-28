@@ -44,6 +44,24 @@ class cart extends database{
         }
     }
 
+    public function product_discount($id,$session,$price)
+    {
+        $sql="select product_id from cart where customer_id=".$session['id'];
+        $result=mysqli_query($this->con,$sql);
+        $query=mysqli_fetch_row($result);
+        $check=explode(",",$query[0]);
+        if (in_array($id,$check)) {
+            if (count(array_keys($check, $id)) < 10) 
+            {
+                return $price*(1-0.1*(count(array_keys($check, $id))));   
+            }else{
+                return $price;
+            }      
+        }else{
+            return $price;
+        }
+    }
+
     public function coupen_view($coupen)
     {
     $query ="SELECT * FROM  coupen_code WHERE coupen_name='$coupen'";
@@ -65,17 +83,26 @@ class cart extends database{
     public function order_placed($customer_id,$product_id)
     {
         $sql="select customer_id from cart where customer_id=".$customer_id;
-        $result0=mysqli_query($this->con,$sql);
-        $are=mysqli_fetch_row($result0);
-        if ($customer_id == $are[0]) {
-             $sql1 = "UPDATE cart SET product_id='".$product_id."',customer_id='".$customer_id."'";
-            $result1=mysqli_query($this->con,$sql1);
+        $result=mysqli_query($this->con,$sql);
+        if (mysqli_num_rows($result)>0) {
+
+             $sql0="select product_id from cart where customer_id=".$customer_id;
+            $result0=mysqli_query($this->con,$sql0);
+             $data=mysqli_fetch_row($result0);
+             $explod=explode(",",$data[0]);
+             $pro_expod=explode(",",$product_id);
+                  foreach($pro_expod as $p_id){
+                //     if (!in_array($p_id,$explod)) {
+                         array_push($explod,$p_id);
+                   }       
+                  $product_id=implode(",",$explod);
+                  $sql1 = "UPDATE cart SET product_id='".$product_id."' where customer_id='".$customer_id."'";
+                 $result1=mysqli_query($this->con,$sql1);
+                  
         }else{
         $query="insert into cart (product_id,customer_id ) VALUES ('$product_id','$customer_id')"; 
-        $result=mysqli_query($this->con,$query);
-        $array= mysqli_fetch_array($result);
-        return $array;
-        }
+        $result2=mysqli_query($this->con,$query);
+         }
     }
 
 }
@@ -307,7 +334,6 @@ class log_in extends database {
         $query = "SELECT * FROM customer_info WHERE username='$username'
                      AND password='" . md5($password) . "'";
         $result = mysqli_query($this->con, $query) ;
-        // $rows = mysqli_num_rows($result);
         $array = mysqli_fetch_array($result);
         if (mysqli_num_rows($result)>0) {
             $_SESSION['username'] = $username;
@@ -319,7 +345,10 @@ class log_in extends database {
             $_SESSION['address']=$array[6];
             $_SESSION['country']=$array[7];
             // Redirect to user home page
-            header("Location: index.php");
+            echo "<div class='form'>
+            <h3>You are login successfully.</h3><br/>
+            <p class='link'>Click here to <a href='index.php'><b>Home</b></a></p>
+            </div>";
         } else {
             echo "<div class='form'>
                   <h3>Incorrect Username/password.</h3><br/>
@@ -352,6 +381,8 @@ class log_in extends database {
                 $country = mysqli_real_escape_string($this->con, $country);
                 $password = stripslashes($request['password']);
                 $password = mysqli_real_escape_string($this->con, $password);
+                $create_at=date("Y/m/d");
+                $update_at=date("Y/m/d");
 
                 $check="select count(1) from customer_info where Email='$email' ";
                 $exists=mysqli_query($this->con,$check);
@@ -359,10 +390,10 @@ class log_in extends database {
                 if($row[0] >= 1) {
                     echo "<div class='form'>
                     <h3>Email already exists!!!!!!!</h3><br/>
-                    </div>";;
+                    </div>";
                      }else{
-       $query    = "INSERT into customer_info (FirstName,LastName,Email,username,phone_number,Address,country,password)
-                     VALUES ('$FirstName','$LastName','$username','$email','$phone ','$Address','$country', '" . md5($password) . "')";           
+       $query    = "INSERT into customer_info (FirstName,LastName,Email,username,phone_number,Address,country,password,create_at,update_at)
+                     VALUES ('$FirstName','$LastName','$email','$username','$phone ','$Address','$country', '".md5($password) ."','$create_at','$update_at')";           
         $result   = mysqli_query($this->con, $query); 
         if ($result) {
             echo "<div class='form'>

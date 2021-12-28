@@ -8,7 +8,18 @@
   <?php
   if(!isset($_SESSION['username'])){
     ?>
-      <ul class="nav navbar-nav ">
+      <ul class="nav navbar-nav ml-auto">
+      <ul class="nav navbar-nav searchbox">
+  <form class="navbar-form mt-1 form-inline">
+			<div class="input-group search-box">
+				<input type="text" class="form-control" id="search">
+				<div class="input-group-append">
+					<button type="button" class="btn btn-danger" id="search_button"><span>Search</span></button>
+				</div>
+			</div>
+      <p id="message" style="color:white;"></p>
+		</form>	
+</ul>
       <li class="nav-item account">
       <a class="nav-link" href="http://localhost/lifekart/User/View/login.php">Login</a>
       </li>

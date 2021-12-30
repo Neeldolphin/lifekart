@@ -6,20 +6,51 @@ include 'navbar.php';
         $sign_up=new log_in();
         $sign_up->signUp($request);
 ?>
-    <form class="form signupform" action="" method="post">
+    <form class="form signupform" id="signup" action="" method="post" enctype="multipart/form-data">
         <h1 class="login-title">Sign Up</h1>
-         <input type="text" class="login-input" name="FirstName" placeholder="FirstName" required />
-          <input type="text" class="login-input" name="LastName" placeholder="LastName" required /> 
-        <input type="text" class="login-input" name="username" placeholder="Username" required />
-        <input type="text" class="login-input" name="Email" placeholder="Email Address" required/>
-        <input type="number" class="login-input" name="phone_number" placeholder="Number" min="7000000000" max="9999999999" required />
-        <input type="text" class="login-input" name="Address" placeholder="Address" required/>
-        <input type="text" class="login-input" name="country" placeholder="country" required />
-        <input type="password" class="login-input" name="password" placeholder="Password" required/>
-        <input type="submit" name="submit" value="Register" class="login-button">
-        <p class="link"><a href="login.php">Click to Login</a></p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">First Name<span style=" color:red;" id="star">*</span></label>
+                <input type="text" id="FirstName" class="form-control" name="FirstName" placeholder="FirstName">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Last Name</label>
+                <input type="text" id="LastName" class="form-control" name="LastName" placeholder="LastName"> 
+            </div>
+            <div class="form-group">
+                <label class="control-label">User Name<span style=" color:red;" id="star">*</span></label>
+                <input type="text" id="username" class="form-control" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Email<span style=" color:red;" id="star">*</span></label>
+                <input type="text" id="Email" class="form-control" name="Email" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Number<span style=" color:red;" id="star">*</span></label>
+                <input type="number" id="phone_number" class="form-control" name="phone_number" placeholder="Number" min="7000000000" max="9999999999">
+          </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Address</label>
+                <textarea class="form-control" id="Address" rows="2" cols="50" name="Address" placeholder="Address"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="control-label">country<span style=" color:red;" id="star">*</span></label>
+                <input type="text" class="form-control" id="country" name="country" placeholder="country" >
+            </div>
+            <div class="form-group">
+                <label class="control-label">Password<span style=" color:red;" id="star">*</span></label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            </div>
+                <input type="submit" name="submit" value="Register" class="login-button Register">
+                <p class="link"><a href="login.php">Click to Login</a></p>    
+        </div>   
+       </div>
     </form>
 </div>
+
     <div class="footer">
 <div class="footer-middle">
     <div class="container">

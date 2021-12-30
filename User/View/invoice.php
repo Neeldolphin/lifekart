@@ -180,9 +180,16 @@ session_start();
     $pdf->Output('example.pdf', 'I');
 
     $customer_id=$_SESSION['id'];
-$p_id=$_SESSION['cart'];
-$product_id=implode(",",$p_id);
-$dataentry= new cart();
-$entry=$dataentry->order_placed($customer_id,$product_id);
-    
-  ?>
+    $p_id=$_SESSION['cart'];
+    $product_id=implode(",",$p_id);
+    $dataentry= new cart();
+    $entry=$dataentry->order_placed($customer_id,$product_id);
+
+      $cust_info=$_SESSION['id'];
+     $prod_info=$_SESSION['cart'];
+    $product_qty=$_SESSION['qty'];
+    $product_price=$_SESSION['price'];
+    $order_date= date('d-m-Y H-i-s');
+    $entry1=$dataentry->order_info($cust_info,$prod_info,$order_date,$product_qty,$product_price);
+
+?>

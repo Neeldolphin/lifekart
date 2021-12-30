@@ -530,7 +530,53 @@ padding: 15px 8px 8px;
 .signupform{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background-color: rgb(255, 255, 255);
+    width: 75%;
 }
 .signuppage{
+    padding-bottom: 10px;
 background-color: rgb(182, 182, 182) ;
 }
+
+.signinform{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: rgb(255, 255, 255);
+}
+
+.signinpage{
+    padding-bottom: 10px;
+background-color: rgb(182, 182, 182) ;
+}
+.customerInfo1{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: rgb(255, 255, 255);
+    width: 50%;
+    }
+.customerInfo{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: rgb(255, 255, 255);
+    width: 50%;
+    }
+    .profile{
+        padding-bottom: 10px;
+        background-color: rgb(182, 182, 182) ;
+    }
+
+    .error{
+        color: red;
+    }
+
+    .customerInfo {
+
+        display:none;
+        
+        }
+        .card{
+            box-shadow: #0099ff 0px 5px 15px;
+        }
+
+        .dash{
+            padding-top: 5px;
+            padding-bottom: 35px;
+            background-color: #e0e0e0;
+        }
+        

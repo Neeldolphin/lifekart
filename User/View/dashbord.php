@@ -1,22 +1,80 @@
-<div class="signinpage">
 <?php
 include 'header.php';
 include 'navbar.php';
-    $post=$_POST;
-    $request=$_REQUEST;
-        $login=new log_in();
-        $login->signIn($post,$request);
 ?>
-    <form class="form signinform" id="signin" method="post" name="login">
-        <h1 class="login-title">Login</h1>
-        <input type="text" class="login-input" name="username" placeholder="Username" autofocus="true"/>
-        <input type="password" class="login-input" name="password" placeholder="Password"/>
-        <input type="submit" value="Login" name="submit" class="login-button"/>
-        <p class="link"><a href="signUp.php">New Sign Up</a></p>
-  </form>
-</div>
+<div class="dash">
+<div class="page-wrapper mt-4" style="min-height: 464px;">
+            <div class="container-fluid orderpage">
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h1 class="text-themecolor"><b>Dashboard</b></h1>
+                    </div>
+                </div>
 
-  <div class="footer">
+                <div class="row mb-4 mt-3">
+                    <!-- Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">ORDER PLACED</h4>
+                                <div class="text-end">
+                                <?php 
+                                                    $c_id=$_SESSION['id'];
+                                                    $cate=new cart();
+                                                    $order=$cate->customerOrderCount($c_id);
+                                          ?>
+                                    <h1 class="font-light"><sup><i class="ti-arrow-up text-success"></i></sup><?php echo $order[0];?></h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Orders Overview</h5>
+                                <div class="table-responsive m-t-30">
+                                    <table class="table product-overview" id="gridtable">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Order ID</th>
+                                                <th>Product</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                          <?php 
+                                                    $rows=$cate->customerOrderInfo($c_id);
+                                                    foreach($rows as $array){
+                                          ?>
+                                            <tr>
+                                                <td><?php echo $array[0];?></td>
+                                                <td><?php echo $array[1];?></td>
+                                                <td><?php echo $array[2];?></td>
+                                                <td><?php echo $array[5];?></td>
+                                                <td><?php echo $array[6];?></td>
+                                                <td><?php echo $array[4];?></td>
+                                              </tr>
+                                              
+                                              <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+<div class="footer">
 <div class="footer-middle">
     <div class="container">
        <div class="row mt-4 mb-4">
@@ -117,3 +175,4 @@ include 'navbar.php';
            <address>© All Rights Reserved</address>
                     </div>
     </div>
+</div>

@@ -1,4 +1,7 @@
 <?php
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 include '../Model/class.php';
 session_start();
 
@@ -32,9 +35,9 @@ class action{
                                     case 'delete_Item':
                                         return $this->DeleteItem();
                                         break;
-                                        // case 'insert_cart':
-                                        //     return $this->InsertItem();
-                                        //     break;
+                                        case 'customer_update':
+                                            return $this->customerUpdate();
+                                            break;
 
                 default:
             
@@ -144,14 +147,12 @@ public function DeleteItem()
     header('location: ../View/view_cart.php?id='.$_SESSION['id']);
 }
 
-// public function InsertItem()
-// {
-//     $customer_id=$_SESSION['id'];
-//     $p_id=$_SESSION['cart'];
-//     $product_id=implode(",",$p_id);
-//     $dataentry= new cart();
-//     $entry=$dataentry->order_placed($customer_id,$product_id);
-// }
+public function customerUpdate()
+{
+        $post=$_POST;
+        $update = new log_in();
+        $update->update($post);
+}
 
 }
 $action = new action();

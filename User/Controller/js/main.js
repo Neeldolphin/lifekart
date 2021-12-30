@@ -16,6 +16,221 @@ $(document).ready(function(){
     $(".xzoom, .xzoom-gallery").xzoom({tint: '#333', Xoffset: 15});
 }); 
 
+// $(document).ready( function () {
+//     $('#gridtable').DataTable();
+// } );
+
+
+// function format(d) {
+//     var result = '<table id="childtable" cellpadding="5" cellspacing="0" border="0" style="padding-left: 50px; width:80% ">' +
+//         '<tr><td>ID</td><td>Product</td><td>Quantity</td><td>Price</td></tr>';
+//     //loop thouth the OderListDetails and add the child items.
+//     for (var i = 0; i < d.orderListDetails.length; i++) {
+//         var child = '<tr><td>' + d.orderListDetails[i].order_id + '</td>' +
+//             '<td>' + d.orderListDetails[i].prod_info+ '</td>' +
+//             '<td>' + d.orderListDetails[i].prod_qty + '</td>' +
+//             '<td>' + d.orderListDetails[i].prod_price + '</td></tr>';
+//         result += child;
+//     }
+//     result += '</table>';
+//     return result;
+// }
+
+// $(document).ready(function() {
+
+//     $.ajax({
+//         url: "../Controller/control.php",
+//         type: "post", 
+//         contentType: "application/json; charset=utf-8",
+//         dataType: "json",
+//         success: function (data) {
+//             console.log("succsss" + data);
+
+//     var table = $('#gridtable').DataTable( {
+//         "data": data,
+//         "columns": [
+//             {
+//                 "className":      'dt-control',
+//                 "orderable":      false,
+//                 "data":           null,
+//                 "defaultContent": ''
+//             },
+//             { "data": "Product" },
+//             { "data": "Quantity" },
+//             { "data": "Price" }
+//         ],
+//         "order": [[1, 'asc']]
+//     } );
+
+//     // Add event listener for opening and closing details
+//     $('#gridtable tbody').on('click', 'td.dt-control', function () {
+//         var tr = $(this).closest('tr');
+//         var row = table.row( tr );
+ 
+//         if ( row.child.isShown() ) {
+//             // This row is already open - close it
+//             row.child.hide();
+//             tr.removeClass('shown');
+//         }
+//         else {
+//             // Open this row
+//             row.child( format(row.data()) ).show();
+//             tr.addClass('shown');
+//         }
+//     } );
+// },
+//     });
+// } );
+
+function format ( d ) {
+    // `d` is the original data object for the row
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+        '<tr>'+
+            '<td>'+d.order_id+'</td>'+
+            '<td>'+d.prod_info +'</td>'+
+            '<td>'+d.prod_qty +'</td>'+
+            '<td>'+d.prod_price +'</td>'+
+            '<td>'+d.order_date +'</td>'+
+        '</tr>'+
+    '</table>';
+}
+
+
+$(document).ready(function() {
+    
+    var table = $('#gridtable').DataTable( {
+        "ajax": '',
+        "columns": [
+            {
+                "className":      'dt-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "data": "Order ID" },
+            { "data": "Product" },
+            { "data": "Quantity" },
+            { "data": "Price" },
+            { "data": "Date" }
+        ],
+        "order": [[1, 'asc']]
+    } );
+     
+    // Add event listener for opening and closing details
+    $('#gridtable tbody').on('click', 'td.dt-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+ 
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );
+} );
+
+
+$(document).ready(function(){
+    $("#signup").validate({
+        rules: {
+            FirstName: "required",
+            username:"required",
+            Email:{required: true,
+                email: true},
+            phone_number:"required",
+            country:"required",
+            password:"required"
+           },
+        messages: {
+            FirstName: "Enter your name",
+            username: "Enter username",
+            Email:"Email required",
+            phone_number:"Enter 10 digit number",
+            country:"required",
+            password:"required"
+        },
+        submitHandler: function(form) { 
+            form.submit();
+          }
+      });
+    });
+
+    $(document).ready(function(){
+    $("#customerInfo").validate({
+        rules: {
+            FirstName: "required",
+            username:"required",
+            Email:{required: true,
+                email: true},
+            phone_number:"required",
+            country:"required"
+           },
+        messages: {
+            FirstName: "Enter your name",
+            username: "Enter username",
+            Email:"Email required",
+            phone_number:"Enter 10 digit number",
+            country:"required"
+        },
+        submitHandler: function(form) { 
+            form.submit();
+        }
+});
+});
+
+    $(document).ready(function(){
+        $('#save').on('click', function() {
+      
+            var id = $(this).data('id');
+            var action='customer_update';
+    
+            $.ajax({
+                type:"POST",
+                url: "../Controller/control.php",
+                data: {
+                  Id: $('#id').val(),
+                   FirstName: $('#FirstName').val(),
+                   LastName: $('#LastName').val(),
+                   username:$('#username').val(),
+                    Email: $('#Email').val(),
+                     phone_number: $('#phone_number').val(),
+                     Address: $('#Address').val(),
+                     country: $('#country').val(),
+                     action:action
+                },
+                dataType: 'json'
+              });
+            });
+        });
+
+
+    $(document).ready(function(){
+        $("#signin").validate({
+            rules: {
+                username:"required",
+                password:"required"
+               },
+            messages: {
+                username: "Enter username",
+                password:"required"
+            },
+            submitHandler: function(form) { 
+                form.submit();
+              }
+          });
+        });
+
+        $(document).ready(function(){
+        $("#customeredit").click(function(){
+            $("#customerInfo").toggle();
+        });
+    });
+
 $(document).ready(function(){
 $('.minus').on('click', function() {
     var num = +$("#quantity").val() - 1;
@@ -109,7 +324,7 @@ $('.minus').on('click', function() {
                     if (result == 1) { 
                         window.location.reload(true);
                        }else{
-                           alert('wrong input!');
+                        $("#messagedis").text('wrong input!');
                        }
                 
                 }
@@ -206,21 +421,8 @@ $('.minus').on('click', function() {
                     });
                    
                 }); 
-
-                // $(".invoice").on('click',function(){
-                //     var action='insert_cart';
-                //     $.ajax({
-                //         type: "POST",
-                //         url: "../Controller/control.php",
-                //         data:{
-                //             action:action
-                //         },
-                //         success: function(){
-                //         window.location.reload(true);
-                //         }
-                //         });
-                // });
-                  
+               
 });
+    
 
 

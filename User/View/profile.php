@@ -1,22 +1,55 @@
-<div class="signinpage">
+<div class="profile">
 <?php
 include 'header.php';
 include 'navbar.php';
-    $post=$_POST;
-    $request=$_REQUEST;
-        $login=new log_in();
-        $login->signIn($post,$request);
+$id=$_SESSION['id'];
+$session=$_SESSION;
+$sign=new log_in();
+$ex=$sign->custinfo($id);
 ?>
-    <form class="form signinform" id="signin" method="post" name="login">
-        <h1 class="login-title">Login</h1>
-        <input type="text" class="login-input" name="username" placeholder="Username" autofocus="true"/>
-        <input type="password" class="login-input" name="password" placeholder="Password"/>
-        <input type="submit" value="Login" name="submit" class="login-button"/>
-        <p class="link"><a href="signUp.php">New Sign Up</a></p>
-  </form>
+<div class="form customerInfo1" action="" method="post">
+<h3>Customer Profile</h3>
+<div>
+        <div class="row">
+          <div class="col-md-6">
+                <p><b>First Name :</b><?php echo $ex[1];?> </p>
+                <p><b>Last Name :</b><?php echo $ex[2];?> </p> 
+                <p><b>User Name :</b><?php echo $ex[4];?> </p>
+                <p><b>Email :</b> <?php echo $ex[3];?></p>  
+          </div>
+          <div class="col-md-6">
+                <p><b>Number :</b> <?php echo $ex[5];?></p>
+                <p><b>Address :</b> <?php echo $ex[6];?></p>
+                <p><b>country :</b> <?php echo $ex[7];?></p>
+          </div>       
+        </div>
+        <button class="customeredit" id="customeredit" style="float: right;"><i class="fas fa-pen"></i></button>
+    </div>
 </div>
 
-  <div class="footer">
+    <form class="form customerInfo" id="customerInfo" action="" method="post">
+<div>
+        <div class="row">
+          <div class="col-md-6">
+            <input type="hidden" name="id" id="id" value="<?php echo $ex[0];?>"> 
+                <p><b>First Name :</b></p> <input type="text" id="FirstName" name="FirstName" value="<?php echo $ex[1];?>"/>
+                <p><b>Last Name :</b></p> <input type="text" id="LastName" name="LastName" value="<?php echo $ex[2];?>"/>
+                <p><b>User Name :</b></p> <input type="text" id="username" name="username" value="<?php echo $ex[4];?>"/>
+                <p><b>Email :</b></p> <input type="text" id="Email" name="Email" value="<?php echo $ex[3];?>"/>
+          </div>
+          <div class="col-md-6">
+                <p><b>Number :</b></p> <input type="text" id="phone_number" name="phone_number" value="<?php echo $ex[5];?>"/>
+                <p><b>Address :</b></p> <input type="text" id="Address" name="Address" value="<?php echo $ex[6];?>"/>
+                <p><b>country :</b></p><input type="text" id="country" name="country" value="<?php echo $ex[7];?>"/>
+          </div>       
+        </div>
+        <button type="submit" name="submit" data-id="<?php echo $ex[0];?>" class="btn-success btn" id="save" style="float: right;" >save</button>
+    </div>
+    </form>
+</div>
+
+
+<div class="footer">
 <div class="footer-middle">
     <div class="container">
        <div class="row mt-4 mb-4">
@@ -117,3 +150,4 @@ include 'navbar.php';
            <address>© All Rights Reserved</address>
                     </div>
     </div>
+</div>

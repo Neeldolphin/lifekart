@@ -78,6 +78,7 @@ include 'navbar.php';
                      $row=$cate->group_price($SKU);
                      ?>
                      <div class="product-info-price">
+                     <span class="price" style="color: grey;"><s>₹<?php echo $array[5];?></s></span>
                                  <span class="price">₹<?php echo $row[0];?></span>
                       </div> 
                         <?php }else{?>

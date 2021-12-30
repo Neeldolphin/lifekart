@@ -105,6 +105,42 @@ class cart extends database{
          }
     }
 
+    public function order_info($cust_info,$prod_info,$order_date,$product_qty,$product_price)
+    { 
+         $sql="select count(DISTINCT order_id)as order_id from Order_details";
+         $result=mysqli_query($this->con,$sql);
+         $vare=mysqli_fetch_row($result);
+            $vare[0] +=1;
+           
+        $i=0;
+        foreach($prod_info as $row ){
+         $query="insert into Order_details (prod_info,order_id,cust_info,order_date,prod_qty,prod_price) VALUES ('$row','$vare[0]','$cust_info','$order_date','$product_qty[$i]','$product_price[$i]')"; 
+         $result1=mysqli_query($this->con,$query);
+        $i++;
+        }
+    }
+
+    public function customerOrderInfo($c_id)
+    {
+            $query="select * from Order_details where cust_info=".$c_id; 
+            $result=mysqli_query($this->con,$query);
+            while($order=mysqli_fetch_row($result)){
+                $data[]=$order;
+            }
+           return $data;
+    }
+
+    public function customerOrderCount($c_id)
+    {
+            $query="select count(DISTINCT order_id)as order_id from Order_details where cust_info=".$c_id; 
+            $result=mysqli_query($this->con,$query);
+            while($order=mysqli_fetch_row($result)){
+                $data=$order;
+            }
+           return $data;
+    }
+
+
 }
 
 
@@ -341,6 +377,7 @@ class log_in extends database {
             $_SESSION['customerGroup'] = $array[8];
             $_SESSION['firstname']=$array[1];
             $_SESSION['lastname']=$array[2];
+            $_SESSION['Email']=$array[3];
             $_SESSION['phone']=$array[5];
             $_SESSION['address']=$array[6];
             $_SESSION['country']=$array[7];
@@ -352,6 +389,7 @@ class log_in extends database {
         } else {
             echo "<div class='form'>
                   <h3>Incorrect Username/password.</h3><br/>
+                  <p class='link'> Forgot Password<b>?</b> <a href='forgot.php'>Click here</a>.</p>
                   <p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
                   <p class='link'>Click here to <a href='index.php'>Home</a> again.</p>
                   </div>";
@@ -359,6 +397,35 @@ class log_in extends database {
     }
     }
 
+    public function passCheck($post,$request)
+    {
+        if (isset($post['username'])) {
+            $username = stripslashes($request['username']);    // removes backslashes
+            $username = mysqli_real_escape_string($this->con, $username);
+            $password = stripslashes($request['password']);
+            $password = mysqli_real_escape_string($this->con, $password);
+
+        $query = "SELECT * FROM customer_info WHERE username='$username'";
+        $result = mysqli_query($this->con, $query) ;
+        $array = mysqli_fetch_array($result);
+        if (mysqli_num_rows($result)>0) {
+            $query = "UPDATE customer_info set password='" . md5($password) . "' where username='".$username."'";        
+            $result = mysqli_query($this->con, $query); 
+            
+            // Redirect to user home page
+            echo "<div class='form'>
+            <h3>You are new passwoard set successfully.</h3><br/>
+            <p class='link'>Click here to <a href='index.php'><b>Home</b></a></p>
+            </div>";
+        } else {
+            echo "<div class='form'>
+                  <h3>Incorrect Username.</h3><br/>
+                  <p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
+                  <p class='link'>Click here to <a href='index.php'>Home</a> again.</p>
+                  </div>";
+        }
+    }
+    }
 
     public function signUp($request)
     {
@@ -391,7 +458,7 @@ class log_in extends database {
                     echo "<div class='form'>
                     <h3>Email already exists!!!!!!!</h3><br/>
                     </div>";
-                     }else{
+                     }else{    
        $query    = "INSERT into customer_info (FirstName,LastName,Email,username,phone_number,Address,country,password,create_at,update_at)
                      VALUES ('$FirstName','$LastName','$email','$username','$phone ','$Address','$country', '".md5($password) ."','$create_at','$update_at')";           
         $result   = mysqli_query($this->con, $query); 
@@ -405,9 +472,26 @@ class log_in extends database {
                   <h3>Required fields are missing.</h3><br/>
                   <p class='link'>Click here to <a href='signUp.php'>Sign Up</a> again.</p>
                   </div>";
-        }
+            }
            }
         }
+    }
+
+public function custinfo($id)
+{
+   $query="select * from customer_info where id=".$id;
+    $result=mysqli_query($this->con,$query);
+    while($category=mysqli_fetch_row($result)){
+        $data=$category;
+    }
+    return $data;
 }
+
+public function update($post)
+{
+    $query = "UPDATE customer_info SET FirstName='" . $post['FirstName'] . "', LastName='" . $post['LastName'] . "', Email='" . $post['Email'] . "', phone_number='" . $post['phone_number'] . "', Address='" . $post['Address'] . "', country='" . $post['country'] . "' WHERE Id=".$post['Id'];
+    $result = mysqli_query($this->con, $query);
+}
+
 }
 ?>

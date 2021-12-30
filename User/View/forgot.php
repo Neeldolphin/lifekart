@@ -5,14 +5,16 @@ include 'navbar.php';
     $post=$_POST;
     $request=$_REQUEST;
         $login=new log_in();
-        $login->signIn($post,$request);
+        $login->passCheck($post,$request);
 ?>
-    <form class="form signinform" id="signin" method="post" name="login">
-        <h1 class="login-title">Login</h1>
+    <form class="form passwordchangeform" id="passwordchange" method="post" name="passwordchange">
+        <h1 class="login-title">Password change</h1>
+        <label>User Name</label>
         <input type="text" class="login-input" name="username" placeholder="Username" autofocus="true"/>
+        <label>New Password</label>
         <input type="password" class="login-input" name="password" placeholder="Password"/>
-        <input type="submit" value="Login" name="submit" class="login-button"/>
-        <p class="link"><a href="signUp.php">New Sign Up</a></p>
+        <input type="submit" value="change" name="submit" class="login-button"/>
+        <p class="link"><a href="login.php">Log In</a></p>
   </form>
 </div>
 

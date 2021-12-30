@@ -53,11 +53,14 @@ include 'header.php';
                                    $gprice=$cate->group_price($SKU);
                                    $row['price']=$gprice[0];
                                   }
-                                   $row['price']=$view->product_discount($row['Id'],$session,$row['price']);
-                                    ?>
+                                  $row['price']=$view->product_discount($row['Id'],$session,$row['price']);
+
+                                  $prod_price[]=$row['price'];  
+                                   $_SESSION['price']=$prod_price;
+                                  ?>
                                     <tr>
                                     <td><?php echo $sr; ?></td>
-                                        <td><?php echo $row['pname']; ?></td>
+                                        <td><a href="http://localhost/lifekart/User/View/productDetails.php?page=array&id=<?php echo $row['Id']?>"><?php echo $row['pname']; ?></a></td>
                                         <td><?php echo number_format($row['price'], 2); ?></td>
                                         <td><input type="text" class="form-control quantity1" data-id="<?php echo $row['Id']?>" required=""  value="<?php echo $_SESSION['qty'][$index]; ?>" name="qty_<?php echo $index; ?>"></td>
                                         <input type="hidden" class="msg" >
@@ -108,7 +111,7 @@ include 'header.php';
                 <div class="form-group">
                 <label for="promo_code"><b>Apply Promocode:</b></label> 
                 <td><input type="text" class="form-control" id="coupen_code"  placeholder="Enter Promocode" name="coupen_code"></td>
-                <p id="mes"></p>
+                <p id="messagedis"></p>
                 <td><button class="btn btn-success btn-sm" id="apply" >Apply</button></td>
                 <?php if(isset($_SESSION['coupen_name'])){ ?>
                 <label>Applied Promocode is:<?php echo $_SESSION['coupen_name']?></label> 

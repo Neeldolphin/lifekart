@@ -25,7 +25,22 @@ include 'navbar.php';
  include 'slidebar.php';
  ?>
 </div>
+
 <div class="container">
+<div class="pricefilter mt-3">
+<p>
+    Price Range:<p id="amount"></p>
+  </p>
+
+  <div id="slider-range"></div>
+
+  <form method="post" action="">
+  <!-- <input type="hidden" name="action" value="pricfilter"> -->
+    <input type="hidden" id="amount1">
+    <input type="hidden" id="amount2">
+    <input type="submit" class="mt-2" name="submit_range" value="Submit">
+  </form>
+</div>
 	<div class="row">
 		<div class="col-md-12">
         <?php
@@ -52,7 +67,7 @@ include 'navbar.php';
                     <option <?php if(isset($val) && $val=="5") {?> selected="selected"<?php } ?> value="5" >Position:low to high</option>
                     <option <?php if(isset($val) && $val=="6") {?> selected="selected"<?php } ?> value="6" >Position:high to low</option>
                     </select>   
-                     <div class='row'>
+                     <div class='row' id="addon">
             <?php 
 			$order = (int)$_GET['id'];
 			if(isset($_GET['datasend'])){
@@ -66,7 +81,7 @@ include 'navbar.php';
             $var=unserialize($array[4]);
 			if($array[9] =='Enable'){
 	            ?>
-				<div class="col-sm-3">
+				<div class="col-sm-3 numofprod">
 					<div class="thumb-wrapper">
 						<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
 					    	<div class="img-box cateimg text-center">
@@ -81,9 +96,13 @@ include 'navbar.php';
 			 <?php }
 			 }?>
         </div>
-        </div>	  
+        </div>
+        <div id="loader" class="active text-center">
+        	<img src="../images/loading.gif">
+    	    LOADING...
+      </div>  
         </div>	
-        <?php 
+        <?php /*
         $id= (int)$_GET['id'];
         if(isset($_GET['datasend'])){
         $page_id = $_GET['datasend'];}
@@ -101,7 +120,7 @@ include 'navbar.php';
         <li class="page-item" id="totalPages"><a class="page-link totalPages"><?php echo $i; ?></a></li>
         <?php $i++; }  ?>
             </ul>
-        </nav>  
+        </nav>  */?>
 	</div>
 </div>
 <div class="footer mt-5">

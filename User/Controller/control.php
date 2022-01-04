@@ -38,9 +38,11 @@ class action{
                                         case 'customer_update':
                                             return $this->customerUpdate();
                                             break;
+                                            case 'pricfilter':
+                                                return $this->priceFilter();
+                                                break;
 
                 default:
-            
                 break;
         }
 
@@ -152,6 +154,12 @@ public function customerUpdate()
         $post=$_POST;
         $update = new log_in();
         $update->update($post);
+}
+public function priceFilter()
+{
+        $post=$_POST;
+        $update = new category_main();
+        $update->updatepricesort($post);
 }
 
 }

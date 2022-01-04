@@ -36,14 +36,11 @@ include 'navbar.php';
                             <div class="card-body">
                                 <h5 class="card-title">Orders Overview</h5>
                                 <div class="table-responsive m-t-30">
-                                    <table class="table product-overview" id="gridtable">
+                                    <table class="table">
                                         <thead>
                                             <tr>
                                                 <th></th>
                                                 <th>Order ID</th>
-                                                <th>Product</th>
-                                                <th>Quantity</th>
-                                                <th>Price</th>
                                                 <th>Date</th>
                                             </tr>
                                         </thead>
@@ -53,15 +50,38 @@ include 'navbar.php';
                                                     foreach($rows as $array){
                                           ?>
                                             <tr>
+                                                <td><span class="displayData" data-id="<?php echo $array[0];?>">+</span></td>
                                                 <td><?php echo $array[0];?></td>
                                                 <td><?php echo $array[1];?></td>
-                                                <td><?php echo $array[2];?></td>
-                                                <td><?php echo $array[5];?></td>
-                                                <td><?php echo $array[6];?></td>
-                                                <td><?php echo $array[4];?></td>
-                                              </tr>
-                                              
+                                                <td>
+                                                <table class="table child_data <?php echo $array[0];?>">
+                                                  <thead>
+                                                    <tr>
+                                                      <th>Product</th>
+                                                      <th>Quantity</th>
+                                                      <th>Price</th>
+                                                    </tr>
+                                                  </thead>
+                                              <tbody >
+                                              <?php 
+                                              $detail=$cate->OrderInfo($array[0]);
+                                                    foreach($detail as $c_arr){
+                                                      $id=$c_arr[1];
+                                                      $name=$cate-> product_name($id);
+                                                    foreach($name as $name_arr){
+                                              ?>
+                                              <tr>
+                                              <td><a href="http://localhost/lifekart/User/View/productDetails.php?page=array&id=<?php echo $c_arr[1];?>"><?php echo $name_arr[0];?></a></td> 
                                               <?php } ?>
+                                                <td><?php echo $c_arr[2];?></td>
+                                                <td><?php echo $c_arr[3];?></td>
+                                              </tr>
+                                              <?php }?>
+                                              </tbody>
+                                              </table>
+                                                 </td>
+                                                 </tr> 
+                                              <?php  } ?>
                                         </tbody>
                                     </table>
                                 </div>

@@ -18,7 +18,11 @@ session_start();
 
             $this->SetTextColor(0, 0, 0);
             $this->SetFont('times', '', 12);
-            $data = 'Order # 1000019214<br>Order Date : '.date('Y-m-d').'';
+
+            $cate=new cart();
+            $order=$cate->Orderinvoice();
+
+            $data = 'Order #'.$order[0].'<br>Order Date : '.date('Y-m-d').'';
             // Title
             $this->writeHTMLCell(75,30,150,15, $data, 0, 0, 0, true, 'L', true);
         }
@@ -70,13 +74,13 @@ session_start();
     $top_column3 = '<p>'.$_SESSION['firstname'].'  '.$_SESSION['lastname'].'<br>'.$_SESSION['address'].'<br>'.$_SESSION['country'].'<br>780454</p>';
     
     // writeHTMLCell($w, $h, $x, $y, $html='', $border=0, $ln=0, $fill=0, $reseth=true, $align='', $autopadding=true)
-    $pdf->SetFillColor(223, 255,0);
-    $pdf->SetTextColor(0, 63, 127);
+    $pdf->SetFillColor(105, 105,105);
+    $pdf->SetTextColor(220, 220, 220);
     
     $pdf->writeHTMLCell(85, 10, '', 35, $top_column1, 0, 0, 1, true, 'L', true);
     $pdf->writeHTMLCell(95, 10, 100, 35, $top_column2, 0, 0, 1, true, 'L', true);
     
-    $pdf->SetFillColor(223, 255, 0);
+    $pdf->SetFillColor(220,220,220);
     $pdf->SetTextColor(0, 63, 127);
     
     
@@ -86,8 +90,8 @@ session_start();
     
     ////////////////////////////////////////////////////////////////////////////
     
-    $pdf->SetFillColor(255, 255, 200);
-    $pdf->SetTextColor(0, 63, 127);
+    $pdf->SetFillColor(105, 105, 105);
+    $pdf->SetTextColor(220, 220, 220);
     
     $pdf->CreateTextBox('Bill to:', 15, 30, 120, 20, 14);
     $pdf->CreateTextBox('Ship to:', 100, 30, 120, 20, 14);
@@ -96,7 +100,7 @@ session_start();
        $content .= '  
        <table border="1" cellspacing="1" cellpadding="5">  
                         <thead> 
-                        <tr color = "#003F7F" bgcolor = "#DFFF00" >  
+                        <tr color = "#DCDCDC" bgcolor = "#696969" >  
                             <th width="25%">Product Name</th>
                             <th width="25%">Price</th>
                             <th width="25%">Qty</th>
@@ -172,7 +176,7 @@ session_start();
        ';   
       $content .= '</table>';  
       
-      $pdf->SetFillColor(218, 247, 166) ;
+      $pdf->SetFillColor(220,220,220) ;
       $pdf->SetTextColor(0, 63, 127);
       
       $pdf->writeHTMLCell(180,'','',80, $content, 0, 0, 1, true, 'J', true);

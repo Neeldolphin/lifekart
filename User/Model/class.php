@@ -122,7 +122,27 @@ class cart extends database{
 
     public function customerOrderInfo($c_id)
     {
-            $query="select * from Order_details where cust_info=".$c_id; 
+            $query="select DISTINCT order_id,order_date from Order_details where cust_info=".$c_id; 
+            $result=mysqli_query($this->con,$query);
+            while($order=mysqli_fetch_row($result)){
+                $data[]=$order;
+            }
+           return $data;
+    }
+
+    public function product_name($id)
+    {
+        $query="select pname from Product_info where Id=".$id; 
+            $result=mysqli_query($this->con,$query);
+            while($order=mysqli_fetch_row($result)){
+                $data[]=$order;
+            }
+           return $data;
+    }
+
+    public function OrderInfo($v_id)
+    {
+            $query="select order_id,prod_info,prod_qty,prod_price from Order_details where order_id=".$v_id; 
             $result=mysqli_query($this->con,$query);
             while($order=mysqli_fetch_row($result)){
                 $data[]=$order;
@@ -132,7 +152,7 @@ class cart extends database{
 
     public function customerOrderCount($c_id)
     {
-            $query="select count(DISTINCT order_id)as order_id from Order_details where cust_info=".$c_id; 
+         $query="select count(DISTINCT order_id)as order_id from Order_details where cust_info=".$c_id; 
             $result=mysqli_query($this->con,$query);
             while($order=mysqli_fetch_row($result)){
                 $data=$order;
@@ -140,6 +160,15 @@ class cart extends database{
            return $data;
     }
 
+    public function Orderinvoice()
+    {
+            $query="select count(DISTINCT order_id)as order_id from Order_details"; 
+            $result=mysqli_query($this->con,$query);
+            while($order=mysqli_fetch_row($result)){
+                $data=$order;
+            }
+           return $data;
+    }
 
 }
 
@@ -295,6 +324,7 @@ class product_details extends database{
                 return $data;
                 }
         }
+
         public function Pagination($id)
         {
             $perPage = 8;
@@ -353,6 +383,21 @@ class category_main extends database {
         return $data;
     }
     
+    public function updatepricesort($post)
+    {
+        $price1=$post['amount1'];
+	    $price2=$post['amount2'];
+
+        $select ="select * from product_info where price BETWEEN '$price1' AND '$price2'";
+        $result=mysqli_query($this->con,$select);
+        while($category=mysqli_fetch_row($result)){
+            $data=$category;
+        }
+        return $data;
+    }
+    
+
+
 }
 
 class log_in extends database {

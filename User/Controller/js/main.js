@@ -16,123 +16,51 @@ $(document).ready(function(){
     $(".xzoom, .xzoom-gallery").xzoom({tint: '#333', Xoffset: 15});
 }); 
 
-// $(document).ready( function () {
-//     $('#gridtable').DataTable();
-// } );
-
-
-// function format(d) {
-//     var result = '<table id="childtable" cellpadding="5" cellspacing="0" border="0" style="padding-left: 50px; width:80% ">' +
-//         '<tr><td>ID</td><td>Product</td><td>Quantity</td><td>Price</td></tr>';
-//     //loop thouth the OderListDetails and add the child items.
-//     for (var i = 0; i < d.orderListDetails.length; i++) {
-//         var child = '<tr><td>' + d.orderListDetails[i].order_id + '</td>' +
-//             '<td>' + d.orderListDetails[i].prod_info+ '</td>' +
-//             '<td>' + d.orderListDetails[i].prod_qty + '</td>' +
-//             '<td>' + d.orderListDetails[i].prod_price + '</td></tr>';
-//         result += child;
-//     }
-//     result += '</table>';
-//     return result;
-// }
-
-// $(document).ready(function() {
-
-//     $.ajax({
-//         url: "../Controller/control.php",
-//         type: "post", 
-//         contentType: "application/json; charset=utf-8",
-//         dataType: "json",
-//         success: function (data) {
-//             console.log("succsss" + data);
-
-//     var table = $('#gridtable').DataTable( {
-//         "data": data,
-//         "columns": [
-//             {
-//                 "className":      'dt-control',
-//                 "orderable":      false,
-//                 "data":           null,
-//                 "defaultContent": ''
-//             },
-//             { "data": "Product" },
-//             { "data": "Quantity" },
-//             { "data": "Price" }
-//         ],
-//         "order": [[1, 'asc']]
-//     } );
-
-//     // Add event listener for opening and closing details
-//     $('#gridtable tbody').on('click', 'td.dt-control', function () {
-//         var tr = $(this).closest('tr');
-//         var row = table.row( tr );
- 
-//         if ( row.child.isShown() ) {
-//             // This row is already open - close it
-//             row.child.hide();
-//             tr.removeClass('shown');
-//         }
-//         else {
-//             // Open this row
-//             row.child( format(row.data()) ).show();
-//             tr.addClass('shown');
-//         }
-//     } );
-// },
-//     });
-// } );
-
-function format ( d ) {
-    // `d` is the original data object for the row
-    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-        '<tr>'+
-            '<td>'+d.order_id+'</td>'+
-            '<td>'+d.prod_info +'</td>'+
-            '<td>'+d.prod_qty +'</td>'+
-            '<td>'+d.prod_price +'</td>'+
-            '<td>'+d.order_date +'</td>'+
-        '</tr>'+
-    '</table>';
-}
-
-
 $(document).ready(function() {
-    
-    var table = $('#gridtable').DataTable( {
-        "ajax": '',
-        "columns": [
-            {
-                "className":      'dt-control',
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ''
-            },
-            { "data": "Order ID" },
-            { "data": "Product" },
-            { "data": "Quantity" },
-            { "data": "Price" },
-            { "data": "Date" }
-        ],
-        "order": [[1, 'asc']]
-    } );
-     
-    // Add event listener for opening and closing details
-    $('#gridtable tbody').on('click', 'td.dt-control', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
- 
-        if ( row.child.isShown() ) {
-            // This row is already open - close it
-            row.child.hide();
-            tr.removeClass('shown');
-        }
-        else {
-            // Open this row
-            row.child( format(row.data()) ).show();
-            tr.addClass('shown');
-        }
+    $('.displayData').on('click',function () {
+        var id = $(this).data('id');
+        $('.'+id).toggle();
     } );
 } );
+
+$(function() {
+    $("#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 5000,
+      values: [ 100, 1000 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).html( "₹" + ui.values[ 0 ] + " - ₹" + ui.values[ 1 ] );
+		$( "#amount1" ).val(ui.values[ 0 ]);
+		$( "#amount2" ).val(ui.values[ 1 ]);
+      }
+    });
+    $( "#amount" ).html( "₹" + $( "#slider-range" ).slider( "values", 0 ) +
+     " - ₹" + $( "#slider-range" ).slider( "values", 1 ) );
+  });
+
+$(window).scroll(function() {
+    if ($(window).scrollTop() >= $(window).height() - 1100) {
+            var numItems = $('.numofprod').length/8;
+                if (numItems<5) {
+                    $.ajax({
+                    method: "POST",
+                    data:{numItems:numItems},
+                    url: "infinite.php",
+                    cache: false, //avoid browser cache ajax requests
+                    success: function(data) {
+                    $('#addon').append(data);
+                    if (data=='') {
+                        $('#loader').hide();
+                    }   
+                    },
+                    error: function(data) {
+                        console.log("Something went wrong!")
+                    }
+                });
+                }
+        }
+    });
 
 
 $(document).ready(function(){

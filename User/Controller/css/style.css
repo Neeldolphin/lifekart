@@ -547,7 +547,7 @@ background-color: rgb(182, 182, 182) ;
 background-color: rgb(182, 182, 182) ;
 }
 .customerInfo1{
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: #0099ff 0px 5px 15px;
     background-color: rgb(255, 255, 255);
     width: 50%;
     }
@@ -589,5 +589,19 @@ background-color: rgb(182, 182, 182) ;
         }
 
         .pricefilter{
-            width: 200px;
+            text-align: center;
+            background-color: #ffefefe5;
+            width:200px;
+        }
+        .sortbylabel{
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .cate_title{
+            background-color:rgba(0, 17, 255, 0.098)
+        }
+
+        .cate_prod{
+            background-color:whitesmoke;
         }

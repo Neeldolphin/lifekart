@@ -17,12 +17,12 @@
 
 <div class="sidenav">
   <?php include 'logo.php'?>
-<a href="http://localhost/lifekart/Admin/View/logout.php">logout</a>
+<a href="http://localhost/lifekart/Admin/View/logout.php">Logout</a>
  <div class="dropdown-btn">Catelog
     <i class="fa fa-caret-down"></i>
 </div>
   <div class="dropdown-container">
-    <a href="http://localhost/lifekart/Admin/View/product.php">product </a>
+    <a href="http://localhost/lifekart/Admin/View/product.php">Product </a>
     <a href="http://localhost/lifekart/Admin/View/category.php">Category</a>
   </div>
     <div class="dropdown-btn">Customer
@@ -31,6 +31,12 @@
       <div class="dropdown-container">
       <a href="http://localhost/lifekart/Admin/View/customer.php">Customer</a>
       <a href="http://localhost/lifekart/Admin/View/custom_grp.php">Customer Group</a>
+  </div>
+  <div class="dropdown-btn">Report
+    <i class="fa fa-caret-down"></i>
+</div>
+  <div class="dropdown-container">
+    <a href="http://localhost/lifekart/Admin/View/Order.php">Order </a>
   </div>
     <a href="http://localhost/lifekart/Admin/View/imageslider.php">Image Slider</a>
     <a href="http://localhost/lifekart/Admin/View/coupen.php">Coupen</a>

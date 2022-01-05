@@ -263,13 +263,33 @@ class product_details extends database{
    $array=array('pid'=>$data1,'cid'=>$data2);
     return $array;    
 }
-    public function product_info($id,$order,$page_id)
+
+    public function price_range($id)
     {
+        $query2="select MIN(price) from Product_info where concat(',',category,',') like '%,$id,%'"; 
+        $select2=mysqli_query($this->con,$query2);
+        $sql2=mysqli_fetch_row($select2);
+       
+        $query3="select Max(price) from Product_info where concat(',',category,',') like '%,$id,%'"; 
+        $select3=mysqli_query($this->con,$query3);
+        $sql3=mysqli_fetch_row($select3);
+         return array($sql2[0],$sql3[0]);
+    }
+
+    public function product_info($id,$order,$page_id,$pricestart,$priceend)
+    {
+        if ($pricestart=='' && $priceend=='') {
+            $pricestart=0;
+            $priceend=5000; 
+        }
+        $price1=$pricestart;
+	    $price2=$priceend;
+
         $perPage = 8;
         if(isset($page_id)){$page=$page_id;}else{$page=1;};
         $start_from=($page-1)* $perPage;
         if ($order == 1) {
-          $query="select * from Product_info where concat(',',category,',') like '%,$id,%' order by price ASC LIMIT $start_from,$perPage"; 
+            $query="select * from Product_info where price BETWEEN '$price1' AND '$price2' AND concat(',',category,',') like '%,$id,%' order by price ASC LIMIT $start_from,$perPage"; 
             $result2=mysqli_query($this->con,$query);
             while($array=mysqli_fetch_row($result2)){
                 $data[]=$array;
@@ -277,7 +297,7 @@ class product_details extends database{
             return $data;
             }
          elseif ($order == 2) {
-            $query="select * from Product_info where concat(',',category,',') like '%,$id,%' order by price DESC LIMIT $start_from,$perPage"; 
+            $query="select * from Product_info where price BETWEEN '$price1' AND '$price2' AND concat(',',category,',') like '%,$id,%' order by price DESC LIMIT $start_from,$perPage"; 
             $result2=mysqli_query($this->con,$query);
             while($array=mysqli_fetch_row($result2)){
                 $data[]=$array;
@@ -285,7 +305,7 @@ class product_details extends database{
             return $data;
             }
         elseif ($order== 3) {
-            $query="select * from Product_info where concat(',',category,',') like '%,$id,%' order by pname ASC LIMIT $start_from,$perPage"; 
+            $query="select * from Product_info where price BETWEEN '$price1' AND '$price2' AND concat(',',category,',') like '%,$id,%' order by pname ASC LIMIT $start_from,$perPage"; 
             $result2=mysqli_query($this->con,$query);
             while($array=mysqli_fetch_row($result2)){
                 $data[]=$array;
@@ -293,7 +313,7 @@ class product_details extends database{
             return $data;
             }
         elseif ($order == 4) {
-            $query="select * from Product_info where concat(',',category,',') like '%,$id,%' order by pname DESC LIMIT $start_from,$perPage"; 
+            $query="select * from Product_info where price BETWEEN '$price1' AND '$price2' AND concat(',',category,',') like '%,$id,%' order by pname DESC LIMIT $start_from,$perPage"; 
             $result2=mysqli_query($this->con,$query);
             while($array=mysqli_fetch_row($result2)){
                 $data[]=$array;
@@ -301,7 +321,7 @@ class product_details extends database{
             return $data;
             }
         elseif ($order == 5) {
-                $query="select * from Product_info where concat(',',category,',') like '%,$id,%' order by Position ASC LIMIT $start_from,$perPage"; 
+                $query="select * from Product_info where price BETWEEN '$price1' AND '$price2' AND concat(',',category,',') like '%,$id,%' order by Position ASC LIMIT $start_from,$perPage"; 
                 $result2=mysqli_query($this->con,$query);
                 while($array=mysqli_fetch_row($result2)){
                     $data[]=$array;
@@ -309,14 +329,14 @@ class product_details extends database{
                 return $data;
             }
         elseif ($order == 6) {
-                $query="select * from Product_info where concat(',',category,',') like '%,$id,%' order by Position DESC LIMIT $start_from,$perPage"; 
+                $query="select * from Product_info where price BETWEEN '$price1' AND '$price2' AND concat(',',category,',') like '%,$id,%' order by Position DESC LIMIT $start_from,$perPage"; 
                 $result2=mysqli_query($this->con,$query);
                 while($array=mysqli_fetch_row($result2)){
                     $data[]=$array;
                 }
                 return $data;
             }else {
-                $query="select * from Product_info where concat(',',category,',') like '%,$id,%' LIMIT $start_from,$perPage"; 
+                 $query="select * from Product_info where price BETWEEN '$price1' AND '$price2' AND concat(',',category,',') like '%,$id,%' LIMIT $start_from,$perPage"; 
                 $result2=mysqli_query($this->con,$query);
                 while($array=mysqli_fetch_row($result2)){
                     $data[]=$array;
@@ -383,18 +403,17 @@ class category_main extends database {
         return $data;
     }
     
-    public function updatepricesort($post)
-    {
-        $price1=$post['amount1'];
-	    $price2=$post['amount2'];
+    // public function updatepricesort($post)
+    // {
 
-        $select ="select * from product_info where price BETWEEN '$price1' AND '$price2'";
-        $result=mysqli_query($this->con,$select);
-        while($category=mysqli_fetch_row($result)){
-            $data=$category;
-        }
-        return $data;
-    }
+
+    //     $select ="select * from Product_info where category=".$post['cate_id']." AND price BETWEEN '$price1' AND '$price2'" ;
+    //     $result=mysqli_query($this->con,$select);
+    //     while($category=mysqli_fetch_row($result)){
+    //         $data=$category;
+    //     }
+    //     return $data;
+    // }
     
 
 

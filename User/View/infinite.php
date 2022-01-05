@@ -5,11 +5,18 @@ include '../Model/class.php';
 // error_reporting(E_ALL);  
 ?>
 <?php 
-			$order = 1;
-			$id=7;
-			$page_id = $_POST['numItems'];
+
+		 $pricestart=$_POST['startprice'];
+		 $priceend=$_POST['endprice'];  
+		       if ($pricestart=='' && $priceend=='') {
+            $pricestart=0;
+            $priceend=5000; 
+        }
+			 $order =$_POST['datasend']; 
+			 $id=$_POST['sortBy']; 
+			 $page_id =ceil($_POST['numItems'])+1;
 			$productM=new product_details();
-			$rows=$productM->product_info($id,$order,$page_id);
+			$rows=$productM->product_info($id,$order,$page_id,$pricestart,$priceend);
 			foreach ($rows as $array) {
             $var=unserialize($array[4]);
 			if($array[9] =='Enable'){

@@ -23,13 +23,28 @@ $(document).ready(function() {
     } );
 } );
 
-$(function() {
-    $("#slider-range" ).slider({
-      range: true,
-      min: 0,
-      max: 5000,
-      values: [ 100, 1000 ],
-      slide: function( event, ui ) {
+$(document).ready(function(){
+    $('#pricerange').click(function() {
+        var startprice=$( "#amount1" ).val();
+        var endprice=$( "#amount2" ).val();
+        var datasend = $('#datasend').val();
+        var id =$('#sortBy').val();
+        var page_id =$('#pageId').val();
+        window.location.href = 'http://localhost/lifekart/User/View/category.php?page=category&id='+id+'&datasend='+datasend+'&page_id='+page_id+'&startprice='+startprice+'&endprice='+endprice; 
+    });
+});
+
+    $(function() {
+        var startprice=$( "#amount1" ).val();
+        var endprice=$( "#amount2" ).val();
+        var minprice=$( "#minprice" ).val();
+        var maxprice=$( "#maxprice" ).val();
+        $("#slider-range" ).slider({
+        range: true,
+        min:  Number(minprice),
+        max: Number(maxprice),
+        values: [ startprice, endprice ],
+        slide: function( event, ui ) {
         $( "#amount" ).html( "₹" + ui.values[ 0 ] + " - ₹" + ui.values[ 1 ] );
 		$( "#amount1" ).val(ui.values[ 0 ]);
 		$( "#amount2" ).val(ui.values[ 1 ]);
@@ -39,13 +54,18 @@ $(function() {
      " - ₹" + $( "#slider-range" ).slider( "values", 1 ) );
   });
 
+
 $(window).scroll(function() {
+    var startprice=$( "#amount1" ).val();
+    var endprice=$( "#amount2" ).val();
+    var datasend=$( "#datasend" ).val();
+    var sortBy=$( "#sortBy" ).val();
     if ($(window).scrollTop() >= $(window).height() - 1100) {
             var numItems = $('.numofprod').length/8;
                 if (numItems<5) {
                     $.ajax({
                     method: "POST",
-                    data:{numItems:numItems},
+                    data:{numItems:numItems,startprice:startprice,endprice:endprice,sortBy:sortBy,datasend:datasend},
                     url: "infinite.php",
                     cache: false, //avoid browser cache ajax requests
                     success: function(data) {

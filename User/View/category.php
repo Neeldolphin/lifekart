@@ -27,23 +27,7 @@ include 'navbar.php';
 </div>
 
 <div class="container">
-<div class="pricefilter mt-3">
-<p>
-    Price Range:<p id="amount"></p>
-  </p>
-
-  <div id="slider-range"></div>
-
-  <form method="post" action="">
-  <!-- <input type="hidden" name="action" value="pricfilter"> -->
-    <input type="hidden" id="amount1">
-    <input type="hidden" id="amount2">
-    <input type="submit" class="mt-2" name="submit_range" value="Submit">
-  </form>
-</div>
-	<div class="row">
-		<div class="col-md-12">
-        <?php
+<?php
         $id = (int)$_GET['id'];
         if(isset($_GET['page_id'])){
         $pages = $_GET['page_id'];}else{
@@ -51,11 +35,19 @@ include 'navbar.php';
         }
         $categoryGet=new category_main();
         $category=$categoryGet->category_info($id);
+        if(isset($_GET['datasend'])){
+          $order = $_GET['datasend'];}
+          if(isset($_GET['startprice'])){
+            $startpriceget=$_GET['startprice'];}
+            if(isset($_GET['endprice'])){
+              $endpriceget=$_GET['endprice'];}
             ?>
-				<div>           
-                <h2><?php echo $category[1];?></h2>  
+	<div class="row cate_prod"> 
+    <div class="col-md-12 mt-3 cate_title"><h3><?php echo $category[1];?></h3> </div> 
+    <div class="col-md-12 sortbylabel">
                 <input type="hidden" id="sortBy" value="<?php echo $id?>">
                 <input type="hidden" id="pageId" value="<?php echo $pages?>">
+                <input type="hidden" id="datasend" value="<?php echo $order?>">
                 <label for="dropdown">SortBy:</label>
                     <select name="dropdown" id="dropdown">
                     <option value="0"></option>
@@ -66,41 +58,26 @@ include 'navbar.php';
                     <option <?php if(isset($val) && $val=="4") {?> selected="selected"<?php } ?> value="4" >Name:descending</option>
                     <option <?php if(isset($val) && $val=="5") {?> selected="selected"<?php } ?> value="5" >Position:low to high</option>
                     <option <?php if(isset($val) && $val=="6") {?> selected="selected"<?php } ?> value="6" >Position:high to low</option>
-                    </select>   
-                     <div class='row' id="addon">
-            <?php 
-			$order = (int)$_GET['id'];
-			if(isset($_GET['datasend'])){
-			$order = $_GET['datasend'];}
-			$id=$category[0];
-			if(isset($_GET['page_id'])){
-				$page_id = $_GET['page_id'];}
-			$productM=new product_details();
-			$rows=$productM->product_info($id,$order,$page_id);
-			foreach ($rows as $array) {
-            $var=unserialize($array[4]);
-			if($array[9] =='Enable'){
-	            ?>
-				<div class="col-sm-3 numofprod">
-					<div class="thumb-wrapper">
-						<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
-					    	<div class="img-box cateimg text-center">
-                <a href="http://localhost/lifekart/User/View/productDetails.php?page=array&id=<?php echo $array[0]?>"> <img src="http://localhost/lifekart/User/images/<?php echo $var[0];?>" alt="" class="img-fluid"></a>						
-								</div>
-								<div class="thumb-content text-center">
-								<h4><a href="http://localhost/lifekart/User/View/productDetails.php?page=array&id=<?php echo $array[0]?>"><?php echo $array[1];?></a></h4>									
-								<p class="item-price">Price:<?php echo $array[5];?></p>
-							</div>						
-						</div>
-					</div>			
-			 <?php }
-			 }?>
-        </div>
-        </div>
-        <div id="loader" class="active text-center">
-        	<img src="../images/loading.gif">
-    	    LOADING...
-      </div>  
+                    </select>  
+                  </div> 
+		<div class="col-md-2 mt-2 filter">        
+                    <div class="pricefilter mt-3">
+                    <?php 
+                      $id= (int)$_GET['id'];
+                      $pageGet=new product_details();
+                      $page=$pageGet->price_range($id);
+                     ?>
+                        <p>
+                          Price Range:<span id="amount"></span>
+                        </p>
+                        <div id="slider-range"></div>
+                        <input type="hidden" name="action" value="pricfilter">
+                        <input type="hidden" id="minprice" name="minprice" value="<?php echo $page[0]?>">
+                          <input type="hidden" id="maxprice" name="maxprice" value="<?php echo $page[1]?>">
+                          <input type="hidden" id="amount1" name="amount1" value="<?php if(isset($startpriceget)){ echo $startpriceget; }else{ echo $page[0]; }?>">
+                          <input type="hidden" id="amount2" name="amount2" value="<?php if(isset($endpriceget)){ echo $endpriceget; }else{ echo $page[1]; }?>">
+                          <button class="mt-2" id="pricerange" name="submit_range">submit</button>
+                      </div> 
         </div>	
         <?php /*
         $id= (int)$_GET['id'];
@@ -121,7 +98,47 @@ include 'navbar.php';
         <?php $i++; }  ?>
             </ul>
         </nav>  */?>
-	</div>
+  <div class="col-md-10">
+  <div class='row' id="addon">
+            <?php 
+      if(isset($_GET['startprice'])){
+      $pricestart=$_GET['startprice'];}
+      if(isset($_GET['endprice'])){
+        $priceend=$_GET['endprice'];}
+
+			$order = (int)$_GET['id'];
+			if(isset($_GET['datasend'])){
+			$order = $_GET['datasend'];}
+			$id=$category[0];
+			if(isset($_GET['page_id'])){
+				$page_id = $_GET['page_id'];}
+			$productM=new product_details();
+			$rows=$productM->product_info($id,$order,$page_id,$pricestart,$priceend);
+			foreach ($rows as $array) {
+            $var=unserialize($array[4]);
+			if($array[9] =='Enable'){
+	            ?>
+				<div class="col-sm-3 numofprod">
+					<div class="thumb-wrapper">
+						<span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+					    	<div class="img-box cateimg text-center">
+                <a href="http://localhost/lifekart/User/View/productDetails.php?page=array&id=<?php echo $array[0]?>"> <img src="http://localhost/lifekart/User/images/<?php echo $var[0];?>" alt="" class="img-fluid"></a>						
+								</div>
+								<div class="thumb-content text-center">
+								<h4><a href="http://localhost/lifekart/User/View/productDetails.php?page=array&id=<?php echo $array[0]?>"><?php echo $array[1];?></a></h4>									
+								<p class="item-price">Price:<?php echo $array[5];?></p>
+							</div>						
+						</div>
+					</div>			
+			 <?php }
+			 }?>
+        </div>
+        <div id="loader" class="active text-center">
+        	<img src="../images/loading.gif">
+    	    LOADING...
+      </div> 
+        </div>
+  </div>
 </div>
 <div class="footer mt-5">
 <div class="footer-middle">

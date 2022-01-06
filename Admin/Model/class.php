@@ -1017,3 +1017,46 @@ class login extends database{
         
         
 }
+
+class cart extends database{
+
+    public function __construct()
+    {
+     parent::__construct();   
+    }
+
+    public function customerOrderInfo()
+    {
+           $query="select DISTINCT Order_details.order_id, Order_details.order_date, Order_details.cust_info, customer_info.FirstName, customer_info.Email from Order_details INNER JOIN customer_info ON Order_details.cust_info=customer_info.Id"; 
+            $result=mysqli_query($this->con,$query);
+            while($order=mysqli_fetch_row($result)){
+                $data[]=$order;
+            }
+           return $data;
+    }
+
+    public function OrderInfo($v_id)
+    {
+            $query="select Order_details.prod_info, Order_details.prod_qty,Order_details.prod_price from Order_details where order_id=".$v_id;
+            $result=mysqli_query($this->con,$query);
+            while($order=mysqli_fetch_row($result)){
+                $sql="select pname from Product_info where Id=".$order[0];
+                $result1=mysqli_query($this->con,$sql);
+               $select=mysqli_fetch_row($result1);
+                $order[0]=$select[0];
+                $data[]=$order;
+            }
+           echo json_encode($data);
+    }
+
+    public function OrderpriceInfo($v_id)
+    {
+            $query="select order_id,prod_qty,prod_price from Order_details where order_id=".$v_id;
+            $result=mysqli_query($this->con,$query);
+            while($order=mysqli_fetch_row($result)){
+                $data[]=$order;
+            }
+           return $data;
+    }
+
+}

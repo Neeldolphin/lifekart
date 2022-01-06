@@ -233,15 +233,14 @@
   margin-left: 60%;
 }
 
-.error {
+.error,.message,.message1,.message2{
   color: red;
 }
-.message{
-  color: red;
+
+.child_data{
+  display: none;
 }
-.message1{
-  color: red;
-}
-.message2{
-  color: red;
+
+#filter{
+ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

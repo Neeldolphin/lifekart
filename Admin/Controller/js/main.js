@@ -1226,3 +1226,58 @@ $(document).ready(function($){
     });
 });
 //////////////////coupen//////////////////////////////////////
+$(document).ready(function() {
+  $('.displayData').on('click',function () {
+                $('#OrderInfoModal').html("Order Info");
+                 $('#pop-modal').modal('show');
+                 var id = $(this).data('id');
+                 var action='order_pop';
+   
+                 $.ajax({
+                       type:"POST",
+                       url: "../Controller/control.php",
+                       data: { id:id,action:action},
+                       dataType: 'json',
+                       ContentType: 'multipart/form-data', 
+                       success: function(result){
+                     var show = [];
+                 for(i=0;i<result.length;i++){
+                   show.push("<tr><td id='Product'>"+result[i][0]+"</td><td id='Quantity'>"+result[i][1]+"</td><td id='Price'>"+result[i][2]+"</td></tr>");              }
+                 $("#displayorder").html(show.join(''));
+                      }
+                   });
+  } );
+} );
+
+$(document).ready(function(){
+  $('#btnclear').click(function(){				
+    if(confirm("Want to clear?")){
+      /*Clear all input type="text" box*/
+      $('#Ordersearch input[type="text"]').val('');
+      $('#Ordersearch input[type="number"]').val('');
+      $('#Ordersearch input[type="date"]').val('');
+    }					
+  });
+});
+
+// $(document).ready(function(){
+//   $('#Ordersearch').submit (function (e) {  
+//      e.preventDefault();  
+//     var data=new FormData(this);
+//     var action='order_search_info';
+//     data.append('action',action);
+
+//   $.ajax({
+//       type:"POST",
+//       url: "../Controller/control.php",
+//       data: data,
+//       dataType: 'json',
+//        contentType: false, cache: false, processData:false,
+//       success: function(result){
+//         if (result == 1) {
+//           $("#datatab").load("Order.php.php #ref");
+//        }
+//         }
+//     });
+//     });
+//   });

@@ -62,6 +62,9 @@ class action{
                                             case 'image_delete':
                                                 return $this->deleteImageDetail();
                                                 break;
+                                                case 'order_search_info':
+                                                    return $this->OrderSearchInfo();
+                                                    break;
                                                 case 'customer_group_insert':
                                                     return $this->insertCustomerGroup();
                                                     break;
@@ -113,6 +116,9 @@ class action{
                                                                                             case 'coupen_delete':
                                                                                                 return $this->deleteCoupenDetail();
                                                                                                 break;
+                                                                                                case 'order_pop':
+                                                                                                    return $this->order_pop();
+                                                                                                    break;
             
             default:
             
@@ -226,6 +232,11 @@ class action{
             $customerGroup_insert = new customer();
             $customerGroup_insert->customerGrpinsert($CustomerGroup);
             }
+    }
+    
+    public function OrderSearchInfo()
+    {
+        
     }
 
     public function editCustomerGroup()
@@ -360,6 +371,7 @@ class action{
         $edit =new coupen();
         $edit->edit($id);
     }
+    
     public function updateCoupenDetail()
     {
         if(!empty($_POST['coupen_id'])){
@@ -375,6 +387,13 @@ class action{
         $delete=new coupen();
         $delete->delete($id);
         echo 1;
+    }
+
+    public function order_pop()
+    {
+        $id = $_POST['id'];
+        $edit =new cart();
+        $edit->OrderInfo($id);
     }
 
     public function exportCSV()

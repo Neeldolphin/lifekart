@@ -751,6 +751,94 @@ public function CustomerDisplay($id)
             }
         }
 
+        public function Search_info($post)
+        {            
+			if(!empty($post)){
+
+                if (!empty($_POST['CustomerName']) && empty($post['CustomerEmail']) && empty($post['OrderDateFrom'] && $post['OrderDateTo'])){
+                    $check0="select Id from customer_info where FirstName='$_POST[CustomerName]'";
+                    $exists0=mysqli_query($this->con,$check0);
+                    $row0=mysqli_fetch_row($exists0); 
+
+                    $sql0="select DISTINCT order_id from Order_details where cust_info='$row0[0]'";
+                    $select0=mysqli_query($this->con,$sql0);
+                    while($result0=mysqli_fetch_row($select0)){
+                        $data[] = $result0[0];
+                    }
+                    if (empty($data)) {
+                        echo 3;
+                    }
+                }else if (empty($_POST['CustomerName']) && !empty($post['CustomerEmail']) && empty($post['OrderDateFrom'] && $post['OrderDateTo'])){
+                    $check1="select Id from customer_info where Email='$post[CustomerEmail]'";
+                    $exists1=mysqli_query($this->con,$check1);
+                    $row1=mysqli_fetch_row($exists1); 
+
+                    $sql1="select DISTINCT order_id from Order_details where cust_info='$row1[0]'";
+                    $select1=mysqli_query($this->con,$sql1);
+                    while($result1=mysqli_fetch_row($select1)){
+                        $data[] = $result1[0];
+                    }
+                    if (empty($data)) {
+                        echo 3;
+                    }
+                }else if (empty($_POST['CustomerName']) && empty($post['CustomerEmail']) && !empty($post['OrderDateFrom'] && $post['OrderDateTo'])){
+                    $check2="select DISTINCT order_id from Order_details where order_date BETWEEN '".date('d-m-Y', strtotime($post['OrderDateFrom']))."' AND '".date('d-m-Y', strtotime($post['OrderDateTo']))."'";
+                    $exists2=mysqli_query($this->con,$check2);
+                    while( $result2=mysqli_fetch_row($exists2)){
+                        $data[] = $result2[0];
+                    }
+                    if (empty($data)) {
+                        echo 3;
+                    }
+                }else if (!empty($_POST['CustomerName']) && !empty($post['CustomerEmail']) && empty($post['OrderDateFrom'] && $post['OrderDateTo'])){
+                    $check3="select Id from customer_info where FirstName='$_POST[CustomerName]' AND Email='$post[CustomerEmail]'";
+                    $exists3=mysqli_query($this->con,$check3);
+                    $row3=mysqli_fetch_row($exists3); 
+
+                    $sql3="select DISTINCT order_id from Order_details where cust_info='$row3[0]'";
+                    $select3=mysqli_query($this->con,$sql3);
+                    while($result3=mysqli_fetch_row($select3)){
+                        $data[] = $result3[0];
+                    }
+                    if (empty($data)) {
+                        echo 3;
+                    }
+                }else if (empty($_POST['CustomerName']) && !empty($post['CustomerEmail']) && !empty($post['OrderDateFrom'] && $post['OrderDateTo'])){
+                    $check4="select DISTINCT Order_details.order_id,customer_info.Id from customer_info INNER JOIN Order_details on Order_details.cust_info=customer_info.Id WHERE Email='$post[CustomerEmail]' AND order_date BETWEEN '".date('d-m-Y', strtotime($post['OrderDateFrom']))."' AND '".date('d-m-Y', strtotime($post['OrderDateTo']))."'";
+                    $exists4=mysqli_query($this->con,$check4);
+                    while($result4=mysqli_fetch_row($exists4)){
+                        $data[] = $result4[0];
+                    }
+                    if (empty($data)) {
+                        echo 3;
+                    }
+                }else if (!empty($_POST['CustomerName']) && empty($post['CustomerEmail']) && !empty($post['OrderDateFrom'] && $post['OrderDateTo'])){
+                    $check4="select DISTINCT Order_details.order_id,customer_info.Id from customer_info INNER JOIN Order_details on Order_details.cust_info=customer_info.Id WHERE FirstName='$_POST[CustomerName]' AND order_date BETWEEN '".date('d-m-Y', strtotime($post['OrderDateFrom']))."' AND '".date('d-m-Y', strtotime($post['OrderDateTo']))."'";
+                    $exists4=mysqli_query($this->con,$check4);
+                    while($result4=mysqli_fetch_row($exists4)){
+                        $data[] = $result4[0];
+                    }
+                    if (empty($data)) {
+                        echo 3;
+                    }
+                }else if (!empty($_POST['CustomerName']) && !empty($post['CustomerEmail']) && !empty($post['OrderDateFrom'] && $post['OrderDateTo'])){
+                    $check4="select DISTINCT Order_details.order_id,customer_info.Id from customer_info INNER JOIN Order_details on Order_details.cust_info=customer_info.Id WHERE FirstName='$_POST[CustomerName]' AND Email='$post[CustomerEmail]' AND order_date BETWEEN '".date('d-m-Y', strtotime($post['OrderDateFrom']))."' AND '".date('d-m-Y', strtotime($post['OrderDateTo']))."'";
+                    $exists4=mysqli_query($this->con,$check4);
+                    while($result4=mysqli_fetch_row($exists4)){
+                        $data[] = $result4[0];
+                    }
+                    if (empty($data)) {
+                        echo 3;
+                    }
+                }else{echo 5;}
+
+                    if($data) {
+                        echo json_encode($data);
+                       } 
+                    
+            }
+        }
+
         public function customerGrpedit ($id)
         {
             $query="SELECT * from customer_group WHERE id =".$id;
@@ -1014,6 +1102,55 @@ class login extends database{
     }
     
     }
+
+    public function d_product()
+    {
+        $sql="select count(Id) from Product_info";
+        $result=mysqli_query($this->con,$sql);
+        while($order=mysqli_fetch_row($result)){
+            $data=$order;
+        }
+       return $data;
+
+    }
+    public function d_category()
+    {
+        $sql="select count(id) from category_info";
+        $result=mysqli_query($this->con,$sql);
+        while($order=mysqli_fetch_row($result)){
+            $data=$order;
+        }
+       return $data;
+    }
+    public function d_customer()
+    {
+        $sql="select count(id) from category_info";
+        $result=mysqli_query($this->con,$sql);
+        while($order=mysqli_fetch_row($result)){
+            $data=$order;
+        }
+       return $data;
+    }
+    public function d_customer_grp()
+    {
+        $sql="select count(id) from customer_group";
+        $result=mysqli_query($this->con,$sql);
+        while($order=mysqli_fetch_row($result)){
+            $data=$order;
+        }
+       return $data;
+    }
+    public function d_order()
+    {
+        $sql="select count(id) from Order_details";
+        $result=mysqli_query($this->con,$sql);
+        while($order=mysqli_fetch_row($result)){
+            $data=$order;
+        }
+       return $data;
+    }
+    
+    
         
         
 }
@@ -1039,12 +1176,12 @@ class cart extends database{
     {
             $query="select Order_details.prod_info, Order_details.prod_qty,Order_details.prod_price from Order_details where order_id=".$v_id;
             $result=mysqli_query($this->con,$query);
-            while($order=mysqli_fetch_row($result)){
-                $sql="select pname from Product_info where Id=".$order[0];
+            while($order1=mysqli_fetch_row($result)){
+                $sql="select pname from Product_info where Id=".$order1[0];
                 $result1=mysqli_query($this->con,$sql);
                $select=mysqli_fetch_row($result1);
-                $order[0]=$select[0];
-                $data[]=$order;
+                $order1[0]=$select[0];
+                $data[]=$order1;
             }
            echo json_encode($data);
     }
@@ -1059,4 +1196,63 @@ class cart extends database{
            return $data;
     }
 
+}
+
+
+class Blog extends database{
+
+    public function __construct()
+    {
+     parent::__construct();   
+    }
+
+    public function BlogcategoryInfo()
+    {
+    $query="select * from Category_blog"; 
+    $result=mysqli_query($this->con,$query);
+        while($coupen=mysqli_fetch_row($result)){
+            $data[]=$coupen;
+        }
+        return $data;
+    }
+    public function insert($Category_blog,$Sub_Category)
+        {
+            if(!empty($_POST)){
+                $check="select count(1) from Category_blog where category='$Category_blog' ";
+                $exists=mysqli_query($this->con,$check);
+                $row=mysqli_fetch_row($exists);
+                if($row[0] >= 1) {
+                    echo 5;
+                     }else{
+                $query = "INSERT INTO Category_blog(category,parent_id)
+                VALUES ('$Category_blog','$Sub_Category')";
+                $result = mysqli_query($this->con, $query); 
+                echo 1;
+               }
+        }
+    }
+        
+        public function edit($id)
+        {
+            $query="SELECT * from Category_blog WHERE id =".$id;
+            $result = mysqli_query($this->con,$query);
+            while ($cust = mysqli_fetch_assoc($result)) {
+                $data = $cust;
+            } 
+            if($data) {
+             echo json_encode($data);
+            } 
+        }
+
+        public function update($post)
+        {
+            $query = "UPDATE Category_blog SET category='".$post['category']."', parent_id=".$post['parent_id']." WHERE id=".$post['id'];
+            $result = mysqli_query($this->con, $query);
+        }
+
+        public function delete($id)
+        {       
+            $query = "DELETE FROM Category_blog WHERE id=".$id;
+            $result =mysqli_query($this->con,$query);
+        }
 }

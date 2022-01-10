@@ -119,6 +119,18 @@ class action{
                                                                                                 case 'order_pop':
                                                                                                     return $this->order_pop();
                                                                                                     break;
+                                                                                                    case 'Category_blog_details':
+                                                                                                        return $this->CategoryBlogDetails();
+                                                                                                        break;
+                                                                                                        case 'Category_blog_edit':
+                                                                                                            return $this->CategoryBlogEdit();
+                                                                                                            break;
+                                                                                                            case 'Category_blog_update':
+                                                                                                                return $this->CategoryBlogUpdate();
+                                                                                                                break;
+                                                                                                                case 'blogCategory_delete':
+                                                                                                                    return $this->blogCategoryDelete();
+                                                                                                                    break;
             
             default:
             
@@ -236,7 +248,11 @@ class action{
     
     public function OrderSearchInfo()
     {
-        
+        if(count([$_POST])>0){
+            $post=$_POST;
+            $SearchInfo = new customer();
+            $SearchInfo->Search_info($post);
+            }       
     }
 
     public function editCustomerGroup()
@@ -434,6 +450,41 @@ class action{
         $change =new customer();
         $change->CustomerDisplay($id);
     }
+
+    public function CategoryBlogDetails()
+    {
+        if(count([$_POST])>0){
+            $Category_blog = $_POST['Category_blog'];
+            $Sub_Category = $_POST['Sub_Category'];
+            
+            $insert = new Blog();
+            $insert->insert($Category_blog,$Sub_Category);
+            }
+    }
+    public function CategoryBlogEdit()
+    {
+        $id = $_POST['id'];
+        $edit =new Blog();
+        $edit->edit($id);
+    }
+    
+    public function CategoryBlogUpdate()
+    {
+        if(!empty($_POST['id'])){
+            $post=$_POST;
+            $update = new Blog();
+            $update->update($post);
+        echo 1; 
+        }  
+    }
+    public function blogCategoryDelete()
+    {
+        $id = $_POST['id'];
+        $delete=new Blog();
+        $delete->delete($id);
+        echo 1;
+    }
+
 }
 
 

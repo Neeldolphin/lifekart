@@ -605,3 +605,54 @@ background-color: rgb(182, 182, 182) ;
         .cate_prod{
             background-color:whitesmoke;
         }
+
+        .RECENT_COMMENTS{
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border: 1px solid #ccc;
+            background-color:whitesmoke;
+            margin:25px auto 25px 60px;
+            width: 65%;
+            height: 650px;
+            
+        }
+
+        .RECENT_POSTS{
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border: 1px solid #ccc;
+            background-color:whitesmoke;
+            margin:25px auto 25px 60px;
+            width: 65%;
+            height: 325px;
+        }
+        .Featured_Posts{
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border: 1px solid #ccc;
+            background-color:whitesmoke;
+            margin:25px auto;
+            width: 100%;
+            height: 100%;
+        }
+        .SEARCH_THE_BLOG{
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border: 1px solid #ccc;
+            background-color:whitesmoke;
+            margin:25px auto 25px 60px;
+            width: 65%;
+            height: 325px;
+        }
+        .TAGS{
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border: 1px solid #ccc;
+            background-color:whitesmoke;
+            margin:25px auto 25px 60px;
+            width: 65%;
+            height: 325px;
+        }
+        .CATEGORIES{
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border: 1px solid #ccc;
+            background-color:whitesmoke;
+            margin:25px auto 25px 60px;
+            width: 65%;
+            height: 325px;
+        }

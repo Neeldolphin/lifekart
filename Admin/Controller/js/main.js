@@ -32,10 +32,10 @@
 //   }
 // });
 
-
 ///////////////////////////////////////////////////////////////////////////
 $(document).ready( function () {
    CKEDITOR.replace( 'Description' );
+   $('#datatab1').dataTable({searching: false ,paging:false});
   
   $('#datatab').DataTable({
     columnDefs: [{
@@ -117,7 +117,7 @@ $(document ).on('click','.categoeryadd', function () {
               if (result == 1) {
                 $("#datatab").load("category.php #ref");
                 $(".close").click();
-                $('.message').text("successfully added");
+                $('.message').text("successfully added").show().delay(3000).fadeOut();
             }else if(result == 5){
               alert('Already exist!!!!!!!!!!')
           }else
@@ -182,7 +182,7 @@ $(document).on('click','.categorychange', function () {
               if (result == 1) {
                 $("#datatab").load("category.php #ref");
                 $(".close").click();
-                $('.message').text("successfully update");
+                $('.message').text("successfully update").show().delay(3000).fadeOut();
             }else{
              alert('Sorry,unable update.');
              }
@@ -209,7 +209,7 @@ $(document).ready(function($){
             success: function(result){
             if (result == 1) {
               $("#datatab").load("category.php #ref");
-              $('.message').text("successfully delete");
+              $('.message').text("successfully delete").show().delay(3000).fadeOut();
             }
            }
         }); 
@@ -264,7 +264,7 @@ $(document).ready(function(){
                 if (result == 1) {
                   $("#datatab").load("customer.php #ref");
                   $(".close").click();
-                  $('.message2').text("successfully added");
+                  $('.message2').text("successfully added").show().delay(3000).fadeOut();
                  }else if(result == 5){
                    alert('Already exist!!!!!!!!!!')
                }
@@ -342,7 +342,7 @@ $(document).ready(function(){
             success: function(result){
               $("#datatab").load("customer.php #ref");
               $(".close").click();
-              $('.message2').text("successfully update");
+              $('.message2').text("successfully update").show().delay(3000).fadeOut();
              }
           });
                form.submit();
@@ -366,7 +366,7 @@ $(document).ready(function($){
             success: function(result){
             if (result == 1) {
               $("#datatab").load("customer.php #datatab");
-              $('.message2').text("successfully delete");
+              $('.message2').text("successfully delete").show().delay(3000).fadeOut();
             }
            }
         }); 
@@ -397,9 +397,9 @@ $(document).ready(function(){
         success: function(result){
           if (result == 1) {
             $("#datatab").load("custom_grp.php #ref");
-            $('.message2').text("successfully added");
+            $('.message2').text("successfully added").show().delay(3000).fadeOut();
            }else if(result == 5){
-            $('.message2').text("already exists!!!");
+            $('.message2').text("already exists!!!").show().delay(3000).fadeOut();
          }
           }
       });
@@ -450,7 +450,7 @@ $(document).ready(function(){
            success: function(result){
             $("#datatab").load("custom_grp.php #ref");
             $(".close").click();
-            $('.message2').text("successfully update");
+            $('.message2').text("successfully update").show().delay(3000).fadeOut();
             }
          });
               form.submit();
@@ -475,7 +475,7 @@ $(document).ready(function($){
              success: function(result){
              if (result == 1) {
               $("#datatab").load("custom_grp.php #datatab");
-              $('.message2').text("successfully deleted");
+              $('.message2').text("successfully deleted").show().delay(3000).fadeOut();
              }
             }
          }); 
@@ -490,10 +490,10 @@ $(document).ready(function($){
    var atLeastOneIsChecked = $('input[name="select_field[]"]:checked').length > 0;
    if (atLeastOneIsChecked == false) {
      e.preventDefault();
-     $('.message1').text("select any one");
+     $('.message1').text("select any one").show().delay(3000).fadeOut();
      return false;
      }else{
-      $('.message1').text("successfully deleted");
+      $('.message1').text("successfully deleted").show().delay(3000).fadeOut();
        return true;
        }
      }
@@ -529,7 +529,7 @@ $(document).ready(function($){
           dataType: 'json',
           success: function(result){
             $("#datatab").load("custom_grp.php #datatab");
-            $('.message').text("successfully deleted");
+            $('.message').text("successfully deleted").show().delay(3000).fadeOut();
          }
       });
       e.preventDefault();
@@ -702,7 +702,7 @@ $(document).ready(function(){
               if (result == 1) {
                 $("#datatab").load("product.php #ref");
                 $(".close").click();
-                $('.message').text("successfully added");
+                $('.message').text("successfully added").show().delay(3000).fadeOut();
             }else if(result == 5){ alert('already exist !!!!!!!!!!');
             }else{
                 alert('Sorry, only JPG, JPEG, PNG, GIF files are allowed to upload.');
@@ -811,14 +811,14 @@ $(document).ready(function(){
                 $("#datatab").load("product.php #ref");
                 // $("#datatab").DataTable().clear().destroy();
                $(".close").click();
-               $('.message').text("successfully update");
+               $('.message').text("successfully update").show().delay(3000).fadeOut();
             }else if(result == 5){
               alert('Sku required');
           }else{
               alert('Sorry, unable update.something improper');
             }
             }
-          });
+          });  
         });
           form.submit();
         }
@@ -841,7 +841,7 @@ $(document).ready(function($){
             dataType: 'json',
             success: function(result){
             if (result == 1) {
-              $('.message').text("successfully deleted");
+              $('.message').text("successfully deleted").show().delay(3000).fadeOut();
               $("#datatab").load("product.php #ref");
             }
            }
@@ -858,7 +858,7 @@ $(document).ready(function(){
   var atLeastOneIsChecked = $('input[name="select_csv[]"]:checked').length > 0;
   if (atLeastOneIsChecked == false) {
     e.preventDefault();
-    $('.message').text("select any one");
+    $('.message').text("select any one").show().delay(3000).fadeOut();
     return false;
     }else{
       return true;
@@ -999,7 +999,7 @@ $(document).ready(function(){
               if (result == 1) {
                 $("#datatab").load("imageslider.php #ref");
                 $(".close").click();
-                $('.message').text("successfully added");
+                $('.message').text("successfully added").show().delay(3000).fadeOut();
             }else
              alert('Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.');
              }
@@ -1058,7 +1058,7 @@ $(document).on('click','.imageschange', function () {
               if (result == 1) {
                 $("#datatab").load("imageslider.php #ref");
                 $(".close").click();
-                $('.message').text("successfully update");
+                $('.message').text("successfully update").show().delay(3000).fadeOut();
             }else{
              alert('Sorry,unable update.');
              }
@@ -1086,7 +1086,7 @@ $(document).ready(function($){
             success: function(result){
             if (result == 1) {
               $("#datatab").load("imageslider.php #datatab");
-              $('.message').text("successfully delete");
+              $('.message').text("successfully delete").show().delay(3000).fadeOut();
             }
            }
         }); 
@@ -1133,7 +1133,7 @@ $(document).ready(function(){
               if (result == 1) {
                 $("#datatab").load("coupen.php #ref");
                 $(".close").click();
-                $('.message').text("successfully added");
+                $('.message').text("successfully added").show().delay(3000).fadeOut();
                }else if(result == 5){
                  alert('Already exist!!!!!!!!!!')
              }
@@ -1193,7 +1193,7 @@ $(document).ready(function(){
             success: function(result){
               $("#datatab").load("coupen.php #ref");
               $(".close").click();
-              $('.message').text("successfully update");
+              $('.message').text("successfully update").show().delay(3000).fadeOut();
              }
           });
           form.submit();
@@ -1218,7 +1218,7 @@ $(document).ready(function($){
             success: function(result){
             if (result == 1) {
               $("#datatab").load("coupen.php #datatab");
-              $('.message').text("successfully deleted");
+              $('.message').text("successfully deleted").show().delay(3000).fadeOut();
             }
            }
         }); 
@@ -1256,28 +1256,163 @@ $(document).ready(function(){
       $('#Ordersearch input[type="text"]').val('');
       $('#Ordersearch input[type="number"]').val('');
       $('#Ordersearch input[type="date"]').val('');
+      $('.datatogle').show();
     }					
   });
 });
 
-// $(document).ready(function(){
-//   $('#Ordersearch').submit (function (e) {  
-//      e.preventDefault();  
-//     var data=new FormData(this);
-//     var action='order_search_info';
-//     data.append('action',action);
+$(document).ready(function(){
+  
+  $('#Ordersearch').submit (function (e) {  
+     e.preventDefault();  
+    var data=new FormData(this);
+    var action='order_search_info';
+    data.append('action',action);
 
-//   $.ajax({
-//       type:"POST",
-//       url: "../Controller/control.php",
-//       data: data,
-//       dataType: 'json',
-//        contentType: false, cache: false, processData:false,
-//       success: function(result){
-//         if (result == 1) {
-//           $("#datatab").load("Order.php.php #ref");
-//        }
-//         }
-//     });
-//     });
-//   });
+  $.ajax({
+      type:"POST",
+      url: "../Controller/control.php",
+      data: data,
+      dataType: 'json',
+       contentType: false, cache: false, processData:false,
+      success: function(result){
+          if (result==5) {
+            $('#messagedis').text('Please Enter Some Input').show().delay(3000).fadeOut();  
+          }
+          if (result==3) {
+            $('#messagedis').text('No Match Found!!!!!').show().delay(3000).fadeOut();  
+          }
+        $('.datatogle').hide();
+        for(i=0;i<result.length;i++){
+                 $("."+result[i]).show();
+      }
+      }
+    });
+    });
+  });
+
+  ///////////////////Blog//////////////////////////
+  $(document).ready(function(){
+    $('#create').click(function () {
+     $('#categoryblogForm').trigger("reset");
+     $('#categoryblogModal').html("Add New Category");
+     $('#ajax-modal').modal('show');
+  });
+      
+   $(document).on('click','.blogCategoryadd', function(){
+      $('#categoryblogForm').validate({
+        rules: {
+          Category_blog: "required"
+        },
+        messages: {
+          Category_blog: "Enter your Name"
+      }, 
+        submitHandler: function(form) { 
+          $('#categoryblogForm').submit(function() { 
+        var data=new FormData(this);
+        var action='Category_blog_details';
+        data.append('action',action);
+
+      $.ajax({
+          type:"POST",
+          url: "../Controller/control.php",
+          data: data,
+          dataType: 'json',
+          mimeType:"multipart/form-data",
+          contentType: false, cache: false, processData:false,
+          success: function(result){
+            if (result == 1) {
+              $("#datatab").load("B_category.php #ref");
+              $(".close").click();
+              $('.message').text("successfully added").show().delay(3000).fadeOut();
+              $('#categoryblogForm').trigger("reset");
+             }else if(result == 5){
+               alert('Already exist!!!!!!!!!!')
+           }
+           }
+        });
+      });
+        form.submit();
+      }
+        });
+        });
+     });
+
+
+$(document).ready(function(){
+
+   $(document).on('click','.blogCategoryedit',function () {
+           $('#editcategoryblogModal').html("Edit Coupen");
+            $('#edit-modal').modal('show');
+            var id = $(this).data('id');
+            var action='Category_blog_edit';
+ 
+    $.ajax({
+          type:"POST",
+          url: "../Controller/control.php",
+          data: { id:id,action:action},
+          dataType: 'json',
+          ContentType: 'multipart/form-data', 
+          success: function(result){
+            $('#eid').val(result.id);
+            $('#eCategory_blog').val(result.category);
+            $('#eSub_Category').val(result.parent_id);
+         }
+      });
+
+  $("#ecategoryblogForm").validate({
+    rules: {
+      category: "required"
+    },
+    messages: {
+      category: "Enter your Name"
+  },   
+  submitHandler: function(form) { 
+      var id = $(this).data('id');
+      var action='Category_blog_update';
+
+      $.ajax({
+          type:"POST",
+          url: "../Controller/control.php",
+          data: {
+              id: $('#eid').val(),
+              category: $('#eCategory_blog').val(),
+              parent_id: $('#eSub_Category').val(),
+               action:action
+          },
+          dataType: 'json',
+          success: function(result){
+            $("#datatab").load("B_category.php #ref");
+            $(".close").click();
+            $('.message').text("successfully update").show().delay(3000).fadeOut();
+           }
+        });
+        form.submit();
+      }
+          });
+        });
+     });
+
+
+$(document).ready(function($){
+
+$(document).on('click','.blogCategorydelete', function () {
+     if (confirm("Delete Record?") == true) {
+      var id = $(this).data('id');
+      var action='blogCategory_delete';
+       
+      $.ajax({
+          type:"POST",
+          url: "../Controller/control.php",
+          data: { id: id,action:action },
+          dataType: 'json',
+          success: function(result){
+          if (result == 1) {
+            $("#datatab").load("B_category.php #datatab");
+            $('.message').text("successfully deleted").show().delay(3000).fadeOut();
+          }
+         }
+      }); 
+     }
+  });
+});

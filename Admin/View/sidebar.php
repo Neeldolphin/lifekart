@@ -40,7 +40,17 @@
   </div>
     <a href="http://localhost/lifekart/Admin/View/imageslider.php">Image Slider</a>
     <a href="http://localhost/lifekart/Admin/View/coupen.php">Coupen</a>
+
+    <div class="dropdown-btn">Blog Info
+    <i class="fa fa-caret-down"></i>
+      </div>
+      <div class="dropdown-container">
+      <a href="http://localhost/lifekart/Admin/View/B_category.php">Category</a>
+      <a href="http://localhost/lifekart/Admin/View/B_writer.php">Writer</a>
+      <a href="http://localhost/lifekart/Admin/View/Blog.php">Blog</a>
+  </div>
 </div>
+
 
 
 <script>

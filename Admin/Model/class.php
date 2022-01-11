@@ -257,6 +257,12 @@ public function ImportCsv($files)
          
          $Video = $files['Video']['name'];
      
+         if($category!=''){ 
+            foreach($category as $id){
+             $Cateid[]=$id;    
+         }
+         $imploded=implode(",",$Cateid);  
+     } 
       
       if(!empty($_POST)){
         $check="select count(1) from Product_info where SKU='$SKU' ";
@@ -266,7 +272,7 @@ public function ImportCsv($files)
             echo 5;
              }else{
          $query = "INSERT INTO Product_info(pname,category ,SKU,image,price,description,video,qty,  Status,create_at,update_at)
-           VALUES ('$pname','$category','$SKU','$display','$price','$description','$Video ','$qty','$Status','$create_at','$update_at')";
+           VALUES ('$pname','$imploded','$SKU','$display','$price','$description','$Video ','$qty','$Status','$create_at','$update_at')";
           $result = mysqli_query($this->con, $query); 
           echo 1;
           }
@@ -1215,6 +1221,32 @@ class Blog extends database{
         }
         return $data;
     }
+
+    public function Blogcategorydetail($id)
+    {
+    $query="select category from Category_blog where id=".$id; 
+    $result=mysqli_query($this->con,$query);
+        while($coupen=mysqli_fetch_row($result)){
+            $data[]=$coupen;
+        }
+        return $data;
+    }
+
+    public function BlogTagsdetail($id)
+    { 
+    $data=array();
+     $value=explode(",",$id);
+     foreach($value as $id){
+      $query="select tags from Tags where id=".$id;
+        $result = mysqli_query($this->con,$query);
+        while($category=mysqli_fetch_array($result)){
+            $data[]=$category['tags'];
+        }
+    }
+        $imploded=implode(",",$data);  
+        return $imploded; 
+}
+    
     public function insert($Category_blog,$Sub_Category)
         {
             if(!empty($_POST)){
@@ -1255,4 +1287,227 @@ class Blog extends database{
             $query = "DELETE FROM Category_blog WHERE id=".$id;
             $result =mysqli_query($this->con,$query);
         }
+        public function TagInfo()
+        {
+				$query="select * from Tags"; 
+				$result=mysqli_query($this->con,$query);
+                while($tags=mysqli_fetch_row($result)){
+                    $data[]=$tags;
+                }
+                return $data;
+        }
+        public function WriterInfo()
+        {
+				$query="select * from writer"; 
+				$result=mysqli_query($this->con,$query);
+                while($writer=mysqli_fetch_row($result)){
+                    $data[]=$writer;
+                }
+                return $data;
+        }
+
+        public function WriterAuthorinfo($id)
+        {
+				$query="select Author from writer where id=".$id; 
+				$result=mysqli_query($this->con,$query);
+                while($writer=mysqli_fetch_row($result)){
+                    $data[]=$writer;
+                }
+                return $data;
+        }
+
+        public function insertWriter($post,$files)
+        {
+            $Facebooklink = $post['Facebooklink'];
+            $Linkedinlink = $post['Linkedinlink'];
+            $Tweeterlink = $post['Tweeterlink'];
+            $AuthorName = $post['AuthorName'];
+            $Authorinfo = $post['Authorinfo'];
+
+            $targetDir = "../uploads/";
+            $fileName = basename($files["imageName"]["name"]);
+            $targetFilePath = $targetDir . $fileName;
+            $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+
+            if($files['imageName']['name']){
+
+            $allowTypes = array('jpg','png','jpeg','gif');
+            if(in_array($fileType, $allowTypes)){
+
+            move_uploaded_file($files['imageName']['tmp_name'], $targetFilePath); 
+        
+            $image = $files['imageName']['name'];
+            if(!empty($post)){
+        
+        $query = "INSERT INTO writer(Thumb_img,Author,A_description,Facebook,Linkedin,Tweeter) VALUES ('$image','$AuthorName','$Authorinfo','$Facebooklink','$Linkedinlink','$Tweeterlink')";
+            $result = mysqli_query($this->con, $query); 
+                        echo 1;
+            }
+            }else{
+                echo 0;
+            }
+          }  
+
+        }
+        
+        public function editWriter($post)
+        {
+            $id = $post['id'];
+            $query="SELECT * from writer WHERE id =".$id;
+            $result = mysqli_query($this->con,$query);
+            $data = array();
+            while ($cust = mysqli_fetch_assoc($result)) {
+                $data[] = $cust;
+            } 
+            if($data) {
+             echo json_encode($data);
+            } 
+        }
+
+        public function updateWriter($post,$files)
+        {
+            if(!empty($post['eid'])){
+
+                $targetDir = "../uploads/";
+                $fileName = basename($files["eimageName"]["name"]);
+                $targetFilePath = $targetDir . $fileName;
+                $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+            
+                 if(!empty($files['eimageName']['name'])){
+            
+                $allowTypes = array('jpg','png','jpeg','gif');
+                 if(in_array($fileType, $allowTypes)){
+            
+                move_uploaded_file($files['eimageName']['tmp_name'], $targetFilePath); 
+             
+                $image = $files['eimageName']['name'];
+            
+            
+             $query = "UPDATE writer SET Thumb_img='". $image . "' WHERE id=".$_POST['eid'];
+                $result = mysqli_query($this->con, $query);
+            }
+            }
+            $query = "UPDATE writer SET  Author='" .$post['eAuthorName']."',A_description='" .$post['eAuthorinfo']."',Facebook='" .$post['eFacebooklink']."',Linkedin='" .$post['eLinkedinlink']."',Tweeter='" .$post['eTweeterlink']."' WHERE id=".$_POST['eid'];
+             $result = mysqli_query($this->con, $query);
+             echo 1;
+             }
+        }
+
+        public function deleteWriter($post)
+        {       
+            $id = $post['id'];
+            $query = "DELETE FROM writer WHERE id=".$id;
+            $result =mysqli_query($this->con,$query);
+            echo 1;
+        }
+
+        public function BlogInfo()
+        {
+				$query="select * from Blog_info"; 
+				$result=mysqli_query($this->con,$query);
+                while($writer=mysqli_fetch_row($result)){
+                    $data[]=$writer;
+                }
+                return $data;
+        }
+
+        public function Bloginsert($post,$files,$create_at)
+        {
+            $BlogName = $post['BlogName'];
+            $Description = $post['Bloginfo'];
+            $Tags = $post['Tags'];
+            $Author = $post['Author'];
+            $Category = $post['category'];
+
+            if($Tags!=''){ 
+                foreach($Tags as $id){
+                 $Cateid[]=$id;    
+             }
+             $Tag=implode(",",$Cateid);  
+         } 
+
+            $targetDir = "../uploads/";
+            $fileName = basename($files["imageName"]["name"]);
+            $targetFilePath = $targetDir . $fileName;
+            $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+
+            if($files['imageName']['name']){
+
+            $allowTypes = array('jpg','png','jpeg','gif');
+            if(in_array($fileType, $allowTypes)){
+
+            move_uploaded_file($files['imageName']['tmp_name'], $targetFilePath); 
+        
+            $image = $files['imageName']['name'];
+            if(!empty($post)){
+        
+         $query = "INSERT INTO Blog_info(B_name,B_image,Description,tags,Author,category,created_at) VALUES ('$BlogName','$image','$Description','$Tag','$Author','$Category','$create_at')";
+            $result = mysqli_query($this->con, $query); 
+                        echo 1;
+            }
+            }else{
+                echo 0;
+            }
+          }  
+
+        }
+        
+        public function Blogedit($post)
+        {
+            $id = $post['id'];
+            $query="SELECT * from Blog_info WHERE id =".$id;
+            $result = mysqli_query($this->con,$query);
+            $data = array();
+            while ($cust = mysqli_fetch_assoc($result)) {
+                $data[] = $cust;
+            } 
+            if($data) {
+             echo json_encode($data);
+            } 
+        }
+
+        public function Blogupdate($post,$files)
+        {
+            if(!empty($post['eid'])){
+
+                $targetDir = "../uploads/";
+                $fileName = basename($files["eimageName"]["name"]);
+                $targetFilePath = $targetDir . $fileName;
+                $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+            
+                 if(!empty($files['eimageName']['name'])){
+            
+                $allowTypes = array('jpg','png','jpeg','gif');
+                 if(in_array($fileType, $allowTypes)){
+            
+                move_uploaded_file($files['eimageName']['tmp_name'], $targetFilePath); 
+             
+                $image = $files['eimageName']['name'];
+            
+            
+             $query = "UPDATE Blog_info SET B_image='". $image . "' WHERE id=".$_POST['eid'];
+                $result = mysqli_query($this->con, $query);
+            }
+            }
+
+            if($post['eTags']!=''){ 
+                foreach($post['eTags'] as $id){
+                 $Cateid[]=$id;    
+             }
+             $Tag=implode(",",$Cateid);  
+         }
+            $query = "UPDATE Blog_info SET  B_name='" .$post['eBlogName']."',Description='" .$post['eBloginfo']."',tags='" .$Tag."',Author='" .$post['eAuthor']."',category='" .$post['ecategory']."' WHERE id=".$_POST['eid'];
+             $result = mysqli_query($this->con, $query);
+             echo 1;
+             }
+        }
+
+        public function Blogdelete($post)
+        {       
+            $id = $post['id'];
+            $query = "DELETE FROM Blog_info WHERE id=".$id;
+            $result =mysqli_query($this->con,$query);
+            echo 1;
+        }
+
 }

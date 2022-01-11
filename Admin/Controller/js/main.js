@@ -1321,11 +1321,12 @@ $(document).ready(function(){
           mimeType:"multipart/form-data",
           contentType: false, cache: false, processData:false,
           success: function(result){
-            if (result == 1) {
-              $("#datatab").load("B_category.php #ref");
+            if (result = 1) {
+              // $("#datatab").load("B_category.php #ref");
               $(".close").click();
               $('.message').text("successfully added").show().delay(3000).fadeOut();
-              $('#categoryblogForm').trigger("reset");
+              // $('#categoryblogForm').trigger("reset");
+              location.reload();
              }else if(result == 5){
                alert('Already exist!!!!!!!!!!')
            }
@@ -1415,4 +1416,273 @@ $(document).on('click','.blogCategorydelete', function () {
       }); 
      }
   });
+});
+
+
+$(document).ready(function(){
+  $('#create').click(function () {
+   $('#writerForm').trigger("reset");
+   $('#WriterModal').html("Add Author");
+   $('#ajax-modal').modal('show');
+});
+    
+ $(document).on('click','.Writeradd', function () {
+$("#writerForm").validate({
+    rules: {
+        imageName: "required",
+        AuthorName: "required",
+        Authorinfo:"required"
+       },
+    messages: {
+        imageName: "Enter your Image",
+    },
+    submitHandler: function(form) { 
+    $('#writerForm').submit(function() { 
+      var data=new FormData(this);
+      var action='writer_details';
+      data.append('action',action);
+    $.ajax({
+        type:"POST",
+        url: "../Controller/control.php",
+        data: data, 
+        mimeType:"multipart/form-data",
+        contentType: false, cache: false, processData:false,
+        dataType: 'json',
+        success: function(result){
+          if (result == 1) {
+            $("#datatab").load("B_writer.php #ref");
+            $(".close").click();
+            $('.message').text("successfully added").show().delay(3000).fadeOut();
+        }else
+         alert('Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.');
+         }
+      });
+      });
+           form.submit();
+          }
+        });
+      });
+   });
+
+$(document).ready(function(){
+
+$(document).on('click','.authorchange', function () {
+    var id = $(this).data('id');
+    var action='author_edit';
+   $('#editWriterModal').html("Edit Author");
+   $('#edit-modal').modal('show');
+
+$.ajax({
+        type:"POST",
+        url: "../Controller/control.php",
+        data: { id:id,action:action },
+        dataType: 'json', 
+        success: function(result){
+          $('#eid').val(result[0].id);
+          $('#showimg').html("<img src='http://localhost/lifekart/Admin/uploads/" + result[0].Thumb_img +"'>");
+          $('#eAuthorName').val(result[0].Author);
+          $('#eAuthorInfo').val(result[0].A_description);
+          $('#eFacebooklink').val(result[0].Facebook);
+          $('#eLinkedinlink').val(result[0].Linkedin);
+          $('#eTweeterlink').val(result[0].Tweeter);
+       }
+    });
+
+$("#editWriterForm").validate({
+  rules: {
+    AuthorName: "required",
+    Authorinfo:"required"
+   },
+messages: {
+  AuthorName: "Enter Name"
+},
+  submitHandler: function(form) { 
+    $('#editWriterForm').submit(function() { 
+    var id = $(this).data('id');
+    var action='author_update';
+    var data=new FormData(this);
+      data.append('action',action);
+
+    $.ajax({
+        type:"POST",
+        url: "../Controller/control.php",
+        data: data,
+        mimeType:"multipart/form-data",
+        contentType: false, cache: false, processData:false,
+        dataType: 'json',
+        success: function(result){
+          if (result == 1) {
+            $("#datatab").load("B_writer.php #ref");
+            $(".close").click();
+            $('.message').text("successfully update").show().delay(3000).fadeOut();
+        }else{
+         alert('Sorry,unable update.');
+         }
+       }
+      });
+    });
+      form.submit();
+    }
+        });
+      });
+   });
+
+
+$(document).ready(function($){
+
+$(document).on('click','.authorsdelete', function () {
+   if (confirm("Delete Record?") == true) {
+    var id = $(this).data('id');
+    var action='authors_delete';
+    $.ajax({
+        type:"POST",
+        url: "../Controller/control.php",
+        data: { id: id,action:action},
+        dataType: 'json',
+        success: function(result){
+        if (result == 1) {
+          $("#datatab").load("B_writer.php #datatab");
+          $('.message').text("successfully delete").show().delay(3000).fadeOut();
+        }
+       }
+    }); 
+   }
+});
+});
+
+//////////////////////////////////////////////////////////////////////
+
+$(document).ready(function(){
+  $('#create').click(function () {
+   $('#BlogForm').trigger("reset");
+   $('#BloginfoModal').html("Add Blog");
+   $('#ajax-modal').modal('show');
+});
+    
+ $(document).on('click','.Blogadd', function () {
+$("#BlogForm").validate({
+    rules: {
+        imageName: "required",
+        BlogName: "required",
+        Bloginfo:"required",
+        Author:"required",
+        category:"required"
+       },
+    messages: {
+        imageName: "Enter your Image",
+    },
+    submitHandler: function(form) { 
+    $('#BlogForm').submit(function() { 
+      var data=new FormData(this);
+      var action='Blog_details';
+      data.append('action',action);
+    $.ajax({
+        type:"POST",
+        url: "../Controller/control.php",
+        data: data, 
+        mimeType:"multipart/form-data",
+        contentType: false, cache: false, processData:false,
+        dataType: 'json',
+        success: function(result){
+          if (result == 1) {
+            $("#datatab").load("Blog.php #ref");
+            $(".close").click();
+            $('.message').text("successfully added").show().delay(3000).fadeOut();
+        }else
+         alert('Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.');
+         }
+      });
+      });
+           form.submit();
+          }
+        });
+      });
+   });
+
+$(document).ready(function(){
+
+$(document).on('click','.Blogchange', function () {
+    var id = $(this).data('id');
+    var action='blog_edit';
+   $('#editBlogModal').html("Edit Blog");
+   $('#edit-modal').modal('show');
+
+$.ajax({
+        type:"POST",
+        url: "../Controller/control.php",
+        data: { id:id,action:action },
+        dataType: 'json', 
+        success: function(result){
+          $('#eid').val(result[0].id);
+          $('#showimg').html("<img src='http://localhost/lifekart/Admin/uploads/" + result[0].B_image +"'>");
+          $('#eBlogName').val(result[0].B_name);
+          $('#eBlogInfo').val(result[0].Description);
+          $('#eTags').val(result[0].tags);
+          $('#eAuthor').val(result[0].Author);
+          $('#ecategory').val(result[0].category);
+       }
+    });
+
+$("#editBloginfoForm").validate({
+  rules: {
+    BlogName: "required",
+        Bloginfo:"required",
+        Author:"required",
+        category:"required"
+   },
+messages: {
+  BlogName: "Enter Name"
+},
+  submitHandler: function(form) { 
+    $('#editBloginfoForm').submit(function() { 
+    var id = $(this).data('id');
+    var action='blog_update';
+    var data=new FormData(this);
+      data.append('action',action);
+
+    $.ajax({
+        type:"POST",
+        url: "../Controller/control.php",
+        data: data,
+        mimeType:"multipart/form-data",
+        contentType: false, cache: false, processData:false,
+        dataType: 'json',
+        success: function(result){
+          if (result == 1) {
+            $("#datatab").load("Blog.php #ref");
+            $(".close").click();
+            $('.message').text("successfully update").show().delay(3000).fadeOut();
+        }else{
+         alert('Sorry,unable update.');
+         }
+       }
+      });
+    });
+      form.submit();
+    }
+        });
+      });
+   });
+
+
+$(document).ready(function($){
+
+$(document).on('click','.Blogdelete', function () {
+   if (confirm("Delete Record?") == true) {
+    var id = $(this).data('id');
+    var action='blog_delete';
+    $.ajax({
+        type:"POST",
+        url: "../Controller/control.php",
+        data: { id: id,action:action},
+        dataType: 'json',
+        success: function(result){
+        if (result == 1) {
+          $("#datatab").load("Blog.php #datatab");
+          $('.message').text("successfully delete").show().delay(3000).fadeOut();
+        }
+       }
+    }); 
+   }
+});
 });

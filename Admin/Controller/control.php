@@ -50,6 +50,18 @@ class action{
                                             case 'select_delete_csv':
                                                 return $this->selectdeleteCsv();
                                                 break;
+                                                case 'writer_details':
+                                                    return $this->insertwriterdetails();
+                                                    break;
+                                                    case 'author_edit':
+                                                        return $this->editwriterdetails();
+                                                        break;
+                                                        case 'author_update':
+                                                            return $this->updateBlogdetails();
+                                                            break;
+                                                            case 'authors_delete':
+                                                                return $this->deletewriterdetails();
+                                                                break;
                                 case 'image_details':
                                     return $this->insertImageDetails();
                                     break;
@@ -62,6 +74,18 @@ class action{
                                             case 'image_delete':
                                                 return $this->deleteImageDetail();
                                                 break;
+                                                case 'Blog_details':
+                                                    return $this->insertBlogdetails();
+                                                    break;
+                                                    case 'blog_edit':
+                                                        return $this->editBlogdetails();
+                                                        break;
+                                                        case 'blog_update':
+                                                            return $this->updateBlogdetails();
+                                                            break;
+                                                            case 'blog_delete':
+                                                                return $this->deleteBlogdetails();
+                                                                break;
                                                 case 'order_search_info':
                                                     return $this->OrderSearchInfo();
                                                     break;
@@ -236,6 +260,34 @@ class action{
         $image_insert->deletecarousel($post);
     }
 
+
+    public function insertwriterdetails()
+    {
+        $post=$_POST;
+        $files=$_FILES;
+        $writer_insert=new blog();
+        $writer_insert->insertWriter($post,$files);
+
+    }
+    public function editwriterdetails()
+    {
+        $post=$_POST;
+        $writer_edit=new blog();
+        $writer_edit->editWriter($post);
+    }
+    public function updatewriterdetails()
+    {
+        $post=$_POST;
+        $files=$_FILES;
+        $writer_update=new blog();
+        $writer_update->updateWriter($post,$files);
+    }
+    public function deletewriterdetails()
+    {
+        $post=$_POST;
+        $writer_insert=new blog();
+        $writer_insert->deleteWriter($post);
+    }
 
     public function insertCustomerGroup()
     {
@@ -483,6 +535,33 @@ class action{
         $delete=new Blog();
         $delete->delete($id);
         echo 1;
+    }
+    public function insertBlogdetails()
+    {
+        $create_at=date("Y/m/d");
+        $post=$_POST;
+        $files=$_FILES;
+        $Blog_insert=new blog();
+        $Blog_insert->Bloginsert($post,$files,$create_at);
+    }
+    public function editBlogdetails()
+    {
+        $post=$_POST;
+        $Blog_edit=new blog();
+        $Blog_edit->Blogedit($post);
+    }
+    public function updateBlogdetails()
+    {
+        $post=$_POST;
+        $files=$_FILES;
+        $Blog_update=new blog();
+        $Blog_update->Blogupdate($post,$files);
+    }
+    public function deleteBlogdetails()
+    {
+        $post=$_POST;
+        $Blog_insert=new blog();
+        $Blog_insert->Blogdelete($post);
     }
 
 }

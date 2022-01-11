@@ -170,6 +170,25 @@
     .categorychange{
       margin-right: 5px;
     }
+    .blogCategoryedit{
+      margin-right: 5px;
+    }
+    .blogCategorydelete{
+      margin-right: 50px;
+    }
+    .authorchange{
+      margin-right: 5px;
+    }
+    .authorsdelete{
+      margin-right: 50px;
+    }
+    .Blogchange{
+      margin-right: 5px;
+    }
+    .Blogdelete{
+      margin-right: 50px;
+    }
+
 /* .loader {
     position: fixed;
     left: 0px;

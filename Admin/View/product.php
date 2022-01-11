@@ -130,19 +130,16 @@ include '../Model/class.php';
               <div class="form-group">
                 <label class="col-sm-2 control-label">Category</label>
                 <div class="col-sm-10">
-                  <select class="form-control" name="category" id="category">
-                      <option value=""></option>
-                          <?php
+                <?php
                               $cate=new product();
                               $rows=$cate->categoryInfo();
-                              foreach($rows as $array){
+                              foreach($rows as $array){ 
                               ?>
-                                  <option value="<?php echo $array[0]; ?>"><?php echo $array[1]; ?>
-                                    </option>
-                          <?php
-                                }
+                <input type="checkbox" id="a<?php echo $array[0];?>" name="acheck_list[]" value="<?php echo $array[0];?>">
+                <label> <?php echo $array[1];?></label><br>
+                              <?php
+                              }
                            ?>
-                              </select>
                 </div>
               </div> 
               <div class="form-group">
@@ -260,7 +257,7 @@ include '../Model/class.php';
               <div class="form-group">
                 <label class="col-sm-6 control-label">Category</label>
                 <div class="col-sm-9">
-                      <?php
+                <?php
                               $cate=new product();
                               $rows=$cate->categoryInfo();
                               foreach($rows as $array){ 

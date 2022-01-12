@@ -405,8 +405,6 @@ class category_main extends database {
     
     // public function updatepricesort($post)
     // {
-
-
     //     $select ="select * from Product_info where category=".$post['cate_id']." AND price BETWEEN '$price1' AND '$price2'" ;
     //     $result=mysqli_query($this->con,$select);
     //     while($category=mysqli_fetch_row($result)){
@@ -414,7 +412,125 @@ class category_main extends database {
     //     }
     //     return $data;
     // }
+
+}
+
+class Blog_info extends database {
+    public function __construct()
+    {
+     parent::__construct();   
+    }
+public function blog_tags()
+{
+    $query="select * from Tags"; 
+    $result=mysqli_query($this->con,$query);
+    while($category=mysqli_fetch_row($result)){
+        $data[]=$category[1];
+    }
+    return $data;    
+}
+
+public function posts_tags($id)
+{ 
+    $data=array();
+    $value=explode(",",$id); 
+    foreach($value as $ide){
+    $query="select tags from Tags where id=".$ide.";"; 
+    $result=mysqli_query($this->con,$query);
+    $category=mysqli_fetch_array($result);
+        $data[]=$category['tags'];
+    }
+    return $data;    
     
+}
+
+public function Posted_in($value)
+{
+    $query="select category from Category_blog where id=".$value.";"; 
+    $result=mysqli_query($this->con,$query);
+    while($category=mysqli_fetch_row($result)){
+        $data=$category;
+    }
+    return $data;    
+}
+
+public function Posted_By($value)
+{
+    $query="select Author from writer where id=".$value.";"; 
+    $result=mysqli_query($this->con,$query);
+    while($category=mysqli_fetch_row($result)){
+        $data=$category;
+    }
+    return $data;    
+}
+
+public function writer_info($value)
+{
+    $query="select * from writer where id=".$value.";"; 
+    $result=mysqli_query($this->con,$query);
+    while($category=mysqli_fetch_row($result)){
+        $data[]=$category;
+    }
+    return $data;    
+}
+
+public function blog_category()
+{
+    $query="select * from Category_blog"; 
+    $result=mysqli_query($this->con,$query);
+    while($category=mysqli_fetch_row($result)){
+        $data[]=$category[2];
+    }
+    return $data;    
+}
+public function blog_post()
+{
+    $query="select * from Blog_info"; 
+    $result=mysqli_query($this->con,$query);
+    while($category=mysqli_fetch_row($result)){
+        $data[]=$category;
+    }
+    return $data;    
+}
+
+public function post_info($id)
+{
+    $query="select * from Blog_info where id=".$id; 
+    $result=mysqli_query($this->con,$query);
+    while($category=mysqli_fetch_row($result)){
+        $data[]=$category;
+    }
+    return $data;    
+}
+
+public function time_elapsed_string($datetime, $full = false) {
+        $now = new DateTime;
+        $ago = new DateTime($datetime);
+        $diff = $now->diff($ago);
+    
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+    
+        $string = array(
+            'y' => 'year',
+            'm' => 'month',
+            'w' => 'week',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second',
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+    
+        if (!$full) $string = array_slice($string, 0, 1);
+        return $string ? implode(', ', $string) . ' ago' : 'just now';
+    }
 
 
 }

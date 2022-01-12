@@ -1415,6 +1415,7 @@ class Blog extends database{
         {
             $BlogName = $post['BlogName'];
             $Description = $post['Bloginfo'];
+            $info = $post['Binfo'];
             $Tags = $post['Tags'];
             $Author = $post['Author'];
             $Category = $post['category'];
@@ -1441,7 +1442,7 @@ class Blog extends database{
             $image = $files['imageName']['name'];
             if(!empty($post)){
         
-         $query = "INSERT INTO Blog_info(B_name,B_image,Description,tags,Author,category,created_at) VALUES ('$BlogName','$image','$Description','$Tag','$Author','$Category','$create_at')";
+         $query = "INSERT INTO Blog_info(B_name,B_image,Description,tags,Author,category,created_at,info) VALUES ('$BlogName','$image','$Description','$Tag','$Author','$Category','$create_at','$info')";
             $result = mysqli_query($this->con, $query); 
                         echo 1;
             }
@@ -1496,7 +1497,7 @@ class Blog extends database{
              }
              $Tag=implode(",",$Cateid);  
          }
-            $query = "UPDATE Blog_info SET  B_name='" .$post['eBlogName']."',Description='" .$post['eBloginfo']."',tags='" .$Tag."',Author='" .$post['eAuthor']."',category='" .$post['ecategory']."' WHERE id=".$_POST['eid'];
+            $query = "UPDATE Blog_info SET  B_name='" .$post['eBlogName']."',Description='" .$post['eBloginfo']."',info='" .$post['eBinfo']."',tags='" .$Tag."',Author='" .$post['eAuthor']."',category='" .$post['ecategory']."' WHERE id=".$_POST['eid'];
              $result = mysqli_query($this->con, $query);
              echo 1;
              }

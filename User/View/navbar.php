@@ -50,6 +50,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
         <a class="dropdown-item" href="http://localhost/lifekart/User/View/dashbord.php">Dashbord</a>
+        <a class="dropdown-item" href="http://localhost/lifekart/User/View/blog.php">Blog</a>
           <a class="dropdown-item" href="http://localhost/lifekart/User/View/profile.php">Profile</a>
           <a class="dropdown-item" href="http://localhost/lifekart/User/View/logout.php">Logout</a>
         </div>

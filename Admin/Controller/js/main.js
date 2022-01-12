@@ -115,7 +115,7 @@ $(document ).on('click','.categoeryadd', function () {
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-                $("#datatab").load("category.php #ref");
+                location.reload();
                 $(".close").click();
                 $('.message').text("successfully added").show().delay(3000).fadeOut();
             }else if(result == 5){
@@ -180,7 +180,7 @@ $(document).on('click','.categorychange', function () {
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-                $("#datatab").load("category.php #ref");
+                location.reload();
                 $(".close").click();
                 $('.message').text("successfully update").show().delay(3000).fadeOut();
             }else{
@@ -208,7 +208,7 @@ $(document).ready(function($){
             dataType: 'json',
             success: function(result){
             if (result == 1) {
-              $("#datatab").load("category.php #ref");
+              location.reload();
               $('.message').text("successfully delete").show().delay(3000).fadeOut();
             }
            }
@@ -262,7 +262,7 @@ $(document).ready(function(){
               contentType: false, cache: false, processData:false,
               success: function(result){
                 if (result == 1) {
-                  $("#datatab").load("customer.php #ref");
+                  location.reload();
                   $(".close").click();
                   $('.message2').text("successfully added").show().delay(3000).fadeOut();
                  }else if(result == 5){
@@ -340,7 +340,7 @@ $(document).ready(function(){
             },
             dataType: 'json',
             success: function(result){
-              $("#datatab").load("customer.php #ref");
+              location.reload();
               $(".close").click();
               $('.message2').text("successfully update").show().delay(3000).fadeOut();
              }
@@ -365,7 +365,7 @@ $(document).ready(function($){
             dataType: 'json',
             success: function(result){
             if (result == 1) {
-              $("#datatab").load("customer.php #datatab");
+              location.reload();
               $('.message2').text("successfully delete").show().delay(3000).fadeOut();
             }
            }
@@ -396,7 +396,7 @@ $(document).ready(function(){
          contentType: false, cache: false, processData:false,
         success: function(result){
           if (result == 1) {
-            $("#datatab").load("custom_grp.php #ref");
+            location.reload();
             $('.message2').text("successfully added").show().delay(3000).fadeOut();
            }else if(result == 5){
             $('.message2').text("already exists!!!").show().delay(3000).fadeOut();
@@ -448,7 +448,7 @@ $(document).ready(function(){
            },
            dataType: 'json',
            success: function(result){
-            $("#datatab").load("custom_grp.php #ref");
+            location.reload();
             $(".close").click();
             $('.message2').text("successfully update").show().delay(3000).fadeOut();
             }
@@ -474,7 +474,7 @@ $(document).ready(function($){
              dataType: 'json',
              success: function(result){
              if (result == 1) {
-              $("#datatab").load("custom_grp.php #datatab");
+              location.reload();
               $('.message2').text("successfully deleted").show().delay(3000).fadeOut();
              }
             }
@@ -528,7 +528,7 @@ $(document).ready(function($){
           data: { action:action,select_field:myArray},
           dataType: 'json',
           success: function(result){
-            $("#datatab").load("custom_grp.php #datatab");
+            location.reload();
             $('.message').text("successfully deleted").show().delay(3000).fadeOut();
          }
       });
@@ -632,7 +632,7 @@ $('.wrapper2').on("click",'.remove-lnk', function (e) {
       dataType: 'json',
       success: function(result){
       if (result == 1) {
-        $("#datatab").load("product.php #datatab");
+        location.reload();
 
       }
      }
@@ -700,7 +700,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-                $("#datatab").load("product.php #ref");
+                location.reload();
                 $(".close").click();
                 $('.message').text("successfully added").show().delay(3000).fadeOut();
             }else if(result == 5){ alert('already exist !!!!!!!!!!');
@@ -808,7 +808,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-                $("#datatab").load("product.php #ref");
+                location.reload();
                 // $("#datatab").DataTable().clear().destroy();
                $(".close").click();
                $('.message').text("successfully update").show().delay(3000).fadeOut();
@@ -842,7 +842,7 @@ $(document).ready(function($){
             success: function(result){
             if (result == 1) {
               $('.message').text("successfully deleted").show().delay(3000).fadeOut();
-              $("#datatab").load("product.php #ref");
+              location.reload();
             }
            }
         }); 
@@ -997,7 +997,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-                $("#datatab").load("imageslider.php #ref");
+                location.reload();
                 $(".close").click();
                 $('.message').text("successfully added").show().delay(3000).fadeOut();
             }else
@@ -1056,7 +1056,7 @@ $(document).on('click','.imageschange', function () {
             dataType: 'json',
             success: function(result){
               if (result == 1) {
-                $("#datatab").load("imageslider.php #ref");
+                location.reload();
                 $(".close").click();
                 $('.message').text("successfully update").show().delay(3000).fadeOut();
             }else{
@@ -1085,7 +1085,7 @@ $(document).ready(function($){
             dataType: 'json',
             success: function(result){
             if (result == 1) {
-              $("#datatab").load("imageslider.php #datatab");
+              location.reload();
               $('.message').text("successfully delete").show().delay(3000).fadeOut();
             }
            }
@@ -1131,7 +1131,7 @@ $(document).ready(function(){
             contentType: false, cache: false, processData:false,
             success: function(result){
               if (result == 1) {
-                $("#datatab").load("coupen.php #ref");
+                location.reload();
                 $(".close").click();
                 $('.message').text("successfully added").show().delay(3000).fadeOut();
                }else if(result == 5){
@@ -1191,7 +1191,7 @@ $(document).ready(function(){
             },
             dataType: 'json',
             success: function(result){
-              $("#datatab").load("coupen.php #ref");
+              location.reload();
               $(".close").click();
               $('.message').text("successfully update").show().delay(3000).fadeOut();
              }
@@ -1217,7 +1217,7 @@ $(document).ready(function($){
             dataType: 'json',
             success: function(result){
             if (result == 1) {
-              $("#datatab").load("coupen.php #datatab");
+              location.reload();
               $('.message').text("successfully deleted").show().delay(3000).fadeOut();
             }
            }
@@ -1383,7 +1383,7 @@ $(document).ready(function(){
           },
           dataType: 'json',
           success: function(result){
-            $("#datatab").load("B_category.php #ref");
+            location.reload();
             $(".close").click();
             $('.message').text("successfully update").show().delay(3000).fadeOut();
            }
@@ -1409,7 +1409,7 @@ $(document).on('click','.blogCategorydelete', function () {
           dataType: 'json',
           success: function(result){
           if (result == 1) {
-            $("#datatab").load("B_category.php #datatab");
+            location.reload();
             $('.message').text("successfully deleted").show().delay(3000).fadeOut();
           }
          }
@@ -1450,7 +1450,7 @@ $("#writerForm").validate({
         dataType: 'json',
         success: function(result){
           if (result == 1) {
-            $("#datatab").load("B_writer.php #ref");
+            location.reload();
             $(".close").click();
             $('.message').text("successfully added").show().delay(3000).fadeOut();
         }else
@@ -1512,7 +1512,7 @@ messages: {
         dataType: 'json',
         success: function(result){
           if (result == 1) {
-            $("#datatab").load("B_writer.php #ref");
+            location.reload();
             $(".close").click();
             $('.message').text("successfully update").show().delay(3000).fadeOut();
         }else{
@@ -1541,7 +1541,7 @@ $(document).on('click','.authorsdelete', function () {
         dataType: 'json',
         success: function(result){
         if (result == 1) {
-          $("#datatab").load("B_writer.php #datatab");
+          location.reload();
           $('.message').text("successfully delete").show().delay(3000).fadeOut();
         }
        }
@@ -1553,6 +1553,7 @@ $(document).on('click','.authorsdelete', function () {
 //////////////////////////////////////////////////////////////////////
 
 $(document).ready(function(){
+  CKEDITOR.replace( 'BlogName' );
   $('#create').click(function () {
    $('#BlogForm').trigger("reset");
    $('#BloginfoModal').html("Add Blog");
@@ -1585,7 +1586,7 @@ $("#BlogForm").validate({
         dataType: 'json',
         success: function(result){
           if (result == 1) {
-            $("#datatab").load("Blog.php #ref");
+            location.reload();
             $(".close").click();
             $('.message').text("successfully added").show().delay(3000).fadeOut();
         }else
@@ -1600,6 +1601,7 @@ $("#BlogForm").validate({
    });
 
 $(document).ready(function(){
+  CKEDITOR.replace( 'eBlogInfo' );
 
 $(document).on('click','.Blogchange', function () {
     var id = $(this).data('id');
@@ -1617,6 +1619,7 @@ $.ajax({
           $('#showimg').html("<img src='http://localhost/lifekart/Admin/uploads/" + result[0].B_image +"'>");
           $('#eBlogName').val(result[0].B_name);
           $('#eBlogInfo').val(result[0].Description);
+          $('#eBinfo').val(result[0].info);
           $('#eTags').val(result[0].tags);
           $('#eAuthor').val(result[0].Author);
           $('#ecategory').val(result[0].category);
@@ -1649,7 +1652,7 @@ messages: {
         dataType: 'json',
         success: function(result){
           if (result == 1) {
-            $("#datatab").load("Blog.php #ref");
+            location.reload();
             $(".close").click();
             $('.message').text("successfully update").show().delay(3000).fadeOut();
         }else{
@@ -1678,7 +1681,7 @@ $(document).on('click','.Blogdelete', function () {
         dataType: 'json',
         success: function(result){
         if (result == 1) {
-          $("#datatab").load("Blog.php #datatab");
+          location.reload();
           $('.message').text("successfully delete").show().delay(3000).fadeOut();
         }
        }

@@ -94,6 +94,12 @@ include '../Model/class.php';
                 </div>
               </div>    
               <div class="form-group">
+                <label for="name" class="col-sm-6 control-label">Info<span style=" color:red;" id="star">*</span></label>
+                <div class="col-sm-12">
+                  <textarea class="form-control" id="Binfo" name="Binfo" placeholder="" value="" required="">Enter Info</textarea>
+                </div>
+              </div> 
+              <div class="form-group">
                 <label class="col-sm-6 control-label">Tags</label>
                 <div class="col-sm-12">
                   <select class="form-control" id="Tags" name="Tags[]" multiple>
@@ -188,7 +194,13 @@ include '../Model/class.php';
                 <div class="col-sm-12">
                   <textarea class="form-control" id="eBlogInfo" name="eBloginfo" placeholder="" value="" required="">Enter Info</textarea>
                 </div>
-              </div>    
+              </div>   
+              <div class="form-group">
+                <label for="name" class="col-sm-6 control-label">Info<span style=" color:red;" id="star">*</span></label>
+                <div class="col-sm-12">
+                  <textarea class="form-control" id="eBinfo" name="eBinfo" placeholder="" value="" required="">Enter Info</textarea>
+                </div>
+              </div>  
               <div class="form-group">
                 <label class="col-sm-6 control-label">Tags</label>
                 <div class="col-sm-12">

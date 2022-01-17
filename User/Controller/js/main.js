@@ -371,6 +371,52 @@ $('.minus').on('click', function() {
                 }); 
                
 });
-    
 
 
+$(document).ready(function(){
+$("#blogsearchbtn").click(function() {
+    var name = $('#search-blog').val();
+    var action='on_search_blog';
+    if($('#search-blog').val()!=''){
+        $.ajax({
+            type: "POST",
+            url: "../Controller/control.php",
+            data: {
+                search:name,action:action
+            },
+            dataType: 'json', 
+            success: function(html) {
+                window.location.href = 'http://localhost/lifekart/User/View/search_blog.php?id='+html+'&name='+name;
+           }
+        });
+       }else{$('#message').html("Enter a Valid Search!");}
+      });
+
+           
+            $('#submit_comment').click(function() { 
+                
+              var name = $('#name_field').val();;
+              var email = $('#email_field').val();;
+              var comment = $('#message_field').val();
+              var user_id = $('#user_id').val();
+              var blog_id = $('#blog_id').val();
+              var action='Comment_blog';              
+
+            $.ajax({
+                type: "POST",
+                url: "../Controller/control.php",
+                data: {
+                    name:name,email:email,comment:comment,user_id:user_id,blog_id:blog_id,action:action
+                },
+                dataType: 'json', 
+                success: function(result) {
+                if (result==1) {
+                    $('#success').html("thanks for comment");
+                    }
+                }
+            });
+        });
+
+          
+      
+});

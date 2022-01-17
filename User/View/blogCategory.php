@@ -40,51 +40,53 @@
 </nav>
 
 <div class="container">
-<div class="row blogtitle">
-<?php
-        $id=$_GET['postid'];
-        $cate=new Blog_info();
-        $rows=$cate->post_info($id);
-        foreach($rows as $res){
-           ?>
-            <h2><?php echo $res[1];?></h2> 
-           <?php } ?>
-</div>
-<div class="row">
+    <div class="row">
         <div class="col-md-3">
-            <div class="writer_info">
-                <div class="">
-                            <?php $id=$res[5]; 
-                            $result=$cate->writer_info($id); ?>
-                    <img class="writerimg" src="http://localhost/lifekart/User/images/<?php echo $result[0][1];?>">
-                    <h5 class="mt-2 mb-2"><?php echo $result[0][2];?></h5>
-                    <p class="m-3"><?php echo $result[0][3];?></p>
-                    <div class="row social_links ml-4 mb-2">
-                        <div class="col-md-3">
-                        <a href="<?php echo $result[0][4];?>"><i class="fab fa-twitter-square"></i></a>
-                        </div>
-                        <div class="col-md-3">
-                        <a href="<?php echo $result[0][5];?>"><i class="fab fa-facebook"></i></i></a>
-                        </div>
-                        <div class="col-md-3">
-                        <a href="<?php echo $result[0][6];?>"><i class="fab fa-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="RECENT_COMMENTS p-3">
-                <h6>RECENT COMMENTS</h6>
+            <h6>RECENT COMMENTS</h6>
+            </div>
+            <div class="RECENT_POSTS p-3">
+                <h6>RECENT POSTS</h6>
+                <div>
+                <?php
+                            $i=0;
+                            $cate=new Blog_info();
+                            $rows=$cate->blog_post();
+                            foreach($rows as $res){
+                                if ($i<=2) {
+                                ?>
+                            <div class="row mt-2 mb-2">
+                                <div class="col-md-3">
+                                     <img class="recentpostimg" src="http://localhost/lifekart/User/images/<?php echo $res[2];?>">
+                                </div>
+                                <div class="col-md-9">
+                                <span><a href="http://localhost/lifekart/User/View/blog_details.php?postid=<?php echo $res[0];?>"><?php echo $res[1];?></a></span><br>
+                                <?php echo $cate->time_elapsed_string($res[7]);?>
+                                </div>
+                                
+                            </div>
+                            <?php  $i++; }else{ break; } } ?>
+                </div>
             </div>
         </div>
 
         <div class="col-md-6">
             <?php 
-                    $id=$_GET['postid'];
-                    $cate=new Blog_info();
-                    $rows=$cate->post_info($id);
+        $id =$_GET['blogCategoryId'];
+            $valu=new Blog_info();
+            $item=$valu->Posted_in($id);
+            foreach($item as $cate){
+             ?>
+            <div class="mt-4 mb-4"> 
+            <span><h2><?php echo $cate[2]; ?></h2></span>
+            </div>
+            <?php 
+                            }
+                            $cate=new Blog_info();
+                            $rows=$cate->category_Blog_info($id);
                             foreach($rows as $res){
-                                ?>                                
-                        <div class="Blog_Posts">
+                                ?>
+                        <div class="Blog_Posts mt-0">
                             <div>
                                 <div>
                                      <img class="blogpostimg" src="http://localhost/lifekart/User/images/<?php echo $res[2];?>">
@@ -98,10 +100,10 @@
                                   <a class="btn btn_tag" href="http://localhost/lifekart/User/View/blogTag.php?blogTagId=<?php echo $tag['id'];?>"><?php echo $tag['tags']; ?></a>
                                     <?php } ?>
                                 </div>
-                                <div class="ml-4 mr-4">
-                                    
-                                    <div class="mt-3 mb-3 blog_description">
-                                            <?php echo $res[3];?>
+                                <div class="p-3">
+                                    <h4><a href="http://localhost/lifekart/User/View/blog_details.php?postid=<?php echo $res[0];?>"><?php echo $res[1];?></a></h4>
+                                    <div class="mt-3 mb-3">
+                                            <?php echo $res[8];?>
                                     </div>
                                     <?php echo $cate->time_elapsed_string($res[7]);?>
                                         <div class="row mt-4">
@@ -120,55 +122,23 @@
                                                      $rows=$cate->Posted_By($value);
                                                      foreach($rows as $category){
                                                 ?>
-                                            <h6><i class="fas fa-user-alt"></i>  By : <a href="http://localhost/lifekart/User/View/blogWriter.php?blogAuthorId=<?php echo $category[0];?>"><?php echo $category[2];?></a></a></h6>
+                                            <h6><i class="fas fa-user-alt"></i>  By : <a href="http://localhost/lifekart/User/View/blogWriter.php?blogAuthorId=<?php echo $category[0];?>"><?php echo $category[2];?></a></h6>
                                             <?php }?>
                                             </div>
                                             <div class="col-md-3">
-                                            <h6><a href="http://localhost/lifekart/User/View/blog_details.php?postid=<?php echo $res[0];?>#comments"><i class="fas fa-comments"></i>  comment</a></h6>     
+                                            <h6><a href="http://localhost/lifekart/User/View/blog_details.php?postid=<?php echo $res[0];?>#comments"><i class="fas fa-comments"></i>  comment</a></h6>   
+                                            </div>
+                                            <div class="col-md-3">
+                                            <h6><a href="http://localhost/lifekart/User/View/blog_details.php?postid=<?php echo $res[0];?>">READ MORE <i class="fas fa-arrow-right"></i></a></h6> 
                                             </div>
                                      </div>
                                 </div>
                             </div>
                         </div>
-                            <?php } ?>
-
-                            <div class="comments mt-5 p-3" id="comments">
-                                <div class="comment_head m-3">Leave your comment</div>
-                                <div class="comment_info">
-                                    <div class="customer row">
-                                            <div class="col-md-6">
-                                                <input type="text" name="name" placeholder="Your name" id="name_field" class="m-1" value="">
-                                            </div>
-                                                <div class="col-md-6">
-                                                    <input type="text" name="email" id="email_field" placeholder="Your e-mail" class="m-1" value="">
-                                                </div>
-                                            </div>
-                                            <?php $user_id = $_SESSION['id'];
-                                                  $blog_id = $_GET['postid'] ?>
-                                            <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id;?>">
-                                            <input type="hidden" name="blog_id" id="blog_id" value="<?php echo $blog_id ;?>">
-                                    <textarea name="comment" class="mr-5 ml-1 mt-1" id="message_field" rows="3" placeholder="Text your comment..."></textarea>
-                                    <button class="btn btn-info" id="submit_comment" title="Post comment">Post comment</button>
-                                    <p id="success" class="error"></p>
-                                                     </div>
-                    </div>
+                            <?php }?>
         </div>
 
         <div class="col-md-3">
-        <div class="CATEGORIES p-3">
-                <h6>CATEGORIES</h6>
-                    <div>
-                        <ul>
-                        <?php
-                            $cate=new Blog_info();
-                            $rows=$cate->blog_category();
-                            foreach($rows as $category){
-                                ?>
-                            <li><a href="http://localhost/lifekart/User/View/blogCategory.php?blogCategoryId=<?php echo $category[0];?>"><?php echo $category[2];?></a></li>
-                            <?php } ?>
-                        </ul>
-                    </div>
-            </div>
             <div class="SEARCH_THE_BLOG p-3">
                 <h6>SEARCH THE BLOG</h6>
                     <div class="mt-4 mb-2 ">
@@ -190,27 +160,19 @@
                         </ul>
                     </div>
             </div>
-            <div class="RECENT_POSTS p-3">
-                <h6>RECENT POSTS</h6>
-                <div>
-                <?php
-                            $i=0;
-                            $rows=$cate->blog_post();
-                            foreach($rows as $res){
-                                if ($i<=2) {
+            <div class="CATEGORIES p-3">
+                <h6>CATEGORIES</h6>
+                    <div>
+                        <ul>
+                        <?php
+                            $cate=new Blog_info();
+                            $rows=$cate->blog_category();
+                            foreach($rows as $category){
                                 ?>
-                            <div class="row mt-3 mb-3">
-                                <div class="col-md-3">
-                                     <img class="recentpostimg" src="http://localhost/lifekart/User/images/<?php echo $res[2];?>">
-                                </div>
-                                <div class="col-md-9">
-                                <span><a href="http://localhost/lifekart/User/View/blog_details.php?postid=<?php echo $res[0];?>"><?php echo $res[1];?></a></span><br>
-                                <?php echo $cate->time_elapsed_string($res[7]);?>
-                                </div>
-                                
-                            </div>
-                            <?php  $i++; }else{ break; } } ?>
-                </div>
+                            <li><a href="http://localhost/lifekart/User/View/blogCategory.php?blogCategoryId=<?php echo $category[0];?>"><?php echo $category[2];?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
             </div>
         </div>
     </div>

@@ -38,6 +38,13 @@ class action{
                                         case 'customer_update':
                                             return $this->customerUpdate();
                                             break;
+                                            case 'on_search_blog':
+                                                return $this->onSearchBlog();
+                                                break;
+                                                case 'Comment_blog':
+                                                    return $this->onCommentBlog();
+                                                    break;
+                                                
 
                 default:
                 break;
@@ -152,6 +159,22 @@ public function customerUpdate()
         $update = new log_in();
         $update->update($post);
 }
+
+public function onSearchBlog()
+{
+        $Name = $_POST['search'];
+        $search=new Blog_info();
+        $array=$search->search_Blog($Name);
+          echo json_encode($array); 
+}
+
+public function onCommentBlog()
+{
+        $post = $_POST;
+        $search=new Blog_info();
+        $array=$search->comment_Blog($post);      
+}
+
 
 }
 $action = new action();

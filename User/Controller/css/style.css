@@ -714,3 +714,9 @@ background-color: rgb(182, 182, 182) ;
             box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
             background-color:#fafafa;
           }
+          .blog_description img{
+            width: 100%;
+          }
+          .comment_head{
+            border-bottom: 1px solid #c8c8c8;
+          }

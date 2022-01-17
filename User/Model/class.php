@@ -420,12 +420,23 @@ class Blog_info extends database {
     {
      parent::__construct();   
     }
+
+    public function search_Blog($Name){
+
+         $query="select id from Blog_info where concat('  ',B_name,'  ') like '% $Name %'";
+          $result=mysqli_query($this->con,$query); 
+          while($row=mysqli_fetch_array($result)){
+            $data1=$row[0];
+           }
+        return $data1;    
+    }
+
 public function blog_tags()
 {
     $query="select * from Tags"; 
     $result=mysqli_query($this->con,$query);
     while($category=mysqli_fetch_row($result)){
-        $data[]=$category[1];
+        $data[]=$category;
     }
     return $data;    
 }
@@ -435,10 +446,10 @@ public function posts_tags($id)
     $data=array();
     $value=explode(",",$id); 
     foreach($value as $ide){
-    $query="select tags from Tags where id=".$ide.";"; 
+    $query="select * from Tags where id=".$ide.";"; 
     $result=mysqli_query($this->con,$query);
     $category=mysqli_fetch_array($result);
-        $data[]=$category['tags'];
+        $data[]=$category;
     }
     return $data;    
     
@@ -446,20 +457,20 @@ public function posts_tags($id)
 
 public function Posted_in($value)
 {
-    $query="select category from Category_blog where id=".$value.";"; 
+    $query="select * from Category_blog where id=".$value.";"; 
     $result=mysqli_query($this->con,$query);
     while($category=mysqli_fetch_row($result)){
-        $data=$category;
+        $data[]=$category;
     }
     return $data;    
 }
 
 public function Posted_By($value)
 {
-    $query="select Author from writer where id=".$value.";"; 
+    $query="select * from writer where id=".$value.";"; 
     $result=mysqli_query($this->con,$query);
     while($category=mysqli_fetch_row($result)){
-        $data=$category;
+        $data[]=$category;
     }
     return $data;    
 }
@@ -479,7 +490,7 @@ public function blog_category()
     $query="select * from Category_blog"; 
     $result=mysqli_query($this->con,$query);
     while($category=mysqli_fetch_row($result)){
-        $data[]=$category[2];
+        $data[]=$category;
     }
     return $data;    
 }
@@ -496,6 +507,36 @@ public function blog_post()
 public function post_info($id)
 {
     $query="select * from Blog_info where id=".$id; 
+    $result=mysqli_query($this->con,$query);
+    while($category=mysqli_fetch_row($result)){
+        $data[]=$category;
+    }
+    return $data;    
+}
+
+public function category_Blog_info($id)
+{
+    $query="select * from Blog_info where category=".$id; 
+    $result=mysqli_query($this->con,$query);
+    while($category=mysqli_fetch_row($result)){
+        $data[]=$category;
+    }
+    return $data;    
+}
+
+public function Writer_Blog_info($id)
+{
+    $query="select * from Blog_info where Author=".$id; 
+    $result=mysqli_query($this->con,$query);
+    while($category=mysqli_fetch_row($result)){
+        $data[]=$category;
+    }
+    return $data;    
+}
+
+public function tag_Blog_info($id)
+{
+    $query=" select * from Blog_info where concat(',',tags,',') like '%,$id,%'"; 
     $result=mysqli_query($this->con,$query);
     while($category=mysqli_fetch_row($result)){
         $data[]=$category;
@@ -532,6 +573,13 @@ public function time_elapsed_string($datetime, $full = false) {
         return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
 
+    public function comment_Blog($post)
+    {
+        $date= date("Y/m/d");
+        $query="INSERT INTO comment (User_id,Comm_name,Comm_email,comment,Blog_id,time) VALUES ('$post[user_id]', '$post[name]', '$post[email]', '$post[comment]', '$post[blog_id]','$date')";
+        $result= mysqli_query($this->con, $query);
+        echo 1;
+    }
 
 }
 

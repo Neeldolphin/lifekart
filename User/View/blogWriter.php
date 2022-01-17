@@ -71,27 +71,20 @@
         </div>
 
         <div class="col-md-6">
-            <div class="Featured_Posts row mt-4">
-            <?php
-                            $i=0;
-                            $cate=new Blog_info();
-                            $rows=$cate->blog_post();
-                            foreach($rows as $res){
-                                if ($i<=2) {
-                                ?>
-                            <div class="col-md-4 mt-2 mb-2">
-                                <div>
-                                     <img class="recentpostimg2" src="http://localhost/lifekart/User/images/<?php echo $res[2];?>">
-                                </div>
-                                <div class="mt-3">
-                                    <span><a href="http://localhost/lifekart/User/View/blog_details.php?postid=<?php echo $res[0];?>"><?php echo $res[1];?></a></span><br>
-                                </div>
-                            </div>
-                            <?php  $i++; }else{ break; } } ?>
+            <?php             
+            $id =$_GET['blogAuthorId'];
+            $valu=new Blog_info();
+            $item=$valu->writer_info($id);
+            foreach($item as $author){
+             ?>
+            <div class="mt-4 mb-4"> 
+            <span><h2>Articles by <?php echo $author[2]; ?></h2></span>
+            <span><?php echo $author[3] ; ?></span>
             </div>
-            <?php
+            <?php 
+                             }   
                             $cate=new Blog_info();
-                            $rows=$cate->blog_post();
+                            $rows=$cate->Writer_Blog_info($id);
                             foreach($rows as $res){
                                 ?>
                         <div class="Blog_Posts mt-0">
@@ -105,7 +98,7 @@
                                 $rows=$cate->posts_tags($id);
                                  foreach($rows as $tag){
                                         ?>
-                                    <a class="btn btn_tag" href="http://localhost/lifekart/User/View/blogTag.php?blogTagId=<?php echo $tag['id'];?>"><?php echo $tag['tags']; ?></a>
+                                   <a class="btn btn_tag" href="http://localhost/lifekart/User/View/blogTag.php?blogTagId=<?php echo $tag['id'];?>"><?php echo $tag['tags']; ?></a>
                                     <?php } ?>
                                 </div>
                                 <div class="p-3">
@@ -134,7 +127,7 @@
                                             <?php }?>
                                             </div>
                                             <div class="col-md-3">
-                                                     <h6><a href="http://localhost/lifekart/User/View/blog_details.php?postid=<?php echo $res[0];?>#comments"><i class="fas fa-comments"></i>  comment</a></h6>   
+                                            <h6><a href="http://localhost/lifekart/User/View/blog_details.php?postid=<?php echo $res[0];?>#comments"><i class="fas fa-comments"></i>  comment</a></h6>   
                                             </div>
                                             <div class="col-md-3">
                                             <h6><a href="http://localhost/lifekart/User/View/blog_details.php?postid=<?php echo $res[0];?>">READ MORE <i class="fas fa-arrow-right"></i></a></h6> 
@@ -143,7 +136,7 @@
                                 </div>
                             </div>
                         </div>
-                            <?php } ?>
+                            <?php }?>
         </div>
 
         <div class="col-md-3">

@@ -374,23 +374,23 @@ $('.minus').on('click', function() {
 
 
 $(document).ready(function(){
-$("#blogsearchbtn").click(function() {
-    var name = $('#search-blog').val();
-    var action='on_search_blog';
-    if($('#search-blog').val()!=''){
-        $.ajax({
-            type: "POST",
-            url: "../Controller/control.php",
-            data: {
-                search:name,action:action
-            },
-            dataType: 'json', 
-            success: function(html) {
-                window.location.href = 'http://localhost/lifekart/User/View/search_blog.php?id='+html+'&name='+name;
-           }
-        });
-       }else{$('#message').html("Enter a Valid Search!");}
-      });
+            $("#blogsearchbtn").click(function() {
+                var name = $('#search-blog').val();
+                var action='on_search_blog';
+                if($('#search-blog').val()!=''){
+                    $.ajax({
+                        type: "POST",
+                        url: "../Controller/control.php",
+                        data: {
+                            search:name,action:action
+                        },
+                        dataType: 'json', 
+                        success: function(html) {
+                            window.location.href = 'http://localhost/lifekart/User/View/search_blog.php?id='+html+'&name='+name;
+                    }
+                    });
+                }else{$('#message').html("Enter a Valid Search!");}
+                });
 
            
             $('#submit_comment').click(function() { 
@@ -412,11 +412,71 @@ $("#blogsearchbtn").click(function() {
                 success: function(result) {
                 if (result==1) {
                     $('#success').html("thanks for comment");
+                    location.reload();
                     }
                 }
             });
         });
 
-          
-      
+        $('.submit_reply').click(function() { 
+            var id =$(this).data('id');
+            var name = $('#name_field_'+id).val();;
+            var email = $('#email_field_'+id).val();;
+            var comment = $('#message_field_'+id).val();
+            var blog_id = $('#blog_id_'+id).val();
+            var action='Comment_reply_blog';              
+
+          $.ajax({
+              type: "POST",
+              url: "../Controller/control.php",
+              data: {
+                  name:name,email:email,comment:comment,Comm_id:blog_id,action:action
+              },
+              dataType: 'json', 
+              success: function(result) {
+              if (result==1) {
+                  $('#success').html("thanks for comment");
+                    location.reload();
+                  }
+              }
+          });
+      });
+
+
+                $(".reply_btn").click(function () {
+                    $(this).next("#display_reply_form").toggle();
+                });
+
+                $(".comment_btn").click(function () {
+                    $(this).next("#comment_reply_form").toggle();
+                });
+        
+
+                $(document).on('click', '#loadBtn', function () {
+                    var row = Number($('#row').val());
+                    var count = Number($('#postCount').val());
+                    var limit = 3;
+                    var action = 'load_btn';
+                    row = row + limit;
+                    $('#row').val(row);
+                    $("#loadBtn").val('Loading...');
+               
+                    $.ajax({
+                      type: 'POST',
+                      url:  "../Controller/control.php",
+                      data: {row:row,action:action},
+                      dataType: 'json', 
+                      success: function (data) {
+                         $('#postList').append(data);
+                         var rowCount = row + limit;
+                        if (rowCount >= count) {
+                          $('#loadBtn').css("display", "none");
+                        } else {
+                          $("#loadBtn").val('Load More');
+                        }
+                      }
+                    });
+                  });
+
+
 });

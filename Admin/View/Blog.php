@@ -90,7 +90,7 @@ include '../Model/class.php';
               <div class="form-group">
                 <label for="name" class="col-sm-6 control-label">Blog Info<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-12">
-                  <textarea class="form-control" id="BlogInfo" name="Bloginfo" placeholder="" value="" required="">Enter Info</textarea>
+                  <textarea class="form-control" id="BlogInfo" name="Bloginfo" placeholder="" value="" required=""></textarea>
                 </div>
               </div>    
               <div class="form-group">
@@ -118,7 +118,7 @@ include '../Model/class.php';
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-6 control-label">Author</label>
+                <label class="col-sm-6 control-label">Author <span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-12">
                   <select class="form-control" id="Author" name="Author">
                   <option value=""></option>
@@ -136,7 +136,7 @@ include '../Model/class.php';
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-6 control-label">category</label>
+                <label class="col-sm-6 control-label">category <span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-12">
                   <select class="form-control" id="category" name="category">
                   <option value=""></option>
@@ -180,7 +180,7 @@ include '../Model/class.php';
               <div class="form-group">
                 <label for="name" class="col-sm-6 control-label">Blog Image<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-12">
-                  <input type="file" class="form-control" id="eimageName" name="eimageName" placeholder="Enter Image" value="" maxlength="50" required="">
+                  <input type="file" class="form-control" id="eimageName" name="eimageName" placeholder="Enter Image" value="">
                 </div>
               </div>
               <div class="form-group">
@@ -192,7 +192,7 @@ include '../Model/class.php';
               <div class="form-group">
                 <label for="name" class="col-sm-6 control-label">Blog Description<span style=" color:red;" id="star">*</span></label>
                 <div class="col-sm-12">
-                  <textarea class="form-control" id="eBlogInfo" name="eBloginfo" placeholder="" value="" required="">Enter Info</textarea>
+                  <textarea class="form-control" id="eBlogInfo" name="eBloginfo" placeholder="" value="" required=""></textarea>
                 </div>
               </div>   
               <div class="form-group">

@@ -1,43 +1,6 @@
-<?php include 'header.php';?>
-
-<nav class="navbar navbar-expand-lg bg-light navbar-dark">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class=" navbar-collapse" id="navbarNav">
-  <a class="navbar-brand" href="http://localhost/lifekart/User/View/index.php"><img src="../images/logo1.png" class="logo" alt="logo"/></a>
-  <?php
-  if(!isset($_SESSION['username'])){
-    ?>
-      <ul class="nav navbar-nav ml-auto">
-      <li class="nav-item account">
-      <a class="nav-link" href="http://localhost/lifekart/User/View/login.php">Login</a>
-      </li>
-      <li class="nav-item account">
-      <a class="nav-link" href="http://localhost/lifekart/User/View/signUp.php">Sign Up</a>
-      </li>
-          </ul>
-   <?php }else
-          {?> 
-<ul class="nav navbar-nav ml-auto">
-    <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i width="100" height="100" class="rounded-circle fas fa-user"></i> 
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="http://localhost/lifekart/User/View/dashbord.php">Dashbord</a>
-        <a class="dropdown-item" href="http://localhost/lifekart/User/View/blog.php">Blog</a>
-          <a class="dropdown-item" href="http://localhost/lifekart/User/View/profile.php">Profile</a>
-          <a class="dropdown-item" href="http://localhost/lifekart/User/View/logout.php">Logout</a>
-        </div>
-      </li>   
-    </ul>
-    <a  class="nav-link" href="view_cart.php?id=<?php echo $_SESSION['id']?>" >Cart <?php if(isset($_SESSION['cart'])){ echo count($_SESSION['cart']);} ?><i class="fas fa-shopping-cart"></i></a>
-    </ul>
-<?php } ?>
-  </div>  
-</nav>
+<?php include 'header.php';
+      include 'blogHeader.php';
+?>
 
 <div class="container">
 <div class="row blogtitle">
@@ -74,13 +37,35 @@
             </div>
             <div class="RECENT_COMMENTS p-3">
                 <h6>RECENT COMMENTS</h6>
+                <ul>
+            <?php
+                $i=0;
+                $cate=new Blog_info();
+                $item=$cate->blog_recent_comment();
+                foreach($item as $comet){
+                    if($i<=2){ ?>
+                            <li class="row mt-2 mb-2 mr-1">
+                                <div>
+                                <?php   
+                                        $id=$comet[5];
+                                        $itm=$cate->post_info($id);
+                                        foreach($itm as $info){
+                                ?>
+                                <span><a href="http://localhost/lifekart/User/View/blog_details.php?postid=<?php echo $info[0];?>#comments"><?php echo $info[1];?></a></span><br>
+                                <?php } ?>
+                                <div class="mt-2 mb-2"><?php echo $cate->time_elapsed_string($comet[6]);?></div>
+                                <div class="comment_thesis"><?php echo $comet[4];?></div>
+                                <div class="mt-2 mb-2 comment_person_name"><i class="fas fa-user-circle"></i>&nbsp; <?php echo $comet[2];?></div>
+                                        </div>
+                                        </li>
+                    <?php $i++; }else{ break ; } } ?>
+            </ul>
             </div>
         </div>
 
         <div class="col-md-6">
             <?php 
                     $id=$_GET['postid'];
-                    $cate=new Blog_info();
                     $rows=$cate->post_info($id);
                             foreach($rows as $res){
                                 ?>                                
@@ -133,6 +118,62 @@
                             <?php } ?>
 
                             <div class="comments mt-5 p-3" id="comments">
+                                <div class="comment_title">COMMENTS</div>
+                                <?php 
+                                            $id=$_GET['postid'];
+                                            $item = $cate->blog_comment($id);
+                                            foreach($item as $coment){
+                                                 ?>
+                                    <div class="comment_display">
+                                        <div class="comment_area">
+                                            <div class="comment_person_name"><i class="fas fa-user-circle"></i>&nbsp;  <?php echo $coment[2] ?></div>
+                                            <div class="comment_date">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $cate->time_elapsed_string($coment[6]); ?></div>
+                                        </div>
+                                        <div class="comment_thesis">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $coment[4] ?></div>
+                                        <div class="comment_reply">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span class="reply_btn" data-id="<?php echo $coment[0]?>" title="reply">Reply</span>
+                                            <div id="display_reply_form" data-id="<?php echo $coment[0]?>">
+                                                <div class='comment_details'>
+                                                    <div class='comment_head m-3'>Leave your comment</div>
+                                                    <div class='comment_info'>
+                                                        <div class='customer row'>
+                                                            <div class='col-md-6'>
+                                                                <input type='text' name='name' placeholder='Your name' id='name_field_<?php echo $coment[0]?>' class='m-1' value=''>
+                                                            </div>
+                                                            <div class='col-md-6'><input type='text' name='email' id='email_field_<?php echo $coment[0]?>' placeholder='Your e-mail' class='m-1' value=''>
+                                                        </div>
+                                                    </div>
+                                                    <input type='hidden' name='blog_id' id='blog_id_<?php echo $coment[0]?>' value='<?php echo $coment[0]?>'>
+                                                    <textarea name='comment' class='mr-5 ml-1 mt-1' id='message_field_<?php echo $coment[0]?>' rows='3' placeholder='Text your comment...'>
+                                                    </textarea>
+                                                    <button class='btn btn-info submit_reply' id='submit_reply' data-id="<?php echo $coment[0]?>" title='Post comment'>Post comment</button>
+                                                    <p id='success' class='error'></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php $dis=$cate->getReply($coment[0]); 
+                                            ?>
+                                            <button class="comment_btn btn" id="comment_btn">comments (<?php echo count($dis);?>)</button>
+                                            <div id="comment_reply_form">
+                                            <?php 
+                                             foreach($dis as $reply){
+                                            $item = $cate->blog_reply($reply[0]);
+                                            foreach($item as $coment){
+                                                 ?>
+                                    <div class="comment_replay">
+                                        <div class="comment_area">
+                                            <div class="comment_person_name"><i class="fas fa-user-circle"></i>&nbsp;  <?php echo $coment[1] ?></div>
+                                            <div class="comment_date">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $cate->time_elapsed_string($coment[5]); ?></div>
+                                        </div>
+                                        <div class="comment_thesis">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $coment[3] ?></div>
+                                    </div>
+                                        <?php } } ?> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <?php } ?> 
+  
+                                    <div class="comment_details">                           
                                 <div class="comment_head m-3">Leave your comment</div>
                                 <div class="comment_info">
                                     <div class="customer row">
@@ -150,9 +191,11 @@
                                     <textarea name="comment" class="mr-5 ml-1 mt-1" id="message_field" rows="3" placeholder="Text your comment..."></textarea>
                                     <button class="btn btn-info" id="submit_comment" title="Post comment">Post comment</button>
                                     <p id="success" class="error"></p>
-                                                     </div>
+                                </div>
+                            </div>
                     </div>
         </div>
+
 
         <div class="col-md-3">
         <div class="CATEGORIES p-3">
@@ -160,7 +203,6 @@
                     <div>
                         <ul>
                         <?php
-                            $cate=new Blog_info();
                             $rows=$cate->blog_category();
                             foreach($rows as $category){
                                 ?>
@@ -181,7 +223,6 @@
                     <div>
                         <ul>
                         <?php
-                            $cate=new Blog_info();
                             $rows=$cate->blog_tags();
                             foreach($rows as $tag){
                                 ?>

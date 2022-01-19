@@ -1,56 +1,41 @@
-<?php include 'header.php';?>
-
-<nav class="navbar navbar-expand-lg bg-light navbar-dark">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class=" navbar-collapse" id="navbarNav">
-  <a class="navbar-brand" href="http://localhost/lifekart/User/View/index.php"><img src="../images/logo1.png" class="logo" alt="logo"/></a>
-  <?php
-  if(!isset($_SESSION['username'])){
-    ?>
-      <ul class="nav navbar-nav ml-auto">
-      <li class="nav-item account">
-      <a class="nav-link" href="http://localhost/lifekart/User/View/login.php">Login</a>
-      </li>
-      <li class="nav-item account">
-      <a class="nav-link" href="http://localhost/lifekart/User/View/signUp.php">Sign Up</a>
-      </li>
-          </ul>
-   <?php }else
-          {?> 
-<ul class="nav navbar-nav ml-auto">
-    <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i width="100" height="100" class="rounded-circle fas fa-user"></i> 
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="http://localhost/lifekart/User/View/dashbord.php">Dashbord</a>
-        <a class="dropdown-item" href="http://localhost/lifekart/User/View/blog.php">Blog</a>
-          <a class="dropdown-item" href="http://localhost/lifekart/User/View/profile.php">Profile</a>
-          <a class="dropdown-item" href="http://localhost/lifekart/User/View/logout.php">Logout</a>
-        </div>
-      </li>   
-    </ul>
-    <a  class="nav-link" href="view_cart.php?id=<?php echo $_SESSION['id']?>" >Cart <?php if(isset($_SESSION['cart'])){ echo count($_SESSION['cart']);} ?><i class="fas fa-shopping-cart"></i></a>
-    </ul>
-<?php } ?>
-  </div>  
-</nav>
+<?php include 'header.php';
+ include 'blogHeader.php';
+ ?>
 
 <div class="container">
     <div class="row">
         <div class="col-md-3">
             <div class="RECENT_COMMENTS p-3">
             <h6>RECENT COMMENTS</h6>
+            <ul>
+            <?php
+                $i=0;
+                $cate=new Blog_info();
+                $item=$cate->blog_recent_comment();
+                foreach($item as $comet){
+                    if($i<=2){ ?>
+                            <li class="row mt-2 mb-2 mr-1">
+                                <div>
+                                <?php   
+                                        $id=$comet[5];
+                                        $itm=$cate->post_info($id);
+                                        foreach($itm as $info){
+                                ?>
+                                <span><a href="http://localhost/lifekart/User/View/blog_details.php?postid=<?php echo $info[0];?>#comments"><?php echo $info[1];?></a></span><br>
+                                <?php } ?>
+                                <div class="mt-2 mb-2"><?php echo $cate->time_elapsed_string($comet[6]);?></div>
+                                <div class="comment_thesis"><?php echo $comet[4];?></div>
+                                <div class="mt-2 mb-2 comment_person_name"><i class="fas fa-user-circle"></i>&nbsp; <?php echo $comet[2];?></div>
+                                        </div>
+                                        </li>
+                    <?php $i++; }else{ break ; } } ?>
+            </ul>
             </div>
             <div class="RECENT_POSTS p-3">
                 <h6>RECENT POSTS</h6>
                 <div>
                 <?php
                             $i=0;
-                            $cate=new Blog_info();
                             $rows=$cate->blog_post();
                             foreach($rows as $res){
                                 if ($i<=2) {
@@ -83,7 +68,6 @@
             </div>
             <?php 
                              }   
-                            $cate=new Blog_info();
                             $rows=$cate->Writer_Blog_info($id);
                             foreach($rows as $res){
                                 ?>
@@ -152,7 +136,6 @@
                     <div>
                         <ul>
                         <?php
-                            $cate=new Blog_info();
                             $rows=$cate->blog_tags();
                             foreach($rows as $tag){
                                 ?>
@@ -166,7 +149,6 @@
                     <div>
                         <ul>
                         <?php
-                            $cate=new Blog_info();
                             $rows=$cate->blog_category();
                             foreach($rows as $category){
                                 ?>

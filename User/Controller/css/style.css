@@ -691,7 +691,7 @@ background-color: rgb(182, 182, 182) ;
           }
           .Featured_Posts{
             width: 100%;
-            height:10%;
+            margin-bottom: 20px;
           }
           .blogpostimg{
             width: 100%;
@@ -710,8 +710,12 @@ background-color: rgb(182, 182, 182) ;
           .comment_info{
             width: 65%;
           }
-          .comments{
-            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          #comments{
+            background-color: white;
+            border: 1px solid #c8c8c8;
+          }
+          .comment_details{
+            border-bottom: 1px solid #c8c8c8;
             background-color:#fafafa;
           }
           .blog_description img{
@@ -719,4 +723,33 @@ background-color: rgb(182, 182, 182) ;
           }
           .comment_head{
             border-bottom: 1px solid #c8c8c8;
+          }
+          .comment_title{
+            border-bottom: 1px solid #c8c8c8;
+            color: #0d35e7;
+            font-weight: 500;
+          }
+          .comment_person_name,.comment_thesis{
+            color: black;
+          }
+          .comment_btn{
+            color: blue;
+          }
+          #display_reply_form , #comment_reply_form{
+            display: none;
+          }
+          .comment_reply{
+            background-color:#e9dcdc;
+          }
+
+          #loadBtn {
+            background-color: #499749;
+            padding: 8px 17px;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 17px;
+          }
+          .loadmore {
+            text-align: center;
+            margin-top: 10px;
           }

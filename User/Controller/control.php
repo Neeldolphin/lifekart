@@ -44,6 +44,12 @@ class action{
                                                 case 'Comment_blog':
                                                     return $this->onCommentBlog();
                                                     break;
+                                                    case 'Comment_reply_blog':
+                                                        return $this->CommentReplyBlog();
+                                                        break;
+                                                        case 'load_btn':
+                                                            return $this->loadBtn();
+                                                            break;
                                                 
 
                 default:
@@ -173,6 +179,21 @@ public function onCommentBlog()
         $post = $_POST;
         $search=new Blog_info();
         $array=$search->comment_Blog($post);      
+}
+
+public function CommentReplyBlog()
+{
+        $post = $_POST;
+        $search=new Blog_info();
+        $array=$search->comment_Blog_reply($post);      
+}
+
+public function loadBtn()
+{
+    $post = $_POST;
+    $search=new Blog_info();
+    $array=$search->Load_more_data($post);
+    echo json_encode($array); 
 }
 
 

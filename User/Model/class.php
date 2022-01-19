@@ -423,10 +423,10 @@ class Blog_info extends database {
 
     public function search_Blog($Name){
 
-         $query="select id from Blog_info where concat('  ',B_name,'  ') like '% $Name %'";
+         $query="select id from Blog_info where concat(' ',B_name,' ') like '% $Name %' or concat(' ',Description,' ') like '% $Name %'";
           $result=mysqli_query($this->con,$query); 
-          while($row=mysqli_fetch_array($result)){
-            $data1=$row[0];
+          while($row=mysqli_fetch_row($result)){
+            $data1[]=$row[0];
            }
         return $data1;    
     }
@@ -496,7 +496,85 @@ public function blog_category()
 }
 public function blog_post()
 {
-    $query="select * from Blog_info"; 
+    $query="select * from Blog_info ORDER BY RAND()"; 
+    $result=mysqli_query($this->con,$query);
+    while($category=mysqli_fetch_row($result)){
+        $data[]=$category;
+    }
+    return $data;    
+}
+
+public function Load_more_data($post)
+{
+if (isset($post['row'])) {
+    $start = $post['row'];
+    $limit = 3;
+     $query = "SELECT * FROM Blog_info ORDER BY id desc LIMIT ".$start.",".$limit;
+    $result = mysqli_query($this->con,$query);
+    if ($result->num_rows > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+      $data[]="<div class='Blog_Posts mt-3'>
+      <div>
+          <div>
+               <img class='blogpostimg' src='http://localhost/lifekart/User/images/".$row['B_image']."'>
+          </div>
+          <div class='p-4'>
+            <a class='btn btn_tag' href='http://localhost/lifekart/User/View/blogTag.php?blogTagId=".$row['tags']."'>".$row['tags']."</a>
+           </div>
+          <div class='p-3'>
+              <h4><a href='http://localhost/lifekart/User/View/blog_details.php?postid=".$row['id']."'>".$row['B_name']."</a></h4>
+              <div class='mt-3 mb-3'>
+              ".$row['info']."
+              </div>
+              ".$row['created_at']."
+              <div class='row mt-4'>
+                      <div class='col-md-3'>
+                           <h6>Posted in : <a href='http://localhost/lifekart/User/View/blogCategory.php?blogCategoryId=".$row['category']."'>".$row['category']."</a></h6>
+                        </div>
+                      <div class='col-md-3'>
+                           <h6><i class='fas fa-user-alt'></i>  By : <a href='http://localhost/lifekart/User/View/blogWriter.php?blogAuthorId=".$row['Author']."'>".$row['Author']."</a></h6>
+                        </div>
+                      <div class='col-md-3'>
+                         <h6><a href='http://localhost/lifekart/User/View/blog_details.php?postid=".$row['id']."#comments'><i class='fas fa-comments'></i>  comment</a></h6>   
+                      </div>
+                      <div class='col-md-3'>
+                      <h6><a href='http://localhost/lifekart/User/View/blog_details.php?postid=".$row['id']."'>READ MORE <i class='fas fa-arrow-right'></i></a></h6> 
+                      </div>
+               </div>
+          </div>
+      </div>
+  </div>";
+       }
+    }
+    return $data;
+  }
+}
+
+public function blog_post_tmp()
+{
+    $count_query = "SELECT count(*) as allcount FROM Blog_info";
+    $count_result = mysqli_query($this->con,$count_query);
+    $count_fetch = mysqli_fetch_array($count_result);
+    $postCount = $count_fetch['allcount'];
+    return $postCount;  
+}
+
+public function blog_post_main()
+{
+ 
+      $query = "SELECT * FROM Blog_info ORDER BY id desc LIMIT 0,3"; 
+      $result = mysqli_query($this->con,$query);
+      if ($result->num_rows > 0) {
+        while($row = mysqli_fetch_row($result)){ 
+        $data[]=$row;
+      }
+        return $data;
+    }
+}
+
+public function recent_blog_post()
+{
+    $query="select * from Blog_info ORDER BY created_at desc"; 
     $result=mysqli_query($this->con,$query);
     while($category=mysqli_fetch_row($result)){
         $data[]=$category;
@@ -511,6 +589,19 @@ public function post_info($id)
     while($category=mysqli_fetch_row($result)){
         $data[]=$category;
     }
+    return $data;    
+}
+
+public function search_post_info($id)
+{
+    $value=explode(",",$id);
+    foreach($value as $id){
+    $query="select * from Blog_info where id=".$id.";"; 
+    $result=mysqli_query($this->con,$query);
+    while($category=mysqli_fetch_row($result)){
+        $data[]=$category;
+    }
+}
     return $data;    
 }
 
@@ -579,6 +670,54 @@ public function time_elapsed_string($datetime, $full = false) {
         $query="INSERT INTO comment (User_id,Comm_name,Comm_email,comment,Blog_id,time) VALUES ('$post[user_id]', '$post[name]', '$post[email]', '$post[comment]', '$post[blog_id]','$date')";
         $result= mysqli_query($this->con, $query);
         echo 1;
+    }
+    
+    public function comment_Blog_reply($post)
+    {
+        $date= date("Y/m/d");
+        $query="INSERT INTO reply (Comm_name,Comm_email,comment,Comm_id,time) VALUES ('$post[name]', '$post[email]', '$post[comment]', '$post[Comm_id]','$date')";
+        $result= mysqli_query($this->con, $query);
+        echo 1;
+    }
+
+    public function blog_comment($id)
+    {
+        $query=" select * from comment where Blog_id=".$id; 
+        $result=mysqli_query($this->con,$query);
+        while($category=mysqli_fetch_row($result)){
+            $data[]=$category;
+        }
+        return $data;   
+    }
+
+    public function blog_reply($id)
+    {
+        $query=" select * from reply where id=".$id; 
+        $result=mysqli_query($this->con,$query);
+        while($category=mysqli_fetch_row($result)){
+            $data[]=$category;
+         }
+        return $data;   
+    }
+
+    public function getReply($id)
+    {
+        $query=" select * from reply where Comm_id=".$id; 
+        $result=mysqli_query($this->con,$query);
+        while($category=mysqli_fetch_row($result)){
+            $data[]=$category;
+         }
+        return $data;   
+    }
+
+    public function blog_recent_comment()
+    {
+        $query=" select * from comment ORDER BY time ASC "; 
+        $result=mysqli_query($this->con,$query);
+        while($category=mysqli_fetch_row($result)){
+            $data[]=$category;
+        }
+        return $data;   
     }
 
 }

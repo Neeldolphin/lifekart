@@ -1,21 +1,3 @@
-<body class="d-flex flex-column">
-  <!-- For demo purpose -->
-  <div class="container-fluid flex-grow-1 flex-shrink-0">
-    <div class="px-lg-5">
-      <div class="row py-5">
-        <div class="col-lg-12 mx-auto text-white text-center">
-          <h1 class="display-4">Bootstrap 4 footer</h1>
-          <p class="lead mb-0">Build a nicely styled light footer using Bootstrap 4.</p>
-          <p class="lead">Snippet by <a href="https://bootstrapious.com/snippets" class="text-white">
-                        <u>Bootstrapious</u></a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End -->
-
-
   <!-- Footer -->
   <footer class="bg-white">
     <div class="container py-5">
@@ -69,5 +51,3 @@
     </div>
   </footer>
   <!-- End -->
-
-</body>

@@ -1553,7 +1553,7 @@ $(document).on('click','.authorsdelete', function () {
 //////////////////////////////////////////////////////////////////////
 
 $(document).ready(function(){
-  CKEDITOR.replace( 'BlogName' );
+  CKEDITOR.replace( 'Bloginfo' );
   $('#create').click(function () {
    $('#BlogForm').trigger("reset");
    $('#BloginfoModal').html("Add Blog");
@@ -1566,6 +1566,7 @@ $("#BlogForm").validate({
         imageName: "required",
         BlogName: "required",
         Bloginfo:"required",
+        Binfo:"required",
         Author:"required",
         category:"required"
        },
@@ -1618,7 +1619,7 @@ $.ajax({
           $('#eid').val(result[0].id);
           $('#showimg').html("<img src='http://localhost/lifekart/Admin/uploads/" + result[0].B_image +"'>");
           $('#eBlogName').val(result[0].B_name);
-          $('#eBlogInfo').val(result[0].Description);
+          $('#eBlogInfo').html(result[0].Description);
           $('#eBinfo').val(result[0].info);
           $('#eTags').val(result[0].tags);
           $('#eAuthor').val(result[0].Author);

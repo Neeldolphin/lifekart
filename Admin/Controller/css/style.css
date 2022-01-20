@@ -1,0 +1,335 @@
+#frm{  
+    border: solid gray 1px;  
+    width:25%;  
+    border-radius: 2px;  
+    margin: 100px auto;  
+    background: white;  
+    padding: 40px;  
+}  
+#btn{  
+    color: #fff;  
+    background: #337ab7;  
+    padding: 7px;  
+    margin-left: 70%;  
+}  
+        body {
+              background-color: lightgrey;
+              margin-top:0px;
+              font-size: 20px;
+              scroll-behavior: auto;
+              }
+        .btn{
+          float:right;
+          padding: 10px 15px;
+          display: inline-block;
+          font-size: 16px;
+        }
+
+
+.sidenav {
+  height: 100%;
+  width: 150px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+  margin-left: 150px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: green;
+  color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}
+
+.datatables{
+    margin-bottom: 10px;
+    margin-right: 50px;
+}
+
+.img_width{
+  width:100px;
+  height: 100px;
+}
+
+.img_width img{
+  width:150px;
+}
+
+.table{
+  width: 100%;
+}
+
+#uploadFormLayer{
+  float:right;
+  padding: 10px;
+  }
+  #targetLayer{
+    float:left;
+    width:100px;
+    height:100px;
+    text-align:center;
+    font-weight: bold;
+    color: #C0C0C0;
+    background-color: #F0E8E0;
+    position:relative;
+    }
+
+    .no-image {
+      display: inline-block;
+        position: absolute;
+        right: 18px;
+        top: 40px;
+    }
+
+    .position{
+      width: 60px;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .productchange{
+      padding: 10px 10px;
+      margin-right: 5px;
+    }
+    .productdelete{
+      padding: 10px 10px;
+    }
+
+    .groupdelete{
+      margin-right: 50px;
+    }
+    .groupedit{
+      margin-right: 5px;
+    }
+    .customerdelete{
+      margin-right: 5px;
+    }
+    .customeredit{
+      margin-right: 5px;
+    }
+    .imagesdelete{
+      margin-right: 45px;
+    }
+    .imageschange{
+      margin-right: 5px;
+    }
+    .coupendelete{
+      margin-right: 45px;
+    }
+    .coupenedit{
+      margin-right: 5px;
+    }
+    .categorydelete{
+      margin-right: 45px;
+    }
+    .categorychange{
+      margin-right: 5px;
+    }
+    .blogCategoryedit{
+      margin-right: 5px;
+    }
+    .blogCategorydelete{
+      margin-right: 50px;
+    }
+    .authorchange{
+      margin-right: 5px;
+    }
+    .authorsdelete{
+      margin-right: 50px;
+    }
+    .Blogchange{
+      margin-right: 5px;
+    }
+    .Blogdelete{
+      margin-right: 50px;
+    }
+
+/* .loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('uploads/ajax-loader.gif') 50% 50% no-repeat rgb(249,249,249);
+    opacity: .8;
+} */
+
+.text-center video {
+  width: 500px;
+  height: 300px;
+}
+
+.text-center img {
+  width: 500px;
+  height: 300px;
+}
+.wrapper {
+  position: relative;
+  width: 30px;
+  min-height:30px;
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper .arrow {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  background: #a1a1a1;
+}
+.wrapper .arrow .line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 4px;
+  border-radius: 2px;
+  background: #ffffff;
+  transform-origin: center;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.wrapper .arrow .line:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+.wrapper .arrow:hover {
+  transform: rotate(45deg);
+}
+	
+.modal { overflow: auto !important; }
+
+.emptyspace{
+   margin-left: 20%;
+}
+
+.empty{
+  margin-left: 60%;
+}
+
+.error,.message,.message1,.message2,#messagedis{
+  color: red;
+}
+
+.child_data{
+  display: none;
+}
+
+#filter{
+ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+  .main-section{
+  width:80%;
+  margin:0 auto;
+  text-align: center;
+  padding: 0px 5px;
+  }
+  .dashbord{
+  width:32%;
+  display: inline-block;
+  background-color:#34495E;
+  color:#fff;
+  margin-top: 50px;
+  }
+  .icon-section i{
+  font-size: 30px;
+  padding:10px;
+  border:1px solid #fff;
+  border-radius:50%;
+  margin-top:-25px;
+  margin-bottom: 10px;
+  background-color:#34495E;
+  }
+  .icon-section p{
+  margin:0px;
+  font-size: 20px;
+  padding-bottom: 10px;
+  }
+  .detail-section{
+  background-color: #2F4254;
+  padding: 5px 0px;
+  }
+  .dashbord .detail-section:hover{
+  background-color: #5a5a5a;
+  cursor: pointer;
+  }
+  .detail-section a{
+  color:#fff;
+  text-decoration: none;
+  }
+  .dashbord-green .icon-section,.dashbord-green .icon-section i{
+  background-color: #16A085;
+  }
+  .dashbord-green .detail-section{
+  background-color: #149077;
+  }
+  .dashbord-orange .icon-section,.dashbord-orange .icon-section i{
+  background-color: #F39C12;
+  }
+  .dashbord-orange .detail-section{
+  background-color: #DA8C10;
+  }
+  .dashbord-blue .icon-section,.dashbord-blue .icon-section i{
+  background-color: #2980B9;
+  }
+  .dashbord-blue .detail-section{
+  background-color:#2573A6;
+  }
+  .dashbord-red .icon-section,.dashbord-red .icon-section i{
+  background-color:#E74C3C;
+  }
+  .dashbord-red .detail-section{
+  background-color:#CF4436;
+  }
+  .dashbord-skyblue .icon-section,.dashbord-skyblue .icon-section i{
+  background-color:#8E44AD;
+  }
+  .dashbord-skyblue .detail-section{
+  background-color:#803D9B;
+  }

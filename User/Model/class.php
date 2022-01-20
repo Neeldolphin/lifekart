@@ -511,29 +511,44 @@ if (isset($post['row'])) {
     $limit = 3;
      $query = "SELECT * FROM Blog_info ORDER BY id desc LIMIT ".$start.",".$limit;
     $result = mysqli_query($this->con,$query);
+    $data="";
     if ($result->num_rows > 0) {
       while ($row = mysqli_fetch_assoc($result)) {
-      $data[]="<div class='Blog_Posts mt-3'>
+      $data.="<div class='Blog_Posts mt-3'>
       <div>
           <div>
                <img class='blogpostimg' src='http://localhost/lifekart/User/images/".$row['B_image']."'>
           </div>
-          <div class='p-4'>
-            <a class='btn btn_tag' href='http://localhost/lifekart/User/View/blogTag.php?blogTagId=".$row['tags']."'>".$row['tags']."</a>
-           </div>
+          <div class='p-4'>";
+          $id=$row['tags'];
+          $cate=new Blog_info();
+          $rows=$cate->posts_tags($id);
+           foreach($rows as $tag){
+        $data.="<a class='btn btn_tag' href='http://localhost/lifekart/User/View/blogTag.php?blogTagId=".$tag['id']."'>".$tag['tags']."</a>
+           ";
+      }
+           $data.="</div>
           <div class='p-3'>
               <h4><a href='http://localhost/lifekart/User/View/blog_details.php?postid=".$row['id']."'>".$row['B_name']."</a></h4>
               <div class='mt-3 mb-3'>
               ".$row['info']."
               </div>
-              ".$row['created_at']."
+              ".$cate->time_elapsed_string($row['created_at'])."
               <div class='row mt-4'>
-                      <div class='col-md-3'>
-                           <h6>Posted in : <a href='http://localhost/lifekart/User/View/blogCategory.php?blogCategoryId=".$row['category']."'>".$row['category']."</a></h6>
-                        </div>
-                      <div class='col-md-3'>
-                           <h6><i class='fas fa-user-alt'></i>  By : <a href='http://localhost/lifekart/User/View/blogWriter.php?blogAuthorId=".$row['Author']."'>".$row['Author']."</a></h6>
-                        </div>
+                      <div class='col-md-3'>";
+                        $value=$row['category'];
+                        $rows=$cate->Posted_in($value);
+                        foreach($rows as $category){
+                           $data.="<h6>Posted in : <a href='http://localhost/lifekart/User/View/blogCategory.php?blogCategoryId=".$category[0]."'>".$category[2]."</a></h6>
+                        ";}
+                           $data.="</div>
+                      <div class='col-md-3'>";
+                      $value=$row['Author'];
+                      $rows=$cate->Posted_By($value);
+                      foreach($rows as $category){
+                           $data.="<h6><i class='fas fa-user-alt'></i>  By : <a href='http://localhost/lifekart/User/View/blogWriter.php?blogAuthorId=".$category[0]."'>".$category[2]."</a></h6>
+                           ";}
+                           $data.="</div>
                       <div class='col-md-3'>
                          <h6><a href='http://localhost/lifekart/User/View/blog_details.php?postid=".$row['id']."#comments'><i class='fas fa-comments'></i>  comment</a></h6>   
                       </div>
